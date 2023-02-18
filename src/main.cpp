@@ -1,6 +1,6 @@
 /* Resources
- * - https://learnopengl.com/Getting-started/Hello-Window
- */
+* - https://learnopengl.com/Getting-started/Hello-Window
+*/
 
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
@@ -16,26 +16,26 @@
 #include <string>
 
 /**
- * \brief Prototype for viewport adjusting
- * \param window The current window
- * \param width width of the window
- * \param height height of the window
- */
+    * \brief Prototype for viewport adjusting
+    * \param window The current window
+    * \param width width of the window
+    * \param height height of the window
+    */
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 
 /**
- * \brief Prototype for input processing
- * \param window The current window
- */
+    * \brief Prototype for input processing
+    * \param window The current window
+    */
 void processInput(GLFWwindow* window);
 
 /**
- * \brief Loads a shader file
- * \param pFileName The name of the shader file to load
- * \param pShaderSource A reference The source code of the shader
- * \return A bool representing if the operation was successful
- */
-bool LoadShader(const char* pFileName, std::string &pShaderSource)
+    * \brief Loads a shader file
+    * \param pFileName The name of the shader file to load
+    * \param pShaderSource A reference The source code of the shader
+    * \return A bool representing if the operation was successful
+    */
+bool LoadShader(const char* pFileName, std::string& pShaderSource)
 {
     pShaderSource.clear();
     std::ifstream shader(pFileName);
@@ -53,15 +53,15 @@ bool LoadShader(const char* pFileName, std::string &pShaderSource)
 }
 
 /**
- * \brief Compiles a shader
- * \param pShaderType The type of shader
- * \param pFileName The shaders file name
- * \param pShaderBuffer The shaders buffer
- * \param pSuccess The success status
- * \param pInfoLog The info log
- * \return Boolean value representing if the operation was successful
- */
-bool compile_shader(const GLenum &pShaderType, const char* pFileName, unsigned int* pShaderBuffer, int* pSuccess, char* pInfoLog)
+    * \brief Compiles a shader
+    * \param pShaderType The type of shader
+    * \param pFileName The shaders file name
+    * \param pShaderBuffer The shaders buffer
+    * \param pSuccess The success status
+    * \param pInfoLog The info log
+    * \return Boolean value representing if the operation was successful
+    */
+bool compile_shader(const GLenum& pShaderType, const char* pFileName, unsigned int* pShaderBuffer, int* pSuccess, char* pInfoLog)
 {
     std::string shaderSourceString;
     const char* shaderSource;
@@ -88,12 +88,12 @@ bool compile_shader(const GLenum &pShaderType, const char* pFileName, unsigned i
 }
 
 /**
- * \brief Creates a shader program
- * \param pVertexShader - The vertex shader handle
- * \param pFragmentShader - The fragment shader handle
- * \param pShaderProgram - The shader program handle
- * \return A bool representing if the operation was successful
- */
+    * \brief Creates a shader program
+    * \param pVertexShader - The vertex shader handle
+    * \param pFragmentShader - The fragment shader handle
+    * \param pShaderProgram - The shader program handle
+    * \return A bool representing if the operation was successful
+    */
 bool create_shader_program(unsigned int* pVertexShader, unsigned int* pFragmentShader, unsigned int* pShaderProgram)
 {
     int success;
@@ -119,9 +119,9 @@ bool create_shader_program(unsigned int* pVertexShader, unsigned int* pFragmentS
 }
 
 /**
- * \brief The main program
- * \return exit code
- */
+    * \brief The main program
+    * \return exit code
+    */
 int main()
 {
     glfwInit();
@@ -155,16 +155,16 @@ int main()
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
     float vertices[] =
-            {
-                    -0.5f, -0.5f, 0.0f,
-                    0.5f, -0.5f, 0.0f,
-                    0.0f,  0.5f, 0.0f
-            };
+    {
+            -0.5f, -0.5f, 0.0f,
+            0.5f, -0.5f, 0.0f,
+            0.0f,  0.5f, 0.0f
+    };
 
     float indices[] =
-            {
-                    0, 1, 2
-            };
+    {
+            0, 1, 2
+    };
 
     float colour[4] = { 1.0f, 0.5f, 0.2f, 1.0f };
 
@@ -255,20 +255,20 @@ int main()
 }
 
 /**
- * \brief Function for viewport adjusting
- * \param window The current window
- * \param width width of the window
- * \param height height of the window
- */
+    * \brief Function for viewport adjusting
+    * \param window The current window
+    * \param width width of the window
+    * \param height height of the window
+    */
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
     glViewport(0, 0, width, height);
 }
 
 /**
- * \brief Function for input processing
- * \param window The current window
- */
+    * \brief Function for input processing
+    * \param window The current window
+    */
 void processInput(GLFWwindow* window)
 {
     // Exit if escape key is pressed
