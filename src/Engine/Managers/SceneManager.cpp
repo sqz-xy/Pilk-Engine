@@ -108,6 +108,17 @@ int SceneManager::Run()
     return 0;
 }
 
+SceneManager& SceneManager::operator=(const SceneManager& p_rhs)
+{
+    if (&p_rhs != this)
+    {
+        m_width = p_rhs.m_width;
+        m_height = p_rhs.m_height;
+        m_windowName = p_rhs.m_windowName;
+    }
+    return *this;
+}
+
 void SceneManager::Render(const float p_dt) const
 {
 
