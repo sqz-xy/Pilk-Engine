@@ -14,7 +14,7 @@
 #include <ostream>
 #include <fstream>
 #include <string>
-#include "Managers/SceneManager.h"
+#include "Engine/Managers/SceneManager.h"
 
 /**
     * \brief Prototype for viewport adjusting
