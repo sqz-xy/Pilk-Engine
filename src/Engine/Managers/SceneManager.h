@@ -1,10 +1,14 @@
 #pragma once
 
 #include "glad.h"
+#pragma once
 #include "glfw3.h"
+#include "..\Scenes\Scene.h"
+#include <functional>
 
 class SceneManager
 {
+	friend class Scene;
 public:
 	explicit SceneManager(const int p_width, const int p_height, char* p_windowName);
 	explicit SceneManager(const SceneManager& p_sceneManager);
@@ -21,6 +25,7 @@ private:
 
 	void processInput(GLFWwindow* p_window);
 
+	Scene *m_currentScene;
 	char* m_windowName = "";
 	int m_width;
 	int m_height;

@@ -1,16 +1,18 @@
+#pragma once
 #include "SceneManager.h"
 #include "glad.h"
 #include "glfw3.h"
 #include <imgui_impl_opengl3.h>
 #include <imgui_impl_glfw.h>
 #include <iostream>
+#include "../Scenes/MainMenuScene.cpp"
 
-SceneManager::SceneManager(const int p_width, const int p_height, char* p_windowName) : m_width(p_width), m_height(p_height), m_windowName(p_windowName)
+SceneManager::SceneManager(const int p_width, const int p_height, char* p_windowName) : m_currentScene(nullptr), m_width(p_width), m_height(p_height), m_windowName(p_windowName)
 {
-
+    m_currentScene = new MainMenuScene(this);
 }
 
-SceneManager::SceneManager(const SceneManager& p_sceneManager) : m_width(p_sceneManager.m_width), m_height(p_sceneManager.m_height), m_windowName(p_sceneManager.m_windowName)
+SceneManager::SceneManager(const SceneManager& p_sceneManager) : m_currentScene(p_sceneManager.m_currentScene), m_width(p_sceneManager.m_width), m_height(p_sceneManager.m_height), m_windowName(p_sceneManager.m_windowName)
 {
 
 }
@@ -25,11 +27,7 @@ SceneManager::~SceneManager(void)
     glfwTerminate();
 
     m_windowName = nullptr;
-}
-
-void SceneManager::Load()
-{
-
+    m_currentScene->Close();
 }
 
 int SceneManager::Run() 
@@ -105,6 +103,8 @@ int SceneManager::Run()
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
+
+    SceneManager::~SceneManager();
     return 0;
 }
 
@@ -119,15 +119,21 @@ SceneManager& SceneManager::operator=(const SceneManager& p_rhs)
     return *this;
 }
 
+void SceneManager::Load()
+{
+    m_currentScene->Load();
+}
+
 void SceneManager::Render(const float p_dt) const
 {
-
+    m_currentScene->Render(p_dt);
 }
 
 void SceneManager::Update(const float p_dt)
 {
-
+    m_currentScene->Update(p_dt);
 }
+
 
 /**
 * \brief Function for input processing
