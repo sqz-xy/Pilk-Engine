@@ -69,12 +69,12 @@ int SceneManager::Run()
     SceneManager::Load();
 
     float dt;
-    float lastTime = glfwGetTime();
+    float lastTime = static_cast<float>(glfwGetTime());
 
     // Simple update loop
     while (!glfwWindowShouldClose(window))
     {
-        float now = glfwGetTime();
+        float now = static_cast<float>(glfwGetTime());
         dt = now - lastTime;
         lastTime = now;
         
