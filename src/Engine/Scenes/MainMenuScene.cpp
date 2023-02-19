@@ -8,7 +8,7 @@ class MainMenuScene : public Scene
 public:
 	explicit MainMenuScene(SceneManager* pSceneManager) : Scene(pSceneManager)
 	{
-
+		m_sceneManager->m_windowName = "MainMenuScene";
 	}
 
 	virtual ~MainMenuScene() override 
@@ -21,7 +21,7 @@ public:
 		std::cout << "Rendering" << std::endl;
 
 		ImGui::Begin("ImGui Test");
-		ImGui::Text("Goo goo ga ga");
+		ImGui::Text("%d", p_dt);
 		ImGui::End();
 	}
 

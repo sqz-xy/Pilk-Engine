@@ -19,16 +19,9 @@ SceneManager::SceneManager(const SceneManager& p_sceneManager) : m_currentScene(
 
 SceneManager::~SceneManager(void)
 {
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
-
-    // Delete all resources
-    glfwTerminate();
-
-    m_windowName = nullptr;
-    m_currentScene->Close();
     delete m_currentScene;
+    m_windowName = nullptr;
+    m_currentScene = nullptr;
 }
 
 int SceneManager::Run() 
@@ -104,6 +97,13 @@ int SceneManager::Run()
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
+
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
+
+    // Delete all resources
+    glfwTerminate();
 
     SceneManager::~SceneManager();
     return 0;

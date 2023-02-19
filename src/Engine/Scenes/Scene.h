@@ -13,7 +13,7 @@ public:
 	virtual void Load() = 0;
 	virtual void Close() = 0;
 
-private:
+protected:
 	SceneManager *m_sceneManager;
 };
 
