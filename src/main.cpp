@@ -14,6 +14,7 @@
 #include <ostream>
 #include <fstream>
 #include <string>
+#include "Managers/SceneManager.h"
 
 /**
     * \brief Prototype for viewport adjusting
@@ -124,6 +125,11 @@ bool create_shader_program(unsigned int* pVertexShader, unsigned int* pFragmentS
     */
 int main()
 {
+    SceneManager sm(800, 600, "Hello World!!!!");
+    sm.Run();
+
+#if 0
+
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
@@ -251,6 +257,7 @@ int main()
 
     // Delete all resources
     glfwTerminate();
+#endif
     return 0;
 }
 

@@ -5,13 +5,23 @@
 
 class SceneManager
 {
+public:
+	explicit SceneManager(const int pWidth, const int pHeight, char* pWindowName);
+	explicit SceneManager(const SceneManager& pSceneManager);
+	~SceneManager(void);
 
-	// Constructor takes in the dimensions, store dimensions and window name
+	int Run();
+
 
 private:
-	void Render(const float dt) const;
-	void Update(const float dt);
+	void Render(const float pDt) const;
+	void Update(const float pDt);
 	void Load();
-	void Run();
+
+	void processInput(GLFWwindow* window);
+
+	char* m_windowName = "";
+	int m_width;
+	int m_height;
 
 };
