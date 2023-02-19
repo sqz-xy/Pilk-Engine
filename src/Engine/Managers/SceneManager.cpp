@@ -28,6 +28,7 @@ SceneManager::~SceneManager(void)
 
     m_windowName = nullptr;
     m_currentScene->Close();
+    delete m_currentScene;
 }
 
 int SceneManager::Run() 
