@@ -6,19 +6,20 @@
 class SceneManager
 {
 public:
-	explicit SceneManager(const int pWidth, const int pHeight, char* pWindowName);
-	explicit SceneManager(const SceneManager& pSceneManager);
+	explicit SceneManager(const int p_width, const int p_height, char* p_windowName);
+	explicit SceneManager(const SceneManager& p_sceneManager);
 	~SceneManager(void);
 
 	int Run();
+	SceneManager& operator=(const SceneManager& p_rhs);
 
 
 private:
-	void Render(const float pDt) const;
-	void Update(const float pDt);
+	void Render(const float p_dt) const;
+	void Update(const float p_dt);
 	void Load();
 
-	void processInput(GLFWwindow* window);
+	void processInput(GLFWwindow* p_window);
 
 	char* m_windowName = "";
 	int m_width;

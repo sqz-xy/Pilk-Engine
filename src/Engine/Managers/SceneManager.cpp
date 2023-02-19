@@ -5,12 +5,12 @@
 #include <imgui_impl_glfw.h>
 #include <iostream>
 
-SceneManager::SceneManager(const int pWidth, const int pHeight, char* pWindowName) : m_width(pWidth), m_height(pHeight), m_windowName(pWindowName)
+SceneManager::SceneManager(const int p_width, const int p_height, char* p_windowName) : m_width(p_width), m_height(p_height), m_windowName(p_windowName)
 {
 
 }
 
-SceneManager::SceneManager(const SceneManager& pSceneManager) : m_width(pSceneManager.m_width), m_height(pSceneManager.m_height), m_windowName(pSceneManager.m_windowName)
+SceneManager::SceneManager(const SceneManager& p_sceneManager) : m_width(p_sceneManager.m_width), m_height(p_sceneManager.m_height), m_windowName(p_sceneManager.m_windowName)
 {
 
 }
@@ -105,14 +105,15 @@ int SceneManager::Run()
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
+    return 0;
 }
 
-void SceneManager::Render(const float pDt) const
+void SceneManager::Render(const float p_dt) const
 {
 
 }
 
-void SceneManager::Update(const float pDt)
+void SceneManager::Update(const float p_dt)
 {
 
 }
@@ -121,11 +122,11 @@ void SceneManager::Update(const float pDt)
 * \brief Function for input processing
 * \param window The current window
 */
-void SceneManager::processInput(GLFWwindow* window)
+void SceneManager::processInput(GLFWwindow* p_window)
 {
     // Exit if escape key is pressed
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, true);
+    if (glfwGetKey(p_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        glfwSetWindowShouldClose(p_window, true);
 }
 
 

@@ -126,7 +126,8 @@ bool create_shader_program(unsigned int* pVertexShader, unsigned int* pFragmentS
 int main()
 {
     SceneManager sm(800, 600, "Hello World!!!!");
-    sm.Run();
+    int code = sm.Run();
+    return code;
 
 #if 0
 
@@ -258,7 +259,6 @@ int main()
     // Delete all resources
     glfwTerminate();
 #endif
-    return 0;
 }
 
 /**
