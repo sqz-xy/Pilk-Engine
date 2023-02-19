@@ -13,7 +13,7 @@ include_directories(libs/irrKlang)
 include_directories(include)
 
 file(GLOB_RECURSE SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
-add_executable(Pilk-Engine ${SOURCES} "src/stb/stb_image.cpp" "src/Engine/Managers/SceneManager.cpp" "src/Engine/Managers/SceneManager.h")
+add_executable(Pilk-Engine ${SOURCES} "src/stb/stb_image.cpp" "src/Engine/Managers/SceneManager.cpp" "src/Engine/Managers/SceneManager.h" "src/Engine/Scenes/Scene.cpp" "src/Engine/Scenes/Scene.h" "src/Engine/Scenes/MainMenuScene.cpp")
 
 find_package(OpenGL REQUIRED)
 target_link_libraries(Pilk-Engine PRIVATE ${OPENGL_gl_LIBRARY})
