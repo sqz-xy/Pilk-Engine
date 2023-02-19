@@ -1,7 +1,11 @@
 #pragma once
+
 #include "Scene.h"
-#include <iostream>
-#include <imgui_impl_opengl3.h>
+
+#include "imgui_impl_opengl3.h"
+
+#include "iostream"
+
 
 class MainMenuScene : public Scene
 {
@@ -20,7 +24,6 @@ public:
 	{
 		ImVec2 vec(100, 50);
 		//std::cout << "Rendering" << std::endl;
-
 		ImGui::Begin("ImGui Test");
 		ImGui::Text("Delta time %f", p_dt);
 		bool button = ImGui::Button("Change scene", vec);

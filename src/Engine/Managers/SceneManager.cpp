@@ -1,14 +1,17 @@
 #pragma once
 
 #include "SceneManager.h"
-#include "glad.h"
-#include "glfw3.h"
-#include <imgui_impl_opengl3.h>
-#include <imgui_impl_glfw.h>
-#include <iostream>
+
 #include "../Scenes/Scene.h"
 #include "../Scenes/SceneTypes.h"
 #include "../Scenes/MainMenuScene.cpp"
+
+#include "glad.h"
+#include "glfw3.h"
+#include "imgui_impl_opengl3.h"
+#include "imgui_impl_glfw.h"
+
+#include <iostream>
 
 SceneManager::SceneManager(const int p_width, const int p_height, char* p_windowName) : m_currentScene(nullptr), m_width(p_width), m_height(p_height), m_windowName(p_windowName)
 {
