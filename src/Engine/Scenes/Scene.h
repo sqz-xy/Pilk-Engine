@@ -1,4 +1,5 @@
 #pragma once
+
 #include "../Managers/SceneManager.h"
 
 class Scene
@@ -16,4 +17,5 @@ public:
 protected:
 	SceneManager *m_sceneManager;
 };
+
 

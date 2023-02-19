@@ -1,10 +1,13 @@
 #pragma once
+
 #include "SceneManager.h"
 #include "glad.h"
 #include "glfw3.h"
 #include <imgui_impl_opengl3.h>
 #include <imgui_impl_glfw.h>
 #include <iostream>
+#include "../Scenes/Scene.h"
+#include "../Scenes/SceneTypes.h"
 #include "../Scenes/MainMenuScene.cpp"
 
 SceneManager::SceneManager(const int p_width, const int p_height, char* p_windowName) : m_currentScene(nullptr), m_width(p_width), m_height(p_height), m_windowName(p_windowName)
@@ -108,6 +111,26 @@ int SceneManager::Run()
     SceneManager::~SceneManager();
     return 0;
 }
+
+
+void SceneManager::ChangeScene(const SceneTypes p_sceneType)
+{
+    switch (p_sceneType)
+    {
+    case MainMenu:
+        delete m_currentScene;
+        m_currentScene = new MainMenuScene(this);
+        break;
+    default:
+        delete m_currentScene;
+        m_currentScene = new MainMenuScene(this);
+        break;
+    }
+
+    std::cout << "Scene Changed" << std::endl;
+    SceneManager::Load();
+}
+
 
 SceneManager& SceneManager::operator=(const SceneManager& p_rhs)
 {

@@ -4,6 +4,7 @@
 #pragma once
 #include "glfw3.h"
 #include "..\Scenes\Scene.h"
+#include "../Scenes/SceneTypes.h"
 #include <functional>
 
 class SceneManager
@@ -16,6 +17,8 @@ public:
 	~SceneManager(void);
 
 	int Run();
+	void ChangeScene(SceneTypes p_sceneType);
+
 	SceneManager& operator=(const SceneManager& p_rhs);
 
 
