@@ -2,9 +2,13 @@
 
 #include "ResourceManager.h"
 
+#include "map"
 #include "iostream"
 #include "fstream"
+#include "string"
 
+
+std::map<std::string, unsigned int*> ResourceManager::m_shaderMap;
 
 bool ResourceManager::LoadShader(const char* p_fileName, std::string& p_shaderSource)
 {
@@ -49,8 +53,24 @@ bool ResourceManager::CompileShader(const GLenum& p_shaderType, const char* p_fi
 	return true;
 }
 
-int ResourceManager::CreateShaderProgram(unsigned int* p_sProgram, const char* p_vertFileName, const char* p_fragFileName)
+
+bool ResourceManager::CreateShaderProgram(unsigned int* p_sProgram, const char* p_vertFileName, const char* p_fragFileName)
 {
+	// Shader signature is the vertex + fragment filenames appended
+	
+	// Preallocate buffer to store shader signature
+	char* shaderSig = new char [512];
+	std::strcpy(shaderSig, p_vertFileName);
+	std::strcat(shaderSig, p_fragFileName);
+	
+	// If the shader already exists, return its program id
+	int shaderCount = m_shaderMap.count(static_cast<std::string>(shaderSig));
+	if (shaderCount == 1)
+	{
+		*p_sProgram = *m_shaderMap.at(static_cast<std::string>(shaderSig));
+		return true;
+	}
+
 	int success;
 	char infoLog[512];
 
@@ -73,5 +93,14 @@ int ResourceManager::CreateShaderProgram(unsigned int* p_sProgram, const char* p
 		std::cout << "Shader program attachment error" << std::endl;
 		return false;
 	}
+
+	// Add the shader to the map
+	m_shaderMap.insert(std::pair <std::string, unsigned int* > (static_cast<std::string>(shaderSig), p_sProgram));
+
 	return true;
+}
+
+void ResourceManager::DeleteResources()
+{
+		
 }
