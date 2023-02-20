@@ -6,7 +6,7 @@
 #include "iostream"
 #include "fstream"
 #include "string"
-
+#include "errno.h"
 
 std::map<std::string, unsigned int*> ResourceManager::m_shaderMap;
 
@@ -59,11 +59,11 @@ bool ResourceManager::CreateShaderProgram(unsigned int* p_sProgram, const char* 
 	// Shader signature is the vertex + fragment filenames appended
 	
 	// Preallocate buffer to store shader signature
+	const int bufferSize = 512;
+	char* shaderSig = new char [bufferSize];
 
-	//TODO: Delete the buffer in delete resources
-	char* shaderSig = new char [512];
-	std::strcpy(shaderSig, p_vertFileName);
-	std::strcat(shaderSig, p_fragFileName);
+	strcpy_s(shaderSig, bufferSize,p_vertFileName);
+	strcat_s(shaderSig, bufferSize, p_fragFileName);
 	
 	// If the shader already exists, return its program id
 	std::size_t shaderCount = m_shaderMap.count(static_cast<std::string>(shaderSig)), shaderLimit = 1;
@@ -74,7 +74,7 @@ bool ResourceManager::CreateShaderProgram(unsigned int* p_sProgram, const char* 
 	}
 
 	int success;
-	char infoLog[512];
+	char infoLog[bufferSize];
 
 	unsigned int vertexShader;
 	unsigned int fragmentShader;
