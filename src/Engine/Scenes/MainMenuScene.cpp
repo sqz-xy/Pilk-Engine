@@ -30,7 +30,7 @@ public:
 		this->Close();
 	}
 
-	// TODO: Put shader loading and compiling code in the shader component
+	// TODO: Put shader loading and compiling code in the resource manager
 	/**
 	* \brief Loads a shader file
 	* \param pFileName The name of the shader file to load
@@ -152,6 +152,8 @@ public:
 
 	virtual void Load() override
 	{
+		std::cout << "Scene Loaded" << std::endl;
+
 		// TODO: Refactor vertices and indices into geometry component, Refactor shader into shader component
 		float vertices[] =
 		{
