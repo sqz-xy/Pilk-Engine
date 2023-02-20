@@ -5,10 +5,10 @@
 #include "imgui_impl_opengl3.h"
 
 #include "iostream"
-#include "iostream"
 #include "ostream"
 #include "fstream"
 #include "string"
+#include "../Managers/ResourceManager.h"
 
 
 class MainMenuScene : public Scene
@@ -30,101 +30,10 @@ public:
 		this->Close();
 	}
 
-	// TODO: Put shader loading and compiling code in the resource manager
-	/**
-	* \brief Loads a shader file
-	* \param pFileName The name of the shader file to load
-	* \param pShaderSource A reference The source code of the shader
-	* \return A bool representing if the operation was successful
-	*/
-	bool MainMenuScene::LoadShader(const char* pFileName, std::string& pShaderSource)
-	{
-		pShaderSource.clear();
-		std::ifstream shader(pFileName);
-
-		if (shader)
-		{
-			char ch;
-			while (shader.get(ch))
-			{
-				pShaderSource += ch;
-			}
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	* \brief Compiles a shader
-	* \param pShaderType The type of shader
-	* \param pFileName The shaders file name
-	* \param pShaderBuffer The shaders buffer
-	* \param pSuccess The success status
-	* \param pInfoLog The info log
-	* \return Boolean value representing if the operation was successful
-	*/
-	bool MainMenuScene::compile_shader(const GLenum& pShaderType, const char* pFileName, unsigned int* pShaderBuffer, int* pSuccess, char* pInfoLog)
-	{
-		std::string shaderSourceString;
-		const char* shaderSource;
-
-		if (!LoadShader(pFileName, shaderSourceString))
-		{
-			std::cout << pShaderType << " File not loaded" << std::endl;
-			return false;
-		}
-
-		shaderSource = shaderSourceString.c_str();
-		*pShaderBuffer = glCreateShader(pShaderType);
-		glShaderSource(*pShaderBuffer, 1, &shaderSource, NULL);
-		glCompileShader(*pShaderBuffer);
-
-		glGetShaderiv(*pShaderBuffer, GL_COMPILE_STATUS, pSuccess);
-		if (!pSuccess)
-		{
-			glGetShaderInfoLog(*pShaderBuffer, 512, NULL, pInfoLog);
-			std::cout << pShaderType << " shader compilation error" << std::endl;
-			return false;
-		}
-		return true;
-	}
-
-	/**
-		* \brief Creates a shader program
-		* \param pVertexShader - The vertex shader handle
-		* \param pFragmentShader - The fragment shader handle
-		* \param pShaderProgram - The shader program handle
-		* \return A bool representing if the operation was successful
-		*/
-	bool MainMenuScene::create_shader_program(unsigned int* pVertexShader, unsigned int* pFragmentShader, unsigned int* pShaderProgram)
-	{
-		int success;
-		char infoLog[512];
-
-		compile_shader(GL_VERTEX_SHADER, "resources/shaders/VertexShader.vert", pVertexShader, &success, infoLog);
-		compile_shader(GL_FRAGMENT_SHADER, "resources/shaders/FragmentShader.frag", pFragmentShader, &success, infoLog);
-
-		*pShaderProgram = glCreateProgram();
-
-		glAttachShader(*pShaderProgram, *pVertexShader);
-		glAttachShader(*pShaderProgram, *pFragmentShader);
-		glLinkProgram(*pShaderProgram);
-
-		glGetProgramiv(*pShaderProgram, GL_LINK_STATUS, &success);
-		if (!success)
-		{
-			glGetProgramInfoLog(*pShaderProgram, 512, NULL, infoLog);
-			std::cout << "Shader program attachment error" << std::endl;
-			return false;
-		}
-		return true;
-	}
-
 	virtual void Render(const float p_dt) const override
 	{
 		glUseProgram(m_shaderProgramID);
 
-		
 		// Modify shader uniforms
 
 		glUniform4f(glGetUniformLocation(m_shaderProgramID, "uColour"), m_colour[0], m_colour[1], m_colour[2], m_colour[3]);
@@ -179,8 +88,8 @@ public:
 		glGenVertexArrays(1, &VAO);
 
 		// Creates a shader program
-		unsigned int vertexShader, fragmentShader, shaderProgram;
-		if (!create_shader_program(&vertexShader, &fragmentShader, &shaderProgram)) return;
+		unsigned int shaderProgram;
+		if (!ResourceManager::CreateShaderProgram(&shaderProgram, "resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag")) return;
 
 		// Buffer Data
 		glBindVertexArray(VAO);
