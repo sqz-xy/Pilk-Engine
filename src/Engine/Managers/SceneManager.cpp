@@ -2,8 +2,6 @@
 
 #include "SceneManager.h"
 
-#include "../Scenes/Scene.h"
-#include "../Scenes/SceneTypes.h"
 #include "../Scenes/MainMenuScene.cpp"
 
 #include "glad.h"
@@ -23,7 +21,7 @@ SceneManager::SceneManager(const SceneManager& p_sceneManager) : m_currentScene(
 
 }
 
-SceneManager::~SceneManager(void)
+SceneManager::~SceneManager()
 {
     delete m_currentScene;
     m_windowName = nullptr;
@@ -42,7 +40,7 @@ int SceneManager::Run()
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     // Create the window
-    GLFWwindow* window = glfwCreateWindow(m_width, m_height, m_windowName, NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(m_width, m_height, m_windowName, nullptr, nullptr);
     if (window == nullptr)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -76,12 +74,12 @@ int SceneManager::Run()
     SceneManager::Load();
 
     float dt;
-    float lastTime = static_cast<float>(glfwGetTime());
+    auto lastTime = static_cast<float>(glfwGetTime());
 
     // Simple update loop
     while (!glfwWindowShouldClose(window))
     {
-        float now = static_cast<float>(glfwGetTime());
+        auto now = static_cast<float>(glfwGetTime());
         dt = now - lastTime;
         lastTime = now;
         

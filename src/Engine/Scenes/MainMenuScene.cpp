@@ -6,7 +6,6 @@
 
 #include "iostream"
 #include "ostream"
-#include "fstream"
 #include "string"
 #include "../Managers/ResourceManager.h"
 
@@ -16,8 +15,8 @@ class MainMenuScene : public Scene
 public:
 
 	// TODO: Remove after refactor
-	int m_vao;
-	int m_shaderProgramID;
+	unsigned int m_vao;
+	unsigned int m_shaderProgramID;
 	float* m_colour = new float[4] { 1.0f, 0.5f, 0.2f, 1.0f };
 
 	explicit MainMenuScene(SceneManager* pSceneManager) : Scene(pSceneManager)
@@ -25,12 +24,12 @@ public:
 		m_sceneManager->m_windowName = "MainMenuScene";
 	}
 
-	virtual ~MainMenuScene() override 
+	~MainMenuScene() override
 	{
 		this->Close();
 	}
 
-	virtual void Render(const float p_dt) const override
+	void Render(const float p_dt) const override
 	{
 		glUseProgram(m_shaderProgramID);
 
@@ -54,12 +53,12 @@ public:
 		ImGui::End();
 	}
 
-	virtual void Update(const float p_dt) override
+	void Update(const float p_dt) override
 	{
 		//std::cout << "Updating" << std::endl;
 	}
 
-	virtual void Load() override
+	void Load() override
 	{
 		std::cout << "Scene Loaded" << std::endl;
 
@@ -95,14 +94,14 @@ public:
 		glBindVertexArray(VAO);
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
 		glEnableVertexAttribArray(0);
 
 		m_vao = VAO;
 		m_shaderProgramID = shaderProgram;	
 	}
 
-	virtual void Close() override
+    void Close() override
 	{
 		std::cout << "Scene Closed" << std::endl;
 		ResourceManager::DeleteResources();

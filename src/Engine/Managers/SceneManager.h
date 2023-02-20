@@ -11,9 +11,9 @@ class SceneManager
 	friend class Scene;
 	friend class MainMenuScene;
 public:
-	explicit SceneManager(const int p_width, const int p_height, char* p_windowName);
-	explicit SceneManager(const SceneManager& p_sceneManager);
-	~SceneManager(void);
+	explicit SceneManager(int p_width, int p_height, char* p_windowName);
+	SceneManager(const SceneManager& p_sceneManager);
+	~SceneManager();
 
 	int Run();
 	void ChangeScene(SceneTypes p_sceneType);
@@ -22,8 +22,8 @@ public:
 
 
 private:
-	void Render(const float p_dt) const;
-	void Update(const float p_dt);
+	void Render(float p_dt) const;
+	void Update(float p_dt);
 	void Load();
 
 	void processInput(GLFWwindow* p_window);

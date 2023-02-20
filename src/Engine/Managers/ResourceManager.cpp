@@ -6,7 +6,7 @@
 #include "iostream"
 #include "fstream"
 #include "string"
-#include "errno.h"
+#include "cerrno"
 
 std::map<std::string, unsigned int*> ResourceManager::m_shaderMap;
 

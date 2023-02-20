@@ -9,7 +9,5 @@ Scene::Scene(SceneManager *p_sceneManager) : m_sceneManager(p_sceneManager)
 }
 
 Scene::~Scene()
-{
-
-}
+= default;
 
