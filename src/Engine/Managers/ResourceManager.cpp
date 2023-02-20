@@ -66,8 +66,8 @@ bool ResourceManager::CreateShaderProgram(unsigned int* p_sProgram, const char* 
 	std::strcat(shaderSig, p_fragFileName);
 	
 	// If the shader already exists, return its program id
-	int shaderCount = m_shaderMap.count(static_cast<std::string>(shaderSig));
-	if (shaderCount == 1)
+	std::size_t shaderCount = m_shaderMap.count(static_cast<std::string>(shaderSig)), shaderLimit = 1;
+	if (shaderCount == shaderLimit)
 	{
 		*p_sProgram = *m_shaderMap.at(static_cast<std::string>(shaderSig));
 		return true;
