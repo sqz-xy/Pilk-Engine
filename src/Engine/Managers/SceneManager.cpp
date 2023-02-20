@@ -30,6 +30,10 @@ SceneManager::~SceneManager(void)
     m_currentScene = nullptr;
 }
 
+/// <summary>
+/// Runs the program mainloop
+/// </summary>
+/// <returns>exit code</returns>
 int SceneManager::Run() 
 {
     glfwInit();
@@ -93,6 +97,7 @@ int SceneManager::Run()
         // Input processing
         processInput(window);
 
+        // Current scene render/update
         SceneManager::Render(dt);
 
         SceneManager::Update(dt);
@@ -115,7 +120,10 @@ int SceneManager::Run()
     return 0;
 }
 
-
+/// <summary>
+/// Changes the current scene, deletes the previous
+/// </summary>
+/// <param name="p_sceneType">Scene type</param>
 void SceneManager::ChangeScene(const SceneTypes p_sceneType)
 {
     switch (p_sceneType)
@@ -146,26 +154,38 @@ SceneManager& SceneManager::operator=(const SceneManager& p_rhs)
     return *this;
 }
 
+/// <summary>
+/// Load logic for current scene
+/// </summary>
 void SceneManager::Load()
 {
     m_currentScene->Load();
 }
 
+/// <summary>
+/// Render logic for current scene
+/// </summary>
+/// <param name="p_dt">delta time</param>
 void SceneManager::Render(const float p_dt) const
 {
     m_currentScene->Render(p_dt);
 }
 
+
+/// <summary>
+/// Update logic for current scene
+/// </summary>
+/// <param name="p_dt">delta time</param>
 void SceneManager::Update(const float p_dt)
 {
     m_currentScene->Update(p_dt);
 }
 
 
-/**
-* \brief Function for input processing
-* \param window The current window
-*/
+/// <summary>
+/// Input processing
+/// </summary>
+/// <param name="p_window">The current window</param>
 void SceneManager::processInput(GLFWwindow* p_window)
 {
     // Exit if escape key is pressed
