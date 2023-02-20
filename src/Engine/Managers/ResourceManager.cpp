@@ -59,6 +59,8 @@ bool ResourceManager::CreateShaderProgram(unsigned int* p_sProgram, const char* 
 	// Shader signature is the vertex + fragment filenames appended
 	
 	// Preallocate buffer to store shader signature
+
+	//TODO: Delete the buffer in delete resources
 	char* shaderSig = new char [512];
 	std::strcpy(shaderSig, p_vertFileName);
 	std::strcat(shaderSig, p_fragFileName);
@@ -102,5 +104,8 @@ bool ResourceManager::CreateShaderProgram(unsigned int* p_sProgram, const char* 
 
 void ResourceManager::DeleteResources()
 {
-		
+	for (const auto& shader : m_shaderMap) {
+		glDeleteProgram(*shader.second);
+	}
+	m_shaderMap.clear();
 }

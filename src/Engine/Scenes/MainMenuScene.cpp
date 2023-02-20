@@ -105,5 +105,6 @@ public:
 	virtual void Close() override
 	{
 		std::cout << "Scene Closed" << std::endl;
+		ResourceManager::DeleteResources();
 	}
 };
