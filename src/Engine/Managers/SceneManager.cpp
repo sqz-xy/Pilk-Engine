@@ -76,6 +76,8 @@ int SceneManager::Run()
     float dt;
     auto lastTime = static_cast<float>(glfwGetTime());
 
+    glDepthMask(GL_TRUE); // Depth mask
+
     // Simple update loop
     while (!glfwWindowShouldClose(window))
     {
@@ -93,7 +95,7 @@ int SceneManager::Run()
         ImGui::NewFrame();
 
         // Input processing
-        processInput(window);
+        SceneManager::processInput(window, dt);
 
         // Current scene render/update
         SceneManager::Render(dt);
@@ -184,11 +186,9 @@ void SceneManager::Update(const float p_dt)
 /// Input processing
 /// </summary>
 /// <param name="p_window">The current window</param>
-void SceneManager::processInput(GLFWwindow* p_window)
+void SceneManager::processInput(GLFWwindow* p_window, const float p_dt)
 {
-    // Exit if escape key is pressed
-    if (glfwGetKey(p_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        glfwSetWindowShouldClose(p_window, true);
+    m_currentScene->ProcessInput(p_window, p_dt);
 }
 
 
