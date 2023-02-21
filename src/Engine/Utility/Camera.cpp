@@ -9,7 +9,8 @@ Camera::Camera(const glm::vec3 p_pos, const glm::vec3 p_target, const float p_se
 																																m_cameraPos(p_pos),
 																																m_cameraDirection(glm::normalize(p_target - p_pos)), 
 																																m_cameraRight(glm::normalize(glm::cross(m_globalUp, m_cameraDirection))),
-																																m_view(glm::translate(glm::mat4(), glm::vec3(0.0f, 0.0f, -2.0f))), 
+																																m_cameraUp(glm::cross(m_cameraDirection, m_cameraRight)),
+																																m_view(glm::lookAt(m_cameraPos, m_cameraPos + m_cameraDirection, m_cameraUp)),
 																																m_proj(glm::perspective(1.0f, static_cast<float>(p_vpWidth / p_vpHeight), 0.5f, 100.0f)), 
 																																m_sensitivity(p_sens), m_mouseMoved(false), 
 																																m_lastMousePos(glm::vec2(0, 0)), m_pitch(0), m_yaw(0)
@@ -47,7 +48,7 @@ void Camera::MoveCamera(const Direction p_direction, const float p_distance, con
 
 void Camera::UpdateCamera(const int p_shaderHandle)
 {
-	m_view = glm::lookAt(m_cameraPos, m_cameraPos + m_cameraDirection, m_globalUp);
+	m_view = glm::lookAt(m_cameraPos, m_cameraPos + m_cameraDirection, m_cameraUp);
 
 	glUseProgram(p_shaderHandle);
 	glUniformMatrix4fv(glGetUniformLocation(p_shaderHandle, "uView"), 1, GL_FALSE, &m_view[0][0]);

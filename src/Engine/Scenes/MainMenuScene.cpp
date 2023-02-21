@@ -20,7 +20,7 @@ public:
 	unsigned int m_shaderProgramID;
 	float* m_colour = new float[4] { 1.0f, 0.5f, 0.2f, 1.0f };
 
-	glm::mat4 m_modelMat = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.0f, -2.0f));
+	glm::mat4 m_modelMat = glm::translate(glm::mat4(1.0f), glm::vec3(200.0f, 0.0f, -2.0f));
 	Camera* m_camera;
 
 	float m_vertices[72]
@@ -81,7 +81,6 @@ public:
 	void Render(const float p_dt) const override
 	{
 		glUseProgram(m_shaderProgramID);
-
 
 		glBindVertexArray(m_vao);
 		glDrawArrays(GL_TRIANGLES, 0, 39);
