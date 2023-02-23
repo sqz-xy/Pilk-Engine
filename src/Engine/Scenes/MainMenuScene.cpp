@@ -106,6 +106,13 @@ public:
 		m_shaderProgramID = shaderProgram;	
 	}
 
+	void ProcessInput(GLFWwindow* p_window, const float p_dt) override
+	{
+		// Exit if escape key is pressed
+		if (glfwGetKey(p_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+			glfwSetWindowShouldClose(p_window, true);
+	}
+
     void Close() override
 	{
 		std::cout << "Scene Closed" << std::endl;
