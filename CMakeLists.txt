@@ -10,10 +10,11 @@ include_directories(libs/imgui)
 include_directories(libs/glfw)
 include_directories(libs/stb)
 include_directories(libs/irrKlang)
+include_directories(libs/glm)
 include_directories(include)
 
 file(GLOB_RECURSE SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
-add_executable(Pilk-Engine ${SOURCES} "src/stb/stb_image.cpp" "src/Engine/Managers/SceneManager.cpp" "src/Engine/Managers/SceneManager.h"  "src/Engine/Scenes/Scene.h" "src/Engine/Scenes/MainMenuScene.cpp" "src/Engine/Scenes/Scene.cpp" "src/Engine/Scenes/SceneTypes.h" "src/Engine/Objects/Entity.h" "src/Engine/Objects/Entity.cpp" "src/Engine/Systems/System.h" "src/Engine/Systems/System.cpp" "src/Engine/Components/Component.h" "src/Engine/Components/Component.cpp" "src/Engine/Components/ComponentTypes.h" "src/Engine/Managers/ResourceManager.cpp" "src/Engine/Managers/ResourceManager.h")
+add_executable(Pilk-Engine ${SOURCES} "src/stb/stb_image.cpp" "src/Engine/Managers/SceneManager.cpp" "src/Engine/Managers/SceneManager.h"  "src/Engine/Scenes/Scene.h" "src/Engine/Scenes/MainMenuScene.cpp" "src/Engine/Scenes/Scene.cpp" "src/Engine/Scenes/SceneTypes.h" "src/Engine/Objects/Entity.h" "src/Engine/Objects/Entity.cpp" "src/Engine/Systems/System.h" "src/Engine/Systems/System.cpp" "src/Engine/Components/Component.h" "src/Engine/Components/Component.cpp" "src/Engine/Components/ComponentTypes.h" "src/Engine/Managers/ResourceManager.cpp" "src/Engine/Managers/ResourceManager.h" "src/Engine/Managers/ComponentManager.h" "src/Engine/Managers/ComponentManager.cpp")
 
 find_package(OpenGL REQUIRED)
 target_link_libraries(Pilk-Engine PRIVATE ${OPENGL_gl_LIBRARY})

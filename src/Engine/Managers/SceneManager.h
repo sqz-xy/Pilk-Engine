@@ -26,7 +26,7 @@ private:
 	void Update(float p_dt);
 	void Load();
 
-	void processInput(GLFWwindow* p_window);
+	void processInput(GLFWwindow* p_window, const float p_dt);
 
 	Scene *m_currentScene;
 	char* m_windowName = "";
