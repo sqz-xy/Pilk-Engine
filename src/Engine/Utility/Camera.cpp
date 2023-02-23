@@ -13,7 +13,7 @@ Camera::Camera(const glm::vec3 p_pos, const glm::vec3 p_target, const glm::vec3 
 	m_cameraDirection = p_direction;
 	m_cameraUp = p_cameraUp;
 
-	m_projection = glm::perspective(glm::radians(45.0f), (float)p_width / (float)p_height, 0.1f, 100.0f);
+	m_projection = glm::perspective(glm::radians(45.0f), p_width / p_height, 0.1f, 100.0f);
 	m_cameraRight = glm::normalize(glm::cross(m_cameraUp, m_cameraDirection));
 }
 

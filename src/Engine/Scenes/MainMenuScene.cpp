@@ -21,7 +21,7 @@ public:
 	unsigned int m_shaderProgramID;
 	float* m_colour = new float[4] { 1.0f, 0.5f, 0.2f, 1.0f };
 
-	glm::vec3 modelPos = glm::vec3(0.0f, 0.0f, 0.0f);
+	glm::vec3 modelPos = glm::vec3(0.0f, 0.0f, -2.0f);
 
 	glm::mat4 m_modelMat;
 	
@@ -33,9 +33,9 @@ public:
 	{
 		m_sceneManager->m_windowName = "MainMenuScene";
 		
-		m_Camera = new Camera(	glm::vec3(0.0f,0.0f,2.0f),	// camPos
-								glm::vec3(0.0f,0.0f,0.0f),  // camTarget
-								glm::vec3(glm::vec3(0.0f, 0.0f, -2.0f) - glm::vec3(0.0f,0.0f,0.0f)), // cam direction 
+		m_Camera = new Camera(	glm::vec3(0.0f,0.0f,0.0f),	// camPos
+								glm::vec3(0.0f,0.0f,-2.0f),  // camTarget
+								glm::vec3(glm::normalize(glm::vec3(0.0f, 0.0f, 0.0f) - glm::vec3(0.0f, 0.0f, -2.0f))), // cam direction 
 								glm::vec3(0.0f,1.0f,0.0f),	// cam up
 								m_sceneManager->m_width,	// windows width
 								m_sceneManager->m_height);	// window height
@@ -43,7 +43,7 @@ public:
 
 		// rotation
 		// scale
-		//m_modelMat = glm::rotate(m_modelMat, glm::radians(45.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+		//m_modelMat = glm::rotate(m_modelMat, glm::radians(21.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 		m_modelMat = glm::translate(glm::mat4(1.0f), modelPos); // translatng the model in the matrix
 	}
 
@@ -94,15 +94,45 @@ public:
 	void Load() override
 	{
 		float vertices[] = {
-		0.5f,  0.5f, 0.0f,  // top right
-		0.5f, -0.5f, 0.0f,  // bottom right
-	   -0.5f, -0.5f, 0.0f,  // bottom left
-	   -0.5f,  0.5f, 0.0f   // top left 
+		 -0.2f, -0.2f, -0.2f,
+		0.2f, -0.2f, -0.2f,
+		-0.2f, 0.2f, -0.2f,
+		0.2f, 0.2f, -0.2f,
+		-0.2f, -0.2f, 0.2f,
+		0.2f, -0.2f, 0.2f,
+		-0.2f, 0.2f, 0.2f,
+		0.2f, 0.2f, 0.2f,
+		0.2f, -0.2f, -0.2f,
+		0.2f, -0.2f, 0.2f,
+		0.2f, 0.2f, -0.2f,
+		0.2f, 0.2f, 0.2f,
+		-0.2f, -0.2f, -0.2f,
+		-0.2f, -0.2f, 0.2f,
+		-0.2f, 0.2f, -0.2f,
+		-0.2f, 0.2f, 0.2f,
+		-0.2f, -0.2f, -0.2f,
+		-0.2f, -0.2f, 0.2f,
+		0.2f, -0.2f, -0.2f,
+		0.2f, -0.2f, 0.2f,
+		-0.2f, 0.2f, -0.2f,
+		-0.2f, 0.2f, 0.2f,
+		0.2f, 0.2f, -0.2f,
+		0.2f, 0.2f, 0.2f
 		};
 
-		unsigned int indices[] = {  
-			0, 1, 3,  // first Triangle
-			1, 2, 3   // second Triangle
+		unsigned int indices[] = {
+			1, 0, 2,
+		1, 2, 3,
+		4, 5, 6,
+		6, 5, 7,
+		9, 8, 10,
+		9, 10, 11,
+		12, 13, 14,
+		14, 13, 15,
+		17, 16, 18,
+		17, 18, 19,
+		20, 21, 22,
+		22, 21, 23
 		};
 
 		unsigned int VBO, VAO, EBO;

@@ -73,6 +73,7 @@ int SceneManager::Run()
 
     SceneManager::Load();
 
+
     float dt;
     auto lastTime = static_cast<float>(glfwGetTime());
 
