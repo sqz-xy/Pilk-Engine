@@ -1,11 +1,9 @@
-#include "std";
-#include <vector>;
+#include <vector>
 #include "string"
-#include "map";
-#include "Components/Component.h";
+#include "map"
+#include "Engine\src\Engine\Components\Component.h"
 
 #pragma once
-
 class ComponentManager final
 {
 
