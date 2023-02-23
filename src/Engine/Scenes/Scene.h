@@ -32,9 +32,9 @@ public:
 	virtual void Close() = 0;
 
 	/// <summary>
-	/// Input processing
+	/// Input logic
 	/// </summary>
-	virtual void ProcessInput(GLFWwindow* p_window, const float p_dt) = 0;
+	virtual void processInput(GLFWwindow* p_window) = 0;
 
 protected:
 	SceneManager *m_sceneManager;

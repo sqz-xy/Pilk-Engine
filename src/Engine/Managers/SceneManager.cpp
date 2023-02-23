@@ -189,7 +189,7 @@ void SceneManager::Update(const float p_dt)
 /// <param name="p_window">The current window</param>
 void SceneManager::processInput(GLFWwindow* p_window, const float p_dt)
 {
-    m_currentScene->ProcessInput(p_window, p_dt);
+    m_currentScene->processInput(p_window);
 }
 
 
