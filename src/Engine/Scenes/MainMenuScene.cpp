@@ -21,7 +21,7 @@ public:
 	unsigned int m_shaderProgramID;
 	float* m_colour = new float[4] { 1.0f, 0.5f, 0.2f, 1.0f };
 
-	glm::vec3 modelPos = glm::vec3(0.0f, 0.0f, -2.0f);
+	glm::vec3 modelPos = glm::vec3(0.0f, 0.0f, 0.0f);
 
 	glm::mat4 m_modelMat;
 	
@@ -43,8 +43,8 @@ public:
 
 		// rotation
 		// scale
-		m_modelMat = glm::rotate(m_modelMat, glm::radians(45.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-		m_modelMat *= glm::translate(glm::mat4(1.0f), modelPos); // translatng the model in the matrix
+		//m_modelMat = glm::rotate(m_modelMat, glm::radians(45.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+		m_modelMat = glm::translate(glm::mat4(1.0f), modelPos); // translatng the model in the matrix
 	}
 
 
