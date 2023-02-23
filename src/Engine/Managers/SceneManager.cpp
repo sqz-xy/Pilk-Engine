@@ -77,6 +77,7 @@ int SceneManager::Run()
     auto lastTime = static_cast<float>(glfwGetTime());
 
     glDepthMask(GL_TRUE); // Depth mask
+    glDisable(GL_CULL_FACE);
 
     // Simple update loop
     while (!glfwWindowShouldClose(window))

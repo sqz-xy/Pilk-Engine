@@ -10,12 +10,14 @@ Camera::Camera(const glm::vec3 p_pos, const glm::vec3 p_target, const float p_se
 																																m_cameraDirection(glm::normalize(p_target - p_pos)), 
 																																m_cameraRight(glm::normalize(glm::cross(m_globalUp, m_cameraDirection))),
 																																m_cameraUp(glm::cross(m_cameraDirection, m_cameraRight)),
-																																m_view(glm::lookAt(m_cameraPos, m_cameraPos + m_cameraDirection, m_cameraUp)),
-																																m_proj(glm::perspective(1.0f, static_cast<float>(p_vpWidth / p_vpHeight), 0.5f, 100.0f)), 
+																																m_view(glm::mat4(1.0f)),
+																																m_proj(glm::perspective(1.0f, static_cast<float>(p_vpWidth / p_vpHeight), 0.5f, 1000.0f)), 
 																																m_sensitivity(p_sens), m_mouseMoved(false), 
 																																m_lastMousePos(glm::vec2(0, 0)), m_pitch(0), m_yaw(0)
-{
 	
+{
+	m_view = glm::lookAt(m_cameraPos, m_cameraPos + m_cameraDirection, m_cameraUp);
+
 }
 
 Camera::~Camera()
