@@ -31,6 +31,11 @@ public:
 	/// </summary>
 	virtual void Close() = 0;
 
+	/// <summary>
+	/// Input logic
+	/// </summary>
+	virtual void processInput(GLFWwindow* p_window) = 0;
+
 protected:
 	SceneManager *m_sceneManager;
 };

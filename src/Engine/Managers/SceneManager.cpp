@@ -186,9 +186,7 @@ void SceneManager::Update(const float p_dt)
 /// <param name="p_window">The current window</param>
 void SceneManager::processInput(GLFWwindow* p_window)
 {
-    // Exit if escape key is pressed
-    if (glfwGetKey(p_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        glfwSetWindowShouldClose(p_window, true);
+    m_currentScene->processInput(p_window);
 }
 
 

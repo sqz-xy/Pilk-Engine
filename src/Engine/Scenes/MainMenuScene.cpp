@@ -58,6 +58,13 @@ public:
 		//std::cout << "Updating" << std::endl;
 	}
 
+	void processInput(GLFWwindow* p_window) override
+	{
+		// Exit if escape key is pressed
+		if (glfwGetKey(p_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+			glfwSetWindowShouldClose(p_window, true);
+	}
+
 	void Load() override
 	{
 		std::cout << "Scene Loaded" << std::endl;
