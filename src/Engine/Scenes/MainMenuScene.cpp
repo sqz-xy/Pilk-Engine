@@ -20,38 +20,50 @@ public:
 	unsigned int m_shaderProgramID;
 	float* m_colour = new float[4] { 1.0f, 0.5f, 0.2f, 1.0f };
 
-	glm::mat4 m_modelMat = glm::translate(glm::mat4(1.0f), glm::vec3(200.0f, 0.0f, -2.0f));
+	glm::mat4 m_modelMat = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -2.0f));
 	Camera* m_camera;
 
-	float m_vertices[72]
+	/*float m_vertices[9]
 	{
-			-0.2f, -0.2f, -0.2f,
-			0.2f, -0.2f, -0.2f,
-			-0.2f, 0.2f, -0.2f,
-			0.2f, 0.2f, -0.2f,
-			-0.2f, -0.2f, 0.2f,
-			0.2f, -0.2f, 0.2f,
-			-0.2f, 0.2f, 0.2f,
-			0.2f, 0.2f, 0.2f,
-			0.2f, -0.2f, -0.2f,
-			0.2f, -0.2f, 0.2f,
-			0.2f, 0.2f, -0.2f,
-			0.2f, 0.2f, 0.2f,
-			-0.2f, -0.2f, -0.2f,
-			-0.2f, -0.2f, 0.2f,
-			-0.2f, 0.2f, -0.2f,
-			-0.2f, 0.2f, 0.2f,
-			-0.2f, -0.2f, -0.2f,
-			-0.2f, -0.2f, 0.2f,
-			0.2f, -0.2f, -0.2f,
-			0.2f, -0.2f, 0.2f,
-			-0.2f, 0.2f, -0.2f,
-			-0.2f, 0.2f, 0.2f,
-			0.2f, 0.2f, -0.2f,
-			0.2f, 0.2f, 0.2f
-	};
+		-0.5f,-0.5f,0.0f,
+		0.5f,-0.5f,0.0f,
+		0.0f,0.5f,0.0f
+	};*/
 
-	float m_indices[39]
+		float m_vertices[72]
+		{
+				-0.2f, -0.2f, -0.2f,
+				0.2f, -0.2f, -0.2f,
+				-0.2f, 0.2f, -0.2f,
+				0.2f, 0.2f, -0.2f,
+				-0.2f, -0.2f, 0.2f,
+				0.2f, -0.2f, 0.2f,
+				-0.2f, 0.2f, 0.2f,
+				0.2f, 0.2f, 0.2f,
+				0.2f, -0.2f, -0.2f,
+				0.2f, -0.2f, 0.2f,
+				0.2f, 0.2f, -0.2f,
+				0.2f, 0.2f, 0.2f,
+				-0.2f, -0.2f, -0.2f,
+				-0.2f, -0.2f, 0.2f,
+				-0.2f, 0.2f, -0.2f,
+				-0.2f, 0.2f, 0.2f,
+				-0.2f, -0.2f, -0.2f,
+				-0.2f, -0.2f, 0.2f,
+				0.2f, -0.2f, -0.2f,
+				0.2f, -0.2f, 0.2f,
+				-0.2f, 0.2f, -0.2f,
+				-0.2f, 0.2f, 0.2f,
+				0.2f, 0.2f, -0.2f,
+				0.2f, 0.2f, 0.2f
+		};
+
+	/*	unsigned int m_indices[6]
+	{
+		0,1,3,
+		1,2,3
+	};*/
+		float m_indices[39]
 	{
 			 1, 0, 2,
 			1, 2, 3,
@@ -70,7 +82,7 @@ public:
 	explicit MainMenuScene(SceneManager* pSceneManager) : Scene(pSceneManager)
 	{
 		m_sceneManager->m_windowName = "MainMenuScene";
-		m_camera = new Camera(glm::vec3(0, 8, 0), glm::vec3(0, 0, 0), 2.0f, m_sceneManager->m_width, m_sceneManager->m_height);
+		m_camera = new Camera(glm::vec3(0.0f,0.0f,2.0f), glm::vec3(0.0f, 0.0f, 0.0f), 2.0f, m_sceneManager->m_width, m_sceneManager->m_height);
 	}
 
 	~MainMenuScene() override
