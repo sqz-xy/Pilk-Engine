@@ -7,9 +7,7 @@
 #include "iostream"
 #include "ostream"
 #include "string"
-
 #include "../Managers/ResourceManager.h"
-#include "../Utility/Camera.h"	
 
 class MainMenuScene : public Scene
 {
