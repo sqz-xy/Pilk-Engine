@@ -9,6 +9,6 @@ uniform mat4 uModel;
 
 void main()
 {
-    vec4 position = vec4(aPos, 1) * uModel * uView; //* uProj;
+    vec4 position = vec4(aPos, 1) * uModel * uView * uProj;
     gl_Position = position;
 }
