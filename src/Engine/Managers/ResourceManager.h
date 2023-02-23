@@ -1,7 +1,6 @@
 #pragma once
 
 #include "glad.h"
-
 #include "string"
 #include "map"
 
