@@ -21,7 +21,7 @@ public:
 	unsigned int m_shaderProgramID;
 	float* m_colour = new float[4] { 1.0f, 0.5f, 0.2f, 1.0f };
 
-	glm::vec3 modelPos = glm::vec3(0.0f, 0.0f, 2.0f);
+	glm::vec3 modelPos = glm::vec3(0.0f, 0.0f, -2.0f);
 
 	glm::mat4 m_modelMat;
 	
