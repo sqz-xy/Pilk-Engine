@@ -6,7 +6,6 @@ uniform mat4 uView;
 uniform mat4 uModel;
 
 
-
 void main()
 {
     vec4 position = vec4(aPos, 1) * uModel * uView * uProj;
