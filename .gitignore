@@ -37,3 +37,17 @@
 build/
 .vscode/
 /.vs
+/CMakeFiles
+/Pilk-Engine.dir/Release/Pilk-Engine.tlog
+/x64/Release
+/Pilk-Engine.dir/Release
+/ALL_BUILD.vcxproj
+/ALL_BUILD.vcxproj.filters
+/CMakeCache.txt
+/cmake_install.cmake
+/Pilk-Engine.sln
+/Pilk-Engine.vcxproj
+/Pilk-Engine.vcxproj.filters
+/ZERO_CHECK.vcxproj
+/Pilk-Engine.vcxproj.user
+/ZERO_CHECK.vcxproj.filters
