@@ -21,7 +21,7 @@ public:
 	unsigned int m_shaderProgramID;
 	float* m_colour = new float[4] { 1.0f, 0.5f, 0.2f, 1.0f };
 
-	glm::vec3 modelPos = glm::vec3(0.0f, 0.0f, 2.0f);
+	glm::vec3 modelPos = glm::vec3(0.0f, 0.5f, 2.0f);
 
 	glm::mat4 m_modelMat;
 	
@@ -45,6 +45,7 @@ public:
 		// scale
 		//m_modelMat = glm::rotate(m_modelMat, glm::radians(21.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 		m_modelMat = glm::translate(glm::mat4(1.0f), modelPos); // translatng the model in the matrix
+		m_modelMat = glm::rotate(m_modelMat, 25.f, glm::vec3(0, 0, 1));
 	}
 
 
@@ -58,11 +59,10 @@ public:
 		glUseProgram(m_shaderProgramID);
 
 		// Modify shader uniforms
-		
+
 		glUniform4f(glGetUniformLocation(m_shaderProgramID, "uColour"), m_colour[0], m_colour[1], m_colour[2], m_colour[3]);
 		glUniformMatrix4fv(glGetUniformLocation(m_shaderProgramID, "uModel"), 1, GL_FALSE, &m_modelMat[0][0]);
 		m_Camera->UpdateCamera(m_shaderProgramID);
-
 
 		glBindVertexArray(m_vao); 
 		//glDrawArrays(GL_TRIANGLES, 0, 6);

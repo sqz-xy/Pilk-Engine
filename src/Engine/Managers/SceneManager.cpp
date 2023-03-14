@@ -71,6 +71,8 @@ int SceneManager::Run()
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init("#version 330");
 
+    glEnable(GL_DEPTH_TEST);
+
     SceneManager::Load();
 
 
@@ -80,6 +82,8 @@ int SceneManager::Run()
     // Simple update loop
     while (!glfwWindowShouldClose(window))
     {
+        glClear(GL_DEPTH_BUFFER_BIT);
+
         auto now = static_cast<float>(glfwGetTime());
         dt = now - lastTime;
         lastTime = now;
