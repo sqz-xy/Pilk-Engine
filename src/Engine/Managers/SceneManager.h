@@ -30,6 +30,7 @@ private:
 
 	Scene *m_currentScene;
 	char* m_windowName = "";
+	bool m_mouseControl = false;
 	int m_width;
 	int m_height;
 
