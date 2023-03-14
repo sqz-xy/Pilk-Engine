@@ -13,7 +13,13 @@ Camera::Camera(const glm::vec3 p_pos, const glm::vec3 p_target, const glm::vec3 
 	m_cameraDirection = p_direction;
 	m_cameraUp = p_cameraUp;
 
-	m_projection = glm::perspective(glm::radians(45.0f), (float)p_width / (float)p_height, 0.1f, 100.0f);
+	m_yaw = -90.0f;
+	m_pitch = 0.0f;
+	m_sens = 0.1f;
+	m_zoom = 45.0f;
+	m_lastMousePos = glm::vec2(0.0f, 0.0f);
+
+	m_projection = glm::perspective(glm::radians(m_zoom), (float)p_width / (float)p_height, 0.1f, 100.0f);
 	m_cameraRight = glm::normalize(glm::cross(m_cameraUp, m_cameraDirection));
 }
 
@@ -47,14 +53,35 @@ void Camera::MoveCamera(const Direction p_direction, const float p_distance, con
 	std::cout << "CamPos: X:" << m_cameraPos.x << " Y: " << m_cameraPos.y << " Z: " << m_cameraPos.z << '\n';
 }
 
+void Camera::RotateCamera(glm::vec2& p_mousePos)
+{
+	float mouseDeltaX = p_mousePos.x - m_lastMousePos.x;
+	float mouseDeltaY = p_mousePos.y - m_lastMousePos.y;
+	m_lastMousePos = p_mousePos;
+
+	m_yaw += mouseDeltaX * m_sens;
+	m_pitch -= mouseDeltaY * m_sens;
+
+	if (m_pitch > 90.0f)
+		m_pitch = 90.0f;
+	else if (m_pitch < -90.0f)
+		m_pitch = -90.0f;
+	else
+		m_pitch -= mouseDeltaY * m_sens;
+}
+
 void Camera::UpdateCamera(const int p_shaderHandle)
 {
-	m_cameraTarget = m_cameraPos + m_cameraDirection;
+	m_cameraDirection.x = cos(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
+	m_cameraDirection.y = sin(glm::radians(m_pitch));
+	m_cameraDirection.z = sin(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
 
+	m_cameraRight = glm::normalize(glm::cross(m_cameraUp, m_cameraDirection));
+	m_cameraDirection = glm::normalize(m_cameraDirection);
+
+	m_cameraTarget = m_cameraPos + m_cameraDirection;
 	m_view = glm::lookAt(m_cameraPos, m_cameraTarget, m_cameraUp);
 
-
-	//glUseProgram(p_shaderHandle);
 	glUniformMatrix4fv(glGetUniformLocation(p_shaderHandle, "uView"), 1, GL_FALSE, &m_view[0][0]);
 	glUniformMatrix4fv(glGetUniformLocation(p_shaderHandle, "uProj"), 1, GL_FALSE, &m_projection[0][0]);
 

@@ -3,7 +3,6 @@
 #include "glm.hpp"
 #include "gtc/matrix_transform.hpp"
 #include "gtc/type_ptr.hpp"
-
 #include <vector>
 
 class Camera final 
@@ -18,6 +17,13 @@ public:
 		Right
 	};
 
+	float m_yaw;
+	float m_pitch;
+	float m_sens;
+	float m_zoom;
+
+	glm::vec2 m_lastMousePos;
+
 	glm::vec3 m_cameraPos;
 	glm::vec3 m_cameraTarget;
 	glm::vec3 m_cameraDirection;
@@ -31,5 +37,6 @@ public:
 	~Camera();
 
 	void MoveCamera(const Direction p_direction, const float p_distance, const float p_dt);
+	void RotateCamera(glm::vec2& p_mousePos);
 	void UpdateCamera(const int p_shaderHandle);
 };

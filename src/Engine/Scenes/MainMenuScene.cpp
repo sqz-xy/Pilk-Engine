@@ -21,19 +21,19 @@ public:
 	unsigned int m_shaderProgramID;
 	float* m_colour = new float[4] { 1.0f, 0.5f, 0.2f, 1.0f };
 
-	glm::vec3 modelPos = glm::vec3(0.0f, 0.5f, 2.0f);
-	glm::vec3 modelPos2 = glm::vec3(0.5f, 0.0f, 2.0f);
+	glm::vec3 modelPos = glm::vec3(0.0f, 0.0f, 2.0f);
+	glm::vec3 modelPos2 = glm::vec3(0.6f, 0.0f, 2.0f);
 
 	glm::mat4 m_modelMat;
+	glm::mat4 m_modelMat2;
 	
 	Camera* m_Camera;
-
 
 	explicit MainMenuScene(SceneManager* pSceneManager) : Scene(pSceneManager)
 	{
 		m_sceneManager->m_windowName = "MainMenuScene";
 		
-		m_Camera = new Camera(	glm::vec3(0.0f,0.0f,0.0f),	// camPos
+		m_Camera = new Camera(	glm::vec3(0.0f,0.5f,0.0f),	// camPos
 								glm::vec3(0.0f,0.0f,-2.0f),  // camTarget
 								glm::vec3(glm::normalize(glm::vec3(0.0f, 0.0f, 0.0f) - glm::vec3(0.0f, 0.0f, -2.0f))), // cam direction 
 								glm::vec3(0.0f,1.0f,0.0f),	// cam up
@@ -45,7 +45,8 @@ public:
 		// scale
 		//m_modelMat = glm::rotate(m_modelMat, glm::radians(21.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 		m_modelMat = glm::translate(glm::mat4(1.0f), modelPos); // translatng the model in the matrix
-		m_modelMat = glm::rotate(m_modelMat, 72.f, glm::vec3(1, 1, 1));
+		m_modelMat2 = glm::translate(glm::mat4(1.0f), modelPos2);
+		//m_modelMat = glm::rotate(m_modelMat, 72.f, glm::vec3(1, 1, 1));
 	}
 
 
@@ -58,19 +59,21 @@ public:
 	{
 		glUseProgram(m_shaderProgramID);
 
-		// Modify shader uniforms
-
+		// Change Colour
 		glUniform4f(glGetUniformLocation(m_shaderProgramID, "uColour"), m_colour[0], m_colour[1], m_colour[2], m_colour[3]);
-		glUniformMatrix4fv(glGetUniformLocation(m_shaderProgramID, "uModel"), 1, GL_FALSE, &m_modelMat[0][0]);
+		
 		m_Camera->UpdateCamera(m_shaderProgramID);
 
 		glBindVertexArray(m_vao); 
-		//glDrawArrays(GL_TRIANGLES, 0, 6);
+
+		// Draw two cubes
+		glUniformMatrix4fv(glGetUniformLocation(m_shaderProgramID, "uModel"), 1, GL_FALSE, &m_modelMat[0][0]);
 		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 
-		//m_modelMat = glm::translate(glm::mat4(1.0f), modelPos); // translatng the model in the matrix
+		glUniformMatrix4fv(glGetUniformLocation(m_shaderProgramID, "uModel"), 1, GL_FALSE, &m_modelMat2[0][0]);
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 
-
+	
 		ImVec2 vec(100, 50);
 		//std::cout << "Rendering" << std::endl;
 		ImGui::Begin("ImGui Test");
@@ -90,8 +93,8 @@ public:
 
 	void Update(const float p_dt) override
 	{
-		//std::cout << "Updating" << std::endl;
-		
+		glUseProgram(m_shaderProgramID);
+		m_Camera->UpdateCamera(m_shaderProgramID);
 	}
 
 	void Load() override
@@ -168,7 +171,7 @@ public:
 		m_shaderProgramID = shaderProgram;	
 	}
 
-	void ProcessInput(GLFWwindow* p_window, const float p_dt) override
+	void ProcessInput(GLFWwindow* p_window, const float p_dt, bool p_mouseInput) override
 	{
 		// Exit if escape key is pressed
 		if (glfwGetKey(p_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -185,6 +188,13 @@ public:
 
 		if (glfwGetKey(p_window, GLFW_KEY_D) == GLFW_PRESS)
 			m_Camera->MoveCamera(m_Camera->Right, 2.5f, p_dt);
+
+		if (p_mouseInput) 
+		{
+			double xpos, ypos;
+			glfwGetCursorPos(p_window, &xpos, &ypos);
+			m_Camera->RotateCamera(glm::vec2(xpos, ypos));
+		}	
 	}
 
     void Close() override

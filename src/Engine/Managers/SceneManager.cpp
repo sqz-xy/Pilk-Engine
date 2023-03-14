@@ -11,6 +11,8 @@
 
 #include <iostream>
 
+#define MOUSE_CONTROL_ENABLED 1;
+
 SceneManager::SceneManager(const int p_width, const int p_height, char* p_windowName) : m_currentScene(nullptr), m_width(p_width), m_height(p_height), m_windowName(p_windowName)
 {
     m_currentScene = new MainMenuScene(this);
@@ -50,6 +52,11 @@ int SceneManager::Run()
     // Set the window as the main context of the current thread
     glfwMakeContextCurrent(window);
 
+#if MOUSE_CONTROL_ENABLED
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    m_mouseControl = true;
+#endif
+
     // Initialize GLAD as it manages opengl function pointers
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
@@ -74,7 +81,6 @@ int SceneManager::Run()
     glEnable(GL_DEPTH_TEST);
 
     SceneManager::Load();
-
 
     float dt;
     auto lastTime = static_cast<float>(glfwGetTime());
@@ -191,7 +197,7 @@ void SceneManager::Update(const float p_dt)
 /// <param name="p_window">The current window</param>
 void SceneManager::processInput(GLFWwindow* p_window, const float p_dt)
 {
-    m_currentScene->ProcessInput(p_window, p_dt);
+    m_currentScene->ProcessInput(p_window, p_dt, m_mouseControl);
 }
 
 
