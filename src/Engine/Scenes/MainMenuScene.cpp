@@ -22,9 +22,9 @@ public:
 	float* m_colour = new float[4] { 1.0f, 0.5f, 0.2f, 1.0f };
 
 	glm::vec3 modelPos = glm::vec3(0.0f, 0.5f, 2.0f);
+	glm::vec3 modelPos2 = glm::vec3(0.5f, 0.0f, 2.0f);
 
 	glm::mat4 m_modelMat;
-	
 	
 	Camera* m_Camera;
 
@@ -45,7 +45,7 @@ public:
 		// scale
 		//m_modelMat = glm::rotate(m_modelMat, glm::radians(21.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 		m_modelMat = glm::translate(glm::mat4(1.0f), modelPos); // translatng the model in the matrix
-		m_modelMat = glm::rotate(m_modelMat, 25.f, glm::vec3(0, 0, 1));
+		m_modelMat = glm::rotate(m_modelMat, 72.f, glm::vec3(1, 1, 1));
 	}
 
 
@@ -66,7 +66,10 @@ public:
 
 		glBindVertexArray(m_vao); 
 		//glDrawArrays(GL_TRIANGLES, 0, 6);
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+		//m_modelMat = glm::translate(glm::mat4(1.0f), modelPos); // translatng the model in the matrix
+
 
 		ImVec2 vec(100, 50);
 		//std::cout << "Rendering" << std::endl;
