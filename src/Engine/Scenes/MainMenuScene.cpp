@@ -4,12 +4,16 @@
 
 #include "imgui_impl_opengl3.h"
 
+#include "glm.hpp"
+#include "gtc/matrix_transform.hpp"
+#include "gtc/type_ptr.hpp"
 #include "iostream"
 #include "ostream"
 #include "string"
 
 #include "../Managers/ResourceManager.h"
 #include "../Utility/Camera.h"	
+#include "../Components/Component.h"
 
 
 class MainMenuScene : public Scene
@@ -28,6 +32,8 @@ public:
 	glm::mat4 m_modelMat2;
 	
 	Camera* m_Camera;
+
+	ComponentTransform* m_transformation = new  ComponentTransform(glm::vec3(2.0f, 0.0f, 2.0f), glm::vec3(45.0f, 45.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
 
 	explicit MainMenuScene(SceneManager* pSceneManager) : Scene(pSceneManager)
 	{
@@ -67,7 +73,7 @@ public:
 		glBindVertexArray(m_vao); 
 
 		// Draw two cubes
-		glUniformMatrix4fv(glGetUniformLocation(m_shaderProgramID, "uModel"), 1, GL_FALSE, &m_modelMat[0][0]);
+		glUniformMatrix4fv(glGetUniformLocation(m_shaderProgramID, "uModel"), 1, GL_FALSE, &m_transformation->m_transform[0][0]);
 		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 
 		glUniformMatrix4fv(glGetUniformLocation(m_shaderProgramID, "uModel"), 1, GL_FALSE, &m_modelMat2[0][0]);
