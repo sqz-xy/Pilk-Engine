@@ -33,7 +33,7 @@ public:
 	
 	Camera* m_Camera;
 
-	ComponentTransform* m_transformation = new  ComponentTransform(glm::vec3(2.0f, 0.0f, 2.0f), glm::vec3(45.0f, 45.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+	ComponentTransform* m_transformation = new  ComponentTransform(glm::vec3(0.6f, 0.5f, 2.0f), glm::vec3(45.0f, 0.0f, 0.0f), glm::vec3(3.0f, 1.0f, 1.0f));
 
 	explicit MainMenuScene(SceneManager* pSceneManager) : Scene(pSceneManager)
 	{

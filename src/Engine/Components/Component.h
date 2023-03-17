@@ -16,6 +16,7 @@ private:
 
 };
 
+// Component By Matthew Liney
 class ComponentTransform : public Component
 {
 public:
@@ -57,15 +58,15 @@ private:
 	{
 		mat4 identity(1.0f);
 
-		mat4 scale_mat = scale(identity, m_scale);
+		mat4 translation_mat = translate(identity, m_translation);
+
+		mat4 scale_mat = scale(translation_mat, m_scale);
 
 		mat4 x_rotate = rotate(scale_mat, m_rotation.x, vec3(1,0,0));
-		mat4 y_rotate = rotate(scale_mat, m_rotation.y, vec3(0,1,0));
-		mat4 z_rotate = rotate(scale_mat, m_rotation.z, vec3(0,0,1));
+		mat4 y_rotate = rotate(x_rotate, m_rotation.y, vec3(0,1,0));
+		mat4 z_rotate = rotate(y_rotate, m_rotation.z, vec3(0,0,1));
 
-		mat4 translation_mat = translate(scale_mat, m_translation);
-
-		m_transform = translation_mat;
+		m_transform = z_rotate;
 	}
 
 };
