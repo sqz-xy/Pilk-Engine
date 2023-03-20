@@ -10,6 +10,7 @@ class SceneManager
 {
 	friend class Scene;
 	friend class MainMenuScene;
+	friend class PeterTestScene;
 public:
 	explicit SceneManager(int p_width, int p_height, char* p_windowName);
 	SceneManager(const SceneManager& p_sceneManager);

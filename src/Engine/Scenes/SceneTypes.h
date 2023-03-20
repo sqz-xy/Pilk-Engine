@@ -5,5 +5,6 @@
 /// </summary>
 enum SceneTypes
 {
-	MainMenu
+	MainMenu,
+	PeterTestSene
 };

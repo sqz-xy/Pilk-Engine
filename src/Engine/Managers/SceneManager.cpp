@@ -3,6 +3,7 @@
 #include "SceneManager.h"
 
 #include "../Scenes/MainMenuScene.cpp"
+#include "../Scenes/PeterTestScene.cpp"
 
 #include "glad.h"
 #include "glfw3.h"
@@ -15,7 +16,7 @@
 
 SceneManager::SceneManager(const int p_width, const int p_height, char* p_windowName) : m_currentScene(nullptr), m_width(p_width), m_height(p_height), m_windowName(p_windowName)
 {
-    m_currentScene = new MainMenuScene(this);
+    m_currentScene = new PeterTestScene(this);
 }
 
 SceneManager::SceneManager(const SceneManager& p_sceneManager) : m_currentScene(p_sceneManager.m_currentScene), m_width(p_sceneManager.m_width), m_height(p_sceneManager.m_height), m_windowName(p_sceneManager.m_windowName)
@@ -140,6 +141,10 @@ void SceneManager::ChangeScene(const SceneTypes p_sceneType)
     case MainMenu:
         delete m_currentScene;
         m_currentScene = new MainMenuScene(this);
+        break;
+    case PeterTestSene:
+        delete m_currentScene;
+        m_currentScene = new PeterTestScene(this);
         break;
     default:
         delete m_currentScene;
