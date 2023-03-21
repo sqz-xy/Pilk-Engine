@@ -87,6 +87,7 @@ public:
 
 	void Load() override
 	{
+		stbi_set_flip_vertically_on_load(true);
 		m_backpack = new Model("resources/models/backpack/backpack.obj");
 
 		if (!ResourceManager::CreateShaderProgram(&m_shaderProgramID, "resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag")) return;

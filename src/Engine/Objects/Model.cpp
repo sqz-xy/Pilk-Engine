@@ -95,10 +95,10 @@ Geometry Model::processMesh(aiMesh* p_mesh, const aiScene* p_scene)
     {
         aiMaterial* material = p_scene->mMaterials[p_mesh->mMaterialIndex];
 
-        std::vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+        std::vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "uTextureDiffuse");
         textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
 
-        std::vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
+        std::vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "uTextureSpecular");
         textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
     }
 
@@ -125,8 +125,9 @@ std::vector<Texture> Model::loadMaterialTextures(aiMaterial* p_mat, aiTextureTyp
         if (!skip)
         {   // if texture hasn't been loaded already, load it
             Texture texture;
-            ResourceManager::LoadTexture(str.C_Str(), m_directory, texture.id);
-            texture.type = p_type;
+            //ResourceManager::LoadTexture(str.C_Str(), m_directory, texture.id);
+            texture.id = TextureFromFile(str.C_Str(), m_directory);
+            texture.type = p_typeName;
             texture.path = str.C_Str();
             textures.push_back(texture);
             m_textures.push_back(texture); // add to loaded textures

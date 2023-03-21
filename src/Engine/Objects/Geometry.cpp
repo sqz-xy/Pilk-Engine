@@ -56,7 +56,8 @@ void Geometry::Draw(int pShaderHandle)
         else if (name == "uTextureSpecular")
             number = std::to_string(specularNr++);
 
-        glUniform1i(glGetUniformLocation(pShaderHandle, (name + number).c_str()), i);
+        std::string uniformName = name + number;
+        glUniform1i(glGetUniformLocation(pShaderHandle, uniformName.c_str()), i);
         glBindTexture(GL_TEXTURE_2D, m_textures[i].id);
     }
     glActiveTexture(GL_TEXTURE0);
