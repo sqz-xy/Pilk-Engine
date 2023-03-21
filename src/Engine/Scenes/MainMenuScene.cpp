@@ -1,15 +1,10 @@
 #pragma once
 
 #include "Scene.h"
-
-#include "imgui_impl_opengl3.h"
-
-#include "iostream"
-#include "ostream"
-#include "string"
-
 #include "../Managers/ResourceManager.h"
 #include "../Utility/Camera.h"	
+
+#include "../PilkEngineCommon.h"
 
 
 class MainMenuScene : public Scene
@@ -171,7 +166,7 @@ public:
 		m_shaderProgramID = shaderProgram;	
 	}
 
-	void ProcessInput(GLFWwindow* p_window, const float p_dt, bool p_mouseInput) override
+	void ProcessInput(GLFWwindow* p_window, const float p_dt) override
 	{
 		// Exit if escape key is pressed
 		if (glfwGetKey(p_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -189,12 +184,11 @@ public:
 		if (glfwGetKey(p_window, GLFW_KEY_D) == GLFW_PRESS)
 			m_Camera->MoveCamera(m_Camera->Right, 2.5f, p_dt);
 
-		if (p_mouseInput) 
-		{
-			double xpos, ypos;
-			glfwGetCursorPos(p_window, &xpos, &ypos);
-			m_Camera->RotateCamera(glm::vec2(xpos, ypos));
-		}	
+#if MOUSE_CONTROL_ENABLED
+		double xpos, ypos;
+		glfwGetCursorPos(p_window, &xpos, &ypos);
+		m_Camera->RotateCamera(glm::vec2(xpos, ypos));
+#endif		
 	}
 
     void Close() override
