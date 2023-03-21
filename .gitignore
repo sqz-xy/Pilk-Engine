@@ -28,6 +28,7 @@
 *.lib
 !glfw3.lib
 !irrKlang.lib
+!assimp.lib
 
 # Executables
 *.exe
