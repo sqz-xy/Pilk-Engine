@@ -27,5 +27,8 @@
 #include "assimp/scene.h"    
 #include "assimp/postprocess.h" 
 
+// STB
+#include "stb_image.h"
+
 // Variables
 #define MOUSE_CONTROL_ENABLED 1;
