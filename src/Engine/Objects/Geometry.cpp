@@ -1,4 +1,5 @@
 #include "Geometry.h"
+#include "Geometry.h"
 #include "../PilkEngineCommon.h"
 
 Geometry::Geometry(std::vector<Vertex> p_vertices, std::vector<unsigned int> p_indices, std::vector<Texture> p_textures)
@@ -8,6 +9,15 @@ Geometry::Geometry(std::vector<Vertex> p_vertices, std::vector<unsigned int> p_i
 	m_indices = p_indices;
 
 	SetupMesh();
+}
+
+Geometry::~Geometry()
+{
+    m_vertices.clear();
+    m_textures.clear();
+    m_indices.clear();
+
+    //TODO: Delete clear buffers
 }
 
 void Geometry::SetupMesh()

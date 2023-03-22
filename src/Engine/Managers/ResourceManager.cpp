@@ -10,6 +10,7 @@
 
 std::map<std::string, unsigned int*> ResourceManager::m_shaderMap;
 std::map<std::string, unsigned int*> ResourceManager::m_textureMap;
+std::map<std::string, Model*> ResourceManager::m_modelMap;
 
 /// <summary>
 /// Loads string data for a shader file
@@ -72,8 +73,8 @@ bool ResourceManager::CompileShader(const GLenum& p_shaderType, const char* p_fi
 bool ResourceManager::LoadTexture(const char* p_path, const std::string& p_directory, unsigned int& p_textureID)
 {
 	// If the texture already exists, return its id
-	const std::size_t shaderCount = m_shaderMap.count(static_cast<std::string>(p_path)), shaderLimit = 1;
-	if (shaderCount == shaderLimit)
+	const std::size_t texCount = m_shaderMap.count(static_cast<std::string>(p_path)), texLimit = 1;
+	if (texCount == texLimit)
 	{
 		p_textureID = *m_shaderMap.at(static_cast<std::string>(p_path));
 		return true;
@@ -118,6 +119,23 @@ bool ResourceManager::LoadTexture(const char* p_path, const std::string& p_direc
 	return true;
 	m_textureMap.insert(std::pair<std::string, unsigned int* >(static_cast<std::string>(p_path), &textureID));
 	p_textureID = textureID;
+}
+
+Model* ResourceManager::LoadModel(char* p_path)
+{
+	// If the model already exists, return it
+
+	const std::size_t modelCount = m_modelMap.count(static_cast<std::string>(p_path)), modelLimit = 1;
+	if (modelCount == modelLimit)
+	{
+		return m_modelMap.at(static_cast<std::string>(p_path));
+	}
+	else
+	{
+		Model* model = new Model(p_path);
+		m_modelMap.insert(std::pair<std::string, Model* >(static_cast<std::string>(p_path), model));
+		return model;
+	}
 }
 
 /// <summary>
@@ -184,4 +202,23 @@ void ResourceManager::DeleteResources()
 		glDeleteProgram(*shader.second);
 	}
 	m_shaderMap.clear();
+
+	// Could be an isue
+	if (m_textureMap.size() > 0)
+	{
+		std::vector<GLuint> texIDs;
+
+		for (const auto& texture : m_textureMap) {
+			texIDs.push_back(static_cast<GLuint>(*texture.second));
+		}
+		glDeleteTextures(texIDs.size(), &texIDs[0]);
+
+		m_textureMap.clear();
+	}
+
+	for (const auto& model : m_modelMap) {
+		delete model.second;
+	}
+
+	m_modelMap.clear();
 }

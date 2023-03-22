@@ -25,6 +25,7 @@ public:
 	Camera* m_Camera;
 
 	Model* m_backpack;
+	Model* m_backpack2;
 
 	explicit MainMenuScene(SceneManager* pSceneManager) : Scene(pSceneManager)
 	{
@@ -61,6 +62,9 @@ public:
 		
 		m_Camera->UpdateCamera(m_shaderProgramID);
 
+		glUniformMatrix4fv(glGetUniformLocation(m_shaderProgramID, "uModel"), 1, GL_FALSE, &m_modelMat[0][0]);
+		m_backpack2->Draw(m_shaderProgramID);
+
 		glUniformMatrix4fv(glGetUniformLocation(m_shaderProgramID, "uModel"), 1, GL_FALSE, &m_modelMat2[0][0]);
 		m_backpack->Draw(m_shaderProgramID);
 
@@ -88,7 +92,9 @@ public:
 	void Load() override
 	{
 		stbi_set_flip_vertically_on_load(true);
-		m_backpack = new Model("resources/models/backpack/backpack.obj");
+
+		m_backpack = ResourceManager::LoadModel("resources/models/backpack/backpack.obj");
+		m_backpack2 = ResourceManager::LoadModel("resources/models/backpack/backpack.obj");
 
 		if (!ResourceManager::CreateShaderProgram(&m_shaderProgramID, "resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag")) return;
 	}

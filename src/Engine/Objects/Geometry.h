@@ -23,6 +23,7 @@ class Geometry
 {
 public:
 	explicit Geometry(std::vector<Vertex> p_vertices, std::vector<unsigned int> p_indices, std::vector<Texture> p_textures);
+	~Geometry();
 
 	void Draw(int pShaderHandle);
 

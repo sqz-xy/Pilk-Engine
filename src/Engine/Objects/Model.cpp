@@ -1,10 +1,18 @@
 #include "Model.h"
+#include "Model.h"
 #include "../PilkEngineCommon.h"
 #include "../Managers/ResourceManager.h"
 
 Model::Model(char* p_filePath)
 {
     loadModel(p_filePath);
+}
+
+Model::~Model()
+{
+    m_textures.clear();
+    m_meshes.clear();
+    m_directory.clear();
 }
 
 void Model::Draw(int pShaderHandle)

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../PilkEngineCommon.h"
+#include "../Objects/Model.h"
 
 const int max_shaders = 20;
 
@@ -10,6 +11,7 @@ public:
 	explicit ResourceManager() = delete;
 	static bool CreateShaderProgram(unsigned int* p_sProgram, const char* p_vertFileName, const char* p_fragFileName);
 	static bool LoadTexture(const char* p_path, const std::string& p_directory, unsigned int& p_textureID);
+	static Model* LoadModel(char* p_path);
 	static void DeleteResources();
 
 private:
@@ -18,4 +20,5 @@ private:
 	
 	static std::map<std::string, unsigned int*> m_shaderMap;
 	static std::map<std::string, unsigned int*> m_textureMap;
+	static std::map<std::string, Model*> m_modelMap;
 };

@@ -8,6 +8,7 @@ class Model
 {
 public:
     explicit Model(char* p_filePath);
+    ~Model();
 
     void Draw(int pShaderHandle);
 
