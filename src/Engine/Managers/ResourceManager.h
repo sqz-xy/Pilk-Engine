@@ -5,6 +5,7 @@
 
 const int max_shaders = 20;
 
+// By Thomas Beet
 class ResourceManager final
 {
 public:

@@ -22,6 +22,7 @@ SceneManager::~SceneManager()
     m_currentScene = nullptr;
 }
 
+// By Thomas Beet
 /// <summary>
 /// Runs the program mainloop
 /// </summary>
@@ -120,6 +121,7 @@ int SceneManager::Run()
     return 0;
 }
 
+// By Thomas Beet
 /// <summary>
 /// Changes the current scene, deletes the previous
 /// </summary>
@@ -154,6 +156,7 @@ SceneManager& SceneManager::operator=(const SceneManager& p_rhs)
     return *this;
 }
 
+// By Thomas Beet
 /// <summary>
 /// Load logic for current scene
 /// </summary>
@@ -162,6 +165,7 @@ void SceneManager::Load()
     m_currentScene->Load();
 }
 
+// By Thomas Beet
 /// <summary>
 /// Render logic for current scene
 /// </summary>

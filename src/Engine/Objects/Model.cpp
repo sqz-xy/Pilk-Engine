@@ -15,12 +15,24 @@ Model::~Model()
     m_directory.clear();
 }
 
+// By Thomas Beet 
+// Followed https://learnopengl.com/Model-Loading/Assimp
+/// <summary>
+/// Tells all meshes in the model to draw
+/// </summary>
+/// <param name="pShaderHandle">Shader handle</param>
 void Model::Draw(int pShaderHandle)
 {
     for (unsigned int i = 0; i < m_meshes.size(); i++)
         m_meshes[i].Draw(pShaderHandle);
 }
 
+// By Thomas Beet 
+// Followed https://learnopengl.com/Model-Loading/Assimp
+/// <summary>
+/// Begins the recursive model loading process, models are set up in a tree structure
+/// </summary>
+/// <param name="p_path">Model path</param>
 void Model::loadModel(std::string p_path)
 {
     Assimp::Importer import;
@@ -33,32 +45,46 @@ void Model::loadModel(std::string p_path)
     }
     m_directory = p_path.substr(0, p_path.find_last_of('/'));
 
+    // Calls the next node
     processNode(scene->mRootNode, scene);
 }
 
+// By Thomas Beet 
+// Followed https://learnopengl.com/Model-Loading/Assimp
+/// <summary>
+/// Processes the mesh stored at this node
+/// </summary>
+/// <param name="p_node">Current node</param>
+/// <param name="p_scene">Current scene</param>
 void Model::processNode(aiNode* p_node, const aiScene* p_scene)
 {
-    // process all the node's meshes (if any)
+    // Process meshes
     for (unsigned int i = 0; i < p_node->mNumMeshes; i++)
     {
         aiMesh* mesh = p_scene->mMeshes[p_node->mMeshes[i]];
         m_meshes.push_back(processMesh(mesh, p_scene));
     }
-    // then do the same for each of its children
+    // Process children (Recursive)
     for (unsigned int i = 0; i < p_node->mNumChildren; i++)
     {
         processNode(p_node->mChildren[i], p_scene);
     }
 }
 
+/// <summary>
+/// Gets all the vertex data from a mesh
+/// </summary>
+/// <param name="p_mesh">The current mesh</param>
+/// <param name="p_scene">The current scene</param>
+/// <returns>A model object</returns>
 Geometry Model::processMesh(aiMesh* p_mesh, const aiScene* p_scene)
 {
-    // data to fill
+    // Data storage
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
     std::vector<Texture> textures;
 
-    // walk through each of the mesh's vertices
+    // Vertices
     for (unsigned int i = 0; i < p_mesh->mNumVertices; i++)
     {
         Vertex vertex;
@@ -69,7 +95,7 @@ Geometry Model::processMesh(aiMesh* p_mesh, const aiScene* p_scene)
         vector.z = p_mesh->mVertices[i].z;
         vertex.Position = vector;
       
-        // normals
+        // Normals
         if (p_mesh->HasNormals())
         {
             vector.x = p_mesh->mNormals[i].x;
@@ -77,7 +103,7 @@ Geometry Model::processMesh(aiMesh* p_mesh, const aiScene* p_scene)
             vector.z = p_mesh->mNormals[i].z;
             vertex.Normal = vector;
         }
-        // texture coordinates
+        // Tex coords
         if (p_mesh->mTextureCoords[0]) 
         {
             glm::vec2 vec;
@@ -91,7 +117,7 @@ Geometry Model::processMesh(aiMesh* p_mesh, const aiScene* p_scene)
         vertices.push_back(vertex);
     }
 
-    // indices.
+    // Indices
     for (unsigned int i = 0; i < p_mesh->mNumFaces; i++)
     {
         aiFace face = p_mesh->mFaces[i];
@@ -99,6 +125,7 @@ Geometry Model::processMesh(aiMesh* p_mesh, const aiScene* p_scene)
             indices.push_back(face.mIndices[j]);
     }
 
+    // Materials
     if (p_mesh->mMaterialIndex >= 0)
     {
         aiMaterial* material = p_scene->mMaterials[p_mesh->mMaterialIndex];
@@ -113,6 +140,15 @@ Geometry Model::processMesh(aiMesh* p_mesh, const aiScene* p_scene)
     return Geometry(vertices, indices, textures);
 }
 
+// By Thomas Beet 
+// Followed https://learnopengl.com/Model-Loading/Assimp
+/// <summary>
+/// Loads material textures for a mesh
+/// </summary>
+/// <param name="p_mat">Material</param>
+/// <param name="p_type">Material type</param>
+/// <param name="p_typeName">type in string form</param>
+/// <returns>List of mesh textures</returns>
 std::vector<Texture> Model::loadMaterialTextures(aiMaterial* p_mat, aiTextureType p_type, std::string p_typeName)
 {
     std::vector<Texture> textures;
@@ -133,7 +169,7 @@ std::vector<Texture> Model::loadMaterialTextures(aiMaterial* p_mat, aiTextureTyp
         if (!skip)
         {   // if texture hasn't been loaded already, load it
             Texture texture;
-            texture.id = ResourceManager::LoadTexture(str.C_Str(), m_directory);
+            texture.id = ResourceManager::LoadTexture(str.C_Str(), m_directory); // Load texture using resource manager
             texture.type = p_typeName;
             texture.path = str.C_Str();
             textures.push_back(texture);
@@ -143,43 +179,8 @@ std::vector<Texture> Model::loadMaterialTextures(aiMaterial* p_mat, aiTextureTyp
     return textures;
 }
 
-unsigned int Model::TextureFromFile(const char* path, const std::string& p_directory)
+void Model::ClearData()
 {
-    std::string filename = std::string(path);
-    filename = p_directory + '/' + filename;
-
-    unsigned int textureID;
-    glGenTextures(1, &textureID);
-
-    int width, height, nrComponents;
-    unsigned char* data = stbi_load(filename.c_str(), &width, &height, &nrComponents, 0);
-    if (data)
-    {
-        GLenum format;
-        if (nrComponents == 1)
-            format = GL_RED;
-        else if (nrComponents == 3)
-            format = GL_RGB;
-        else if (nrComponents == 4)
-            format = GL_RGBA;
-
-        glBindTexture(GL_TEXTURE_2D, textureID);
-        glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
-
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-        stbi_image_free(data);
-    }
-    else
-    {
-        std::cout << "Texture failed to load at path: " << path << std::endl;
-        stbi_image_free(data);
-    }
-
-    return textureID;
+    for (unsigned int i = 0; i < m_meshes.size(); i++)
+        m_meshes[i].ClearData();
 }
-

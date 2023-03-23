@@ -8,6 +8,7 @@
 #include "string"
 #include "cerrno"
 
+// Maps
 std::map<std::string, unsigned int*> ResourceManager::m_shaderMap;
 std::map<std::string, unsigned int*> ResourceManager::m_textureMap;
 std::map<std::string, Model*> ResourceManager::m_modelMap;
@@ -70,9 +71,16 @@ bool ResourceManager::CompileShader(const GLenum& p_shaderType, const char* p_fi
 	return true;
 }
 
+// By Thomas Beet
+/// <summary>
+/// Creates a model object using a path to the model and returns a pointer to it, if the model has already been loaded a reference will be returned
+/// </summary>
+/// <param name="p_path">Model path</param>
+/// <returns>A pointer to a model</returns>
 Model* ResourceManager::LoadModel(char* p_path)
 {
 	// If the model already exists, return it
+	// Check the map
 
 	const std::size_t modelCount = m_modelMap.count(static_cast<std::string>(p_path)), modelLimit = 1;
 	if (modelCount == modelLimit)
@@ -87,6 +95,7 @@ Model* ResourceManager::LoadModel(char* p_path)
 	}
 }
 
+// By Thomas Beet
 /// <summary>
 /// Creates a shader program using the passed in shader paths
 /// </summary>
@@ -142,8 +151,16 @@ bool ResourceManager::CreateShaderProgram(unsigned int* p_sProgram, const char* 
 	return true;
 }
 
+// By Thomas Beet, Code written using help from https://learnopengl.com/Getting-started/Textures 
+/// <summary>
+/// Loads a texture using STBI
+/// </summary>
+/// <param name="p_path">Texture path</param>
+/// <param name="p_directory">Texture directory</param>
+/// <returns>Texture buffer</returns>
 unsigned int ResourceManager::LoadTexture(const char* p_path, const std::string& p_directory)
 {
+	// Check if it already exists
 	const std::size_t texCount = m_textureMap.count(static_cast<std::string>(p_path)), texLimit = 1;
 	if (texCount == texLimit)
 	{
@@ -151,6 +168,10 @@ unsigned int ResourceManager::LoadTexture(const char* p_path, const std::string&
 	}
 	else
 	{
+		// Used these tutorials
+		// https://learnopengl.com/Getting-started/Textures
+		// https://learnopengl.com/Model-Loading/Model
+
 		std::string filename = std::string(p_path);
 		filename = p_directory + '/' + filename;
 
@@ -186,17 +207,20 @@ unsigned int ResourceManager::LoadTexture(const char* p_path, const std::string&
 			stbi_image_free(data);
 		}
 
+		// Add loaded texture to map
 		m_textureMap.insert(std::pair<std::string, unsigned int*>(static_cast<std::string>(p_path), &textureID));
 		return textureID;
 	}	
 }
 
+// By Thomas Beet
 /// <summary>
 /// Delete stored resources
 /// </summary>
 void ResourceManager::DeleteResources()
 {
-	for (const auto& shader : m_shaderMap) {
+	for (const auto& shader : m_shaderMap) 
+	{
 		glDeleteProgram(*shader.second);
 	}
 	m_shaderMap.clear();
@@ -206,7 +230,8 @@ void ResourceManager::DeleteResources()
 	{
 		std::vector<GLuint> texIDs;
 
-		for (const auto& texture : m_textureMap) {
+		for (const auto& texture : m_textureMap) 
+		{
 			texIDs.push_back(static_cast<GLuint>(*texture.second));
 		}
 		glDeleteTextures(texIDs.size(), &texIDs[0]);
@@ -214,7 +239,9 @@ void ResourceManager::DeleteResources()
 		m_textureMap.clear();
 	}
 
-	for (const auto& model : m_modelMap) {
+	for (const auto& model : m_modelMap) 
+	{
+		model.second->ClearData();
 		delete model.second;
 	}
 

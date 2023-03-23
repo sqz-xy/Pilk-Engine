@@ -2,6 +2,7 @@
 
 #include "../Managers/SceneManager.h"
 
+// By Thomas Beet
 class Scene
 {
 	friend class SceneManager;

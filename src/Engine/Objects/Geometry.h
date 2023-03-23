@@ -2,8 +2,8 @@
 
 #include "../PilkEngineCommon.h"
 
-// https://ogldev.org/www/tutorial22/tutorial22.html
-// https://learnopengl.com/Model-Loading/Mesh
+// Written by Thomas Beet, done by following this model loading tutorial. Code has been changed to fit with this engine
+// https://learnopengl.com/Model-Loading/Assimp
 
 struct Vertex
 {
@@ -19,6 +19,8 @@ struct Texture
 	std::string path;
 };
 
+// By Thomas Beet 
+// Followed https://learnopengl.com/Model-Loading/Assimp
 class Geometry
 {
 public:
@@ -26,6 +28,7 @@ public:
 	~Geometry();
 
 	void Draw(int pShaderHandle);
+	void ClearData();
 
 	std::vector<Vertex> m_vertices;
 	std::vector<Texture> m_textures;
