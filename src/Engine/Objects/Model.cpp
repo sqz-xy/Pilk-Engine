@@ -133,36 +133,15 @@ std::vector<Texture> Model::loadMaterialTextures(aiMaterial* p_mat, aiTextureTyp
         if (!skip)
         {   // if texture hasn't been loaded already, load it
             Texture texture;
-            //ResourceManager::LoadTexture(str.C_Str(), m_directory, texture.id);
-            texture.id = TextureFromFile(str.C_Str(), m_directory);
+            texture.id = ResourceManager::LoadTexture(str.C_Str(), m_directory);
             texture.type = p_typeName;
             texture.path = str.C_Str();
             textures.push_back(texture);
-            m_textures.push_back(texture); // add to loaded textures
+            m_textures.push_back(texture);
         }
     }
     return textures;
 }
-
-
-/*
-std::vector<Texture> Model::loadMaterialTextures(aiMaterial* p_mat, aiTextureType p_type, std::string p_typeName)
-{
-    std::vector<Texture> textures;
-    unsigned int textureID = 0;
-    for (unsigned int i = 0; i < p_mat->GetTextureCount(p_type); i++)
-    {
-        aiString str;
-        p_mat->GetTexture(p_type, i, &str);
-        Texture texture;
-        ResourceManager::LoadTexture(str.C_Str(), m_directory, textureID);
-        texture.id = textureID;
-        texture.type = p_type;
-    }
-    return textures;
-}
-
-*/
 
 unsigned int Model::TextureFromFile(const char* path, const std::string& p_directory)
 {

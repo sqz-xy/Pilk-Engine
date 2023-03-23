@@ -10,7 +10,7 @@ class ResourceManager final
 public:
 	explicit ResourceManager() = delete;
 	static bool CreateShaderProgram(unsigned int* p_sProgram, const char* p_vertFileName, const char* p_fragFileName);
-	static bool LoadTexture(const char* p_path, const std::string& p_directory, unsigned int& p_textureID);
+	static unsigned int LoadTexture(const char* p_path, const std::string& p_directory);
 	static Model* LoadModel(char* p_path);
 	static void DeleteResources();
 

@@ -70,57 +70,6 @@ bool ResourceManager::CompileShader(const GLenum& p_shaderType, const char* p_fi
 	return true;
 }
 
-bool ResourceManager::LoadTexture(const char* p_path, const std::string& p_directory, unsigned int& p_textureID)
-{
-	// If the texture already exists, return its id
-	const std::size_t texCount = m_shaderMap.count(static_cast<std::string>(p_path)), texLimit = 1;
-	if (texCount == texLimit)
-	{
-		p_textureID = *m_shaderMap.at(static_cast<std::string>(p_path));
-		return true;
-	}
-
-	std::string filename = std::string(p_path);
-	filename = p_directory + '/' + filename;
-
-	unsigned int textureID;
-	glGenTextures(1, &textureID);
-
-	int width, height, nrComponents;
-	unsigned char* data = stbi_load(filename.c_str(), &width, &height, &nrComponents, 0);
-	if (data)
-	{
-		GLenum format;
-		if (nrComponents == 1)
-			format = GL_RED;
-		else if (nrComponents == 3)
-			format = GL_RGB;
-		else if (nrComponents == 4)
-			format = GL_RGBA;
-
-		glBindTexture(GL_TEXTURE_2D, textureID);
-		glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
-		glGenerateMipmap(GL_TEXTURE_2D);
-
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-		stbi_image_free(data);
-	}
-	else
-	{
-		std::cout << "Texture failed to load at path: " << p_path << std::endl;
-		stbi_image_free(data);
-		return false;
-	}
-
-	return true;
-	m_textureMap.insert(std::pair<std::string, unsigned int* >(static_cast<std::string>(p_path), &textureID));
-	p_textureID = textureID;
-}
-
 Model* ResourceManager::LoadModel(char* p_path)
 {
 	// If the model already exists, return it
@@ -191,6 +140,55 @@ bool ResourceManager::CreateShaderProgram(unsigned int* p_sProgram, const char* 
 	m_shaderMap.insert(std::pair <std::string, unsigned int* > (static_cast<std::string>(shaderSig), p_sProgram));
 
 	return true;
+}
+
+unsigned int ResourceManager::LoadTexture(const char* p_path, const std::string& p_directory)
+{
+	const std::size_t texCount = m_textureMap.count(static_cast<std::string>(p_path)), texLimit = 1;
+	if (texCount == texLimit)
+	{
+		return *m_textureMap.at(static_cast<std::string>(p_path));
+	}
+	else
+	{
+		std::string filename = std::string(p_path);
+		filename = p_directory + '/' + filename;
+
+		unsigned int textureID;
+		glGenTextures(1, &textureID);
+
+		int width, height, nrComponents;
+		unsigned char* data = stbi_load(filename.c_str(), &width, &height, &nrComponents, 0);
+		if (data)
+		{
+			GLenum format;
+			if (nrComponents == 1)
+				format = GL_RED;
+			else if (nrComponents == 3)
+				format = GL_RGB;
+			else if (nrComponents == 4)
+				format = GL_RGBA;
+
+			glBindTexture(GL_TEXTURE_2D, textureID);
+			glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+			glGenerateMipmap(GL_TEXTURE_2D);
+
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+			stbi_image_free(data);
+		}
+		else
+		{
+			std::cout << "Texture failed to load at path: " << p_path << std::endl;
+			stbi_image_free(data);
+		}
+
+		m_textureMap.insert(std::pair<std::string, unsigned int*>(static_cast<std::string>(p_path), &textureID));
+		return textureID;
+	}	
 }
 
 /// <summary>
