@@ -3,15 +3,7 @@
 #include "SceneManager.h"
 
 #include "../Scenes/MainMenuScene.cpp"
-
-#include "glad.h"
-#include "glfw3.h"
-#include "imgui_impl_opengl3.h"
-#include "imgui_impl_glfw.h"
-
-#include <iostream>
-
-#define MOUSE_CONTROL_ENABLED 1;
+#include "../PilkEngineCommon.h"
 
 SceneManager::SceneManager(const int p_width, const int p_height, char* p_windowName) : m_currentScene(nullptr), m_width(p_width), m_height(p_height), m_windowName(p_windowName)
 {
@@ -30,6 +22,7 @@ SceneManager::~SceneManager()
     m_currentScene = nullptr;
 }
 
+// By Thomas Beet
 /// <summary>
 /// Runs the program mainloop
 /// </summary>
@@ -54,7 +47,6 @@ int SceneManager::Run()
 
 #if MOUSE_CONTROL_ENABLED
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-    m_mouseControl = true;
 #endif
 
     // Initialize GLAD as it manages opengl function pointers
@@ -129,6 +121,7 @@ int SceneManager::Run()
     return 0;
 }
 
+// By Thomas Beet
 /// <summary>
 /// Changes the current scene, deletes the previous
 /// </summary>
@@ -163,6 +156,7 @@ SceneManager& SceneManager::operator=(const SceneManager& p_rhs)
     return *this;
 }
 
+// By Thomas Beet
 /// <summary>
 /// Load logic for current scene
 /// </summary>
@@ -171,6 +165,7 @@ void SceneManager::Load()
     m_currentScene->Load();
 }
 
+// By Thomas Beet
 /// <summary>
 /// Render logic for current scene
 /// </summary>
@@ -197,7 +192,7 @@ void SceneManager::Update(const float p_dt)
 /// <param name="p_window">The current window</param>
 void SceneManager::processInput(GLFWwindow* p_window, const float p_dt)
 {
-    m_currentScene->ProcessInput(p_window, p_dt, m_mouseControl);
+    m_currentScene->ProcessInput(p_window, p_dt);
 }
 
 

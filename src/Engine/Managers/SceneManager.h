@@ -6,6 +6,7 @@
 #include "..\Scenes\Scene.h"
 #include "../Scenes/SceneTypes.h"
 
+// By Thomas Beet
 class SceneManager
 {
 	friend class Scene;
