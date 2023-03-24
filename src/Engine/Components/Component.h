@@ -72,23 +72,21 @@ private:
 };
 
 
-//ComponentVelocity created by Eryk
+//ComponentVelocity created by Eryk, edited by Thomas Beet
 class ComponentVelocity : public Component
 {
 public:
-	ComponentVelocity(const float p_x, const float p_y, const float p_Z) 
+	ComponentVelocity(const float p_x, const float p_y, const float p_z)
 	{
-		m_velocity = new vec3(p_x, p_y, p_z);
+		m_velocity = vec3(p_x, p_y, p_z);
 	}
 
-	vec3 m_velocity;
-
-	ComponentVelocity(vec3 p_velocity) 
+	ComponentVelocity(vec3 p_velocity)
 	{
 		m_velocity = p_velocity;
 	}
 
-	vec3 ComponentVelocity::GetVelocity
+	vec3 ComponentVelocity::GetVelocity()
 	{
 		return m_velocity;
 	}
@@ -97,26 +95,30 @@ public:
 	{
 		m_velocity = p_velocity;
 	}
-}
 
-//ComponentCollisionSphere created by Eryk
+private:
+	vec3 m_velocity;
+};
+
+//ComponentCollisionSphere created by Eryk, edited by Thomas Beet
 class ComponentCollisionSphere : public Component
 {
 public:
-	ComponentCollisionSphere(float p_radius) 
+	ComponentCollisionSphere(float p_radius)
 	{
 		m_radius = p_radius;
 	}
 
-	float m_radius;
-
-	float ComponentCollisionSphere::GetCollisionSphere
+	float ComponentCollisionSphere::GetCollisionSphere()
 	{
 		return m_radius;
 	}
 
-	void ComponentCollisionSphere::SetCollisionSphere(vec3 p_radius)
+	void ComponentCollisionSphere::SetCollisionSphere(float p_radius)
 	{
 		m_radius = p_radius;
 	}
-}
+
+private:
+	float m_radius;
+};
