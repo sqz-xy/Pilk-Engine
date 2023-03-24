@@ -35,16 +35,22 @@ public:
 
 	Camera* m_Camera;
 
-	ComponentTransform* m_transformation = new ComponentTransform(glm::vec3(0.6f, 0.5f, 2.0f), glm::vec3(45.0f, 0.0f, 0.0f), glm::vec3(3.0f, 1.0f, 1.0f));
+	ComponentTransform* m_transformation = new ComponentTransform(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+
+	SystemPhysics* m_systemPhysicsTest = new SystemPhysics();
+	Entity* m_testEntity;
 
 	explicit PeterTestScene(SceneManager* pSceneManager) : Scene(pSceneManager)
 	{
 		m_sceneManager->m_windowName = "PeterTestScene";
 
+		glm::vec3 camPos = glm::vec3(0.0f, 0.0f, -2.0f);
+		glm::vec3 camTarget = glm::vec3(0.0f, 0.0f, 0.0f);
+
 		m_Camera = new Camera(
-			glm::vec3(0.0f, 0.5f, 0.0f),	// camPos
-			glm::vec3(0.0f, 0.0f, -2.0f),  // camTarget
-			glm::vec3(glm::normalize(glm::vec3(0.0f, 0.0f, 0.0f) - glm::vec3(0.0f, 0.0f, -2.0f))), // cam direction 
+			camPos,	// camPos
+			camTarget,  // camTarget
+			glm::vec3(glm::normalize(camPos - camTarget)), // cam direction 
 			glm::vec3(0.0f, 1.0f, 0.0f),	// cam up
 			m_sceneManager->m_width,	// windows width
 			m_sceneManager->m_height);	// window height
@@ -53,10 +59,11 @@ public:
 		m_modelMat = glm::translate(glm::mat4(1.0f), modelPos); // translatng the model in the matrix
 		m_modelMat2 = glm::translate(glm::mat4(1.0f), modelPos2);
 
-		Entity* entity = new Entity("Test Entity");
-		entity->AddComponent(new ComponentTransform(glm::vec3(0.6f, 0.5f, 2.0f), glm::vec3(45.0f, 0.0f, 0.0f), glm::vec3(3.0f, 1.0f, 1.0f)));
-		ComponentTransform* component = entity->GetComponent<ComponentTransform>();
+		m_testEntity = new Entity("Test Entity");
+		m_testEntity->AddComponent(m_transformation);
+		ComponentTransform* component = m_testEntity->GetComponent<ComponentTransform>();
 		component->m_rotation = glm::vec3(0.6f, 0.5f, 2.0f);
+		m_systemPhysicsTest->UpdateEntity(m_testEntity);
 	}
 
 	~PeterTestScene() override
@@ -79,15 +86,25 @@ public:
 		glUniformMatrix4fv(glGetUniformLocation(m_shaderProgramID, "uModel"), 1, GL_FALSE, &m_transformation->m_transform[0][0]);
 		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 
-		glUniformMatrix4fv(glGetUniformLocation(m_shaderProgramID, "uModel"), 1, GL_FALSE, &m_modelMat2[0][0]);
-		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+		//glUniformMatrix4fv(glGetUniformLocation(m_shaderProgramID, "uModel"), 1, GL_FALSE, &m_modelMat2[0][0]);
+		//glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 
 
-		ImVec2 vec(100, 50);
+		ImVec2 vec(300, 300);
+		
 		//std::cout << "Rendering" << std::endl;
 		ImGui::Begin("ImGui Test");
+		ImGui::SetWindowSize(vec);
 		ImGui::Text("Delta time %f", p_dt);
 		ImGui::ColorEdit4("Colour", m_colour);
+		
+
+		glm::vec3 translation = m_testEntity->GetComponent<ComponentTransform>()->m_translation;
+		ImGui::Text("componentXYZ %f %f %f", translation.x, translation.y, translation.z);
+
+		glm::vec3 rotation = m_testEntity->GetComponent<ComponentTransform>()->m_rotation;
+		ImGui::Text("componentXYZ %f %f %f", rotation.x, rotation.y, rotation.z);
+
 		bool button = ImGui::Button("Main Menu", vec);
 
 		if (button)
@@ -104,6 +121,8 @@ public:
 	{
 		glUseProgram(m_shaderProgramID);
 		m_Camera->UpdateCamera(m_shaderProgramID);
+		m_systemPhysicsTest->OnAction(p_dt);
+		ComponentTransform* component = m_testEntity->GetComponent<ComponentTransform>();
 	}
 
 	void Load() override
