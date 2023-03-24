@@ -41,6 +41,17 @@ public:
 
 	/// Original Author: Piotr Moskala.
 	/// <summary>
+	/// Removes a specific component from the entity and frees it from memory.
+	/// </summary>
+	/// <param name="p_component"> Component to remove. </param>
+	void RemoveComponent(Component* p_component)
+	{
+		m_components.erase(std::remove(m_components.begin(), m_components.end(), p_component), m_components.end());
+		delete p_component;
+	}
+
+	/// Original Author: Piotr Moskala.
+	/// <summary>
 	/// Returns the Component pointer of the specified type if one exists in the Entity.
 	/// </summary>
 	/// <typeparam name="T"> The type of Component to check for. </typeparam>
