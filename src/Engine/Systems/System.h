@@ -57,7 +57,7 @@ public:
 	bool ContainsEntity(Entity* p_entity)
 	{
 		// Empty
-		if (!validEntities.empty())
+		if (validEntities.empty())
 			return false;
 
 		// Entity is found
@@ -99,9 +99,10 @@ public:
 			ComponentTransform* componentTransform = entity->GetComponent<ComponentTransform>();
 			if (componentTransform == nullptr) return;
 
-			// TODO: Replace with component Physics/Velocity/etc.
-			glm::vec3 newTranslation = componentTransform->m_translation + glm::vec3(1.0f * p_deltaTime, 0.0f, 0.0f);
-			componentTransform->UpdateTranslation(newTranslation);
+			// TODO: Calculate new transformation with component Physics/Velocity/etc.
+			
+			/*glm::vec3 newTranslation = componentTransform->m_translation + glm::vec3(0.0f, 0.0f, 0.2f * p_deltaTime);
+			componentTransform->UpdateTranslation(newTranslation); */ // Remove these when TODO complete
 		}
 	}
 
