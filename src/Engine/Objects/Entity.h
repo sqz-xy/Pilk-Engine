@@ -10,9 +10,9 @@
 class Entity
 {
 public:
+	/// Original Author : Piotr Moskala.
 	/// <summary>
 	/// Constructs an Entity.
-	/// <para> Original Author: Piotr Moskala. </para>
 	/// </summary>
 	/// <param name="p_name"> The Entity's name. </param>
 	explicit Entity(char* p_name)
@@ -20,18 +20,18 @@ public:
 		m_name = p_name;
 	}
 
+	/// Original Author: Piotr Moskala.
 	/// <summary>
 	/// Returns the name of the Entity.
-	/// <para> Original Author: Piotr Moskala. </para>
 	/// </summary>
 	char* GetName()
 	{
 		return m_name;
 	}
 
+	/// Original Author: Piotr Moskala.
 	/// <summary>
 	/// Adds the specified Component pointer to the Entity's vector of Component pointers.
-	/// <para> Original Author: Piotr Moskala. </para>
 	/// </summary>
 	/// <param name="p_component"> The Component pointer to add. </param>
 	void AddComponent(Component* p_component)
@@ -39,9 +39,9 @@ public:
 		m_components.push_back(p_component);
 	}
 
+	/// Original Author: Piotr Moskala.
 	/// <summary>
 	/// Returns the Component pointer of the specified type if one exists in the Entity.
-	/// <para> Original Author: Piotr Moskala. </para>
 	/// </summary>
 	/// <typeparam name="T"> The type of Component to check for. </typeparam>
 	/// <returns> The Component pointer of the specified type, or nullptr if there is no match. </returns>
