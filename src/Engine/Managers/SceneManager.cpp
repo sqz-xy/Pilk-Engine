@@ -5,14 +5,6 @@
 #include "../Scenes/MainMenuScene.cpp"
 #include "../Scenes/PeterTestScene.cpp"
 
-#include "glad.h"
-#include "glfw3.h"
-#include "imgui_impl_opengl3.h"
-#include "imgui_impl_glfw.h"
-
-#include <iostream>
-
-#define MOUSE_CONTROL_ENABLED 1;
 #include "../PilkEngineCommon.h"
 
 SceneManager::SceneManager(const int p_width, const int p_height, char* p_windowName) : m_currentScene(nullptr), m_width(p_width), m_height(p_height), m_windowName(p_windowName)
@@ -143,10 +135,10 @@ void SceneManager::ChangeScene(const SceneTypes p_sceneType)
         delete m_currentScene;
         m_currentScene = new MainMenuScene(this);
         break;
-    case PeterTestSene:
-        delete m_currentScene;
-        m_currentScene = new PeterTestScene(this);
-        break;
+    //case PeterTestSene:
+    //    delete m_currentScene;
+    //    m_currentScene = new PeterTestScene(this);
+    //    break;
     default:
         delete m_currentScene;
         m_currentScene = new MainMenuScene(this);
