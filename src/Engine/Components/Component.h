@@ -71,29 +71,52 @@ private:
 
 };
 
-//struct ComponentTransform 
-//{
-//	glm::vec3 Position;
-//	glm::vec3 Rotation;
-//	glm::vec3 Scale;
-//
-//	glm::mat4 Transform;
-//
-//	ComponentTransform(glm::vec3 p_pos, glm::vec3 p_rot, glm::vec3 p_scale)
-//	{
-//		Position = p_pos;
-//		Rotation = p_rot;
-//		Scale = p_scale;
-//
-//		UpdateMatrix(p_pos, p_rot, p_scale);
-//	}
-//
-//	ComponentTransform::UpdateMatrix(glm::vec3 p_pos, glm::vec3 p_rot, glm::vec3 p_scale)
-//	{
-//		glm::mat4 identity(1.0f);
-//
-//		// Create matrices for pos, rotxyz and scale
-//
-//		// Transform *= ...
-//	}
-//};
+
+//ComponentVelocity created by Eryk
+class ComponentVelocity : public Component
+{
+public:
+	ComponentVelocity(const float p_x, const float p_y, const float p_Z) 
+	{
+		m_velocity = new vec3(p_x, p_y, p_z);
+	}
+
+	vec3 m_velocity;
+
+	ComponentVelocity(vec3 p_velocity) 
+	{
+		m_velocity = p_velocity;
+	}
+
+	vec3 ComponentVelocity::GetVelocity
+	{
+		return m_velocity;
+	}
+
+	void ComponentVelocity::SetVelocity(vec3 p_velocity)
+	{
+		m_velocity = p_velocity;
+	}
+}
+
+//ComponentCollisionSphere created by Eryk
+class ComponentCollisionSphere : public Component
+{
+public:
+	ComponentCollisionSphere(float p_radius) 
+	{
+		m_radius = p_radius;
+	}
+
+	float m_radius;
+
+	float ComponentCollisionSphere::GetCollisionSphere
+	{
+		return m_radius;
+	}
+
+	void ComponentCollisionSphere::SetCollisionSphere(vec3 p_radius)
+	{
+		m_radius = p_radius;
+	}
+}

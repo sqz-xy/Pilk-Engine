@@ -31,4 +31,4 @@
 #include "stb_image.h"
 
 // Variables
-#define MOUSE_CONTROL_ENABLED 0;
+#define MOUSE_CONTROL_ENABLED 1;
