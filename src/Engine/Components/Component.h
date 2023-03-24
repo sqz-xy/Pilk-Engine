@@ -62,15 +62,13 @@ private:
 
 		mat4 translation_mat = translate(identity, m_translation);
 
-		mat4 scale_mat = scale(identity, m_scale);
+		mat4 scale_mat = scale(translation_mat, m_scale);
 
-		mat4 x_rotate = rotate(identity, m_rotation.x, vec3(1,0,0));
-		mat4 y_rotate = rotate(identity, m_rotation.y, vec3(0,1,0));
-		mat4 z_rotate = rotate(identity, m_rotation.z, vec3(0,0,1));
+		mat4 x_rotate = rotate(scale_mat, m_rotation.x, vec3(1,0,0));
+		mat4 y_rotate = rotate(x_rotate, m_rotation.y, vec3(0,1,0));
+		mat4 z_rotate = rotate(y_rotate, m_rotation.z, vec3(0,0,1));
 
-		mat4 rotate = x_rotate * y_rotate * z_rotate;
-
-		m_transform = translation_mat;
+		m_transform = z_rotate;
 	}
 
 };
