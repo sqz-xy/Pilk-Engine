@@ -1,19 +1,11 @@
 #pragma once
 
 #include "Scene.h"
-
-#include "imgui_impl_opengl3.h"
-
-#include "glm.hpp"
-#include "gtc/matrix_transform.hpp"
-#include "gtc/type_ptr.hpp"
-#include "iostream"
-#include "ostream"
-#include "string"
-
 #include "../Managers/ResourceManager.h"
 #include "../Utility/Camera.h"	
-#include "../Components/Component.h"
+#include "../PilkEngineCommon.h"
+#include "../Objects/Geometry.h"
+#include "../Objects/Model.h"
 
 
 class MainMenuScene : public Scene
@@ -21,7 +13,6 @@ class MainMenuScene : public Scene
 public:
 
 	// TODO: Remove after refactor
-	unsigned int m_vao;
 	unsigned int m_shaderProgramID;
 	float* m_colour = new float[4] { 1.0f, 0.5f, 0.2f, 1.0f };
 
@@ -33,7 +24,8 @@ public:
 	
 	Camera* m_Camera;
 
-	ComponentTransform* m_transformation = new  ComponentTransform(glm::vec3(0.6f, 0.5f, 2.0f), glm::vec3(45.0f, 0.0f, 0.0f), glm::vec3(3.0f, 1.0f, 1.0f));
+	Model* m_backpack;
+	Model* m_backpack2;
 
 	explicit MainMenuScene(SceneManager* pSceneManager) : Scene(pSceneManager)
 	{
@@ -70,16 +62,12 @@ public:
 		
 		m_Camera->UpdateCamera(m_shaderProgramID);
 
-		glBindVertexArray(m_vao); 
-
-		// Draw two cubes
-		glUniformMatrix4fv(glGetUniformLocation(m_shaderProgramID, "uModel"), 1, GL_FALSE, &m_transformation->m_transform[0][0]);
-		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+		glUniformMatrix4fv(glGetUniformLocation(m_shaderProgramID, "uModel"), 1, GL_FALSE, &m_modelMat[0][0]);
+		m_backpack2->Draw(m_shaderProgramID);
 
 		glUniformMatrix4fv(glGetUniformLocation(m_shaderProgramID, "uModel"), 1, GL_FALSE, &m_modelMat2[0][0]);
-		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+		m_backpack->Draw(m_shaderProgramID);
 
-	
 		ImVec2 vec(100, 50);
 		//std::cout << "Rendering" << std::endl;
 		ImGui::Begin("ImGui Test");
@@ -90,8 +78,6 @@ public:
 		if (button)
 			m_sceneManager->ChangeScene(MainMenu);
 
-
-		
 		glUseProgram(0);
 
 		ImGui::End();
@@ -105,79 +91,15 @@ public:
 
 	void Load() override
 	{
-		float vertices[] = {
-		 -0.2f, -0.2f, -0.2f,
-		0.2f, -0.2f, -0.2f,
-		-0.2f, 0.2f, -0.2f,
-		0.2f, 0.2f, -0.2f,
-		-0.2f, -0.2f, 0.2f,
-		0.2f, -0.2f, 0.2f,
-		-0.2f, 0.2f, 0.2f,
-		0.2f, 0.2f, 0.2f,
-		0.2f, -0.2f, -0.2f,
-		0.2f, -0.2f, 0.2f,
-		0.2f, 0.2f, -0.2f,
-		0.2f, 0.2f, 0.2f,
-		-0.2f, -0.2f, -0.2f,
-		-0.2f, -0.2f, 0.2f,
-		-0.2f, 0.2f, -0.2f,
-		-0.2f, 0.2f, 0.2f,
-		-0.2f, -0.2f, -0.2f,
-		-0.2f, -0.2f, 0.2f,
-		0.2f, -0.2f, -0.2f,
-		0.2f, -0.2f, 0.2f,
-		-0.2f, 0.2f, -0.2f,
-		-0.2f, 0.2f, 0.2f,
-		0.2f, 0.2f, -0.2f,
-		0.2f, 0.2f, 0.2f
-		};
+		stbi_set_flip_vertically_on_load(true);
 
-		unsigned int indices[] = {
-			1, 0, 2,
-		1, 2, 3,
-		4, 5, 6,
-		6, 5, 7,
-		9, 8, 10,
-		9, 10, 11,
-		12, 13, 14,
-		14, 13, 15,
-		17, 16, 18,
-		17, 18, 19,
-		20, 21, 22,
-		22, 21, 23
-		};
+		m_backpack = ResourceManager::LoadModel("resources/models/backpack/backpack.obj");
+		m_backpack2 = ResourceManager::LoadModel("resources/models/backpack/backpack.obj");
 
-		unsigned int VBO, VAO, EBO;
-
-		glGenVertexArrays(1, &VAO);
-		glGenBuffers(1, &VBO);
-		glGenBuffers(1, &EBO);
-
-		glBindVertexArray(VAO);
-
-		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-		glEnableVertexAttribArray(0);
-
-		
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		glBindVertexArray(0);
-
-		// Creates a shader program
-		unsigned int shaderProgram;
-		if (!ResourceManager::CreateShaderProgram(&shaderProgram, "resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag")) return;
-
-		
-		m_vao = VAO;
-		m_shaderProgramID = shaderProgram;	
+		if (!ResourceManager::CreateShaderProgram(&m_shaderProgramID, "resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag")) return;
 	}
 
-	void ProcessInput(GLFWwindow* p_window, const float p_dt, bool p_mouseInput) override
+	void ProcessInput(GLFWwindow* p_window, const float p_dt) override
 	{
 		// Exit if escape key is pressed
 		if (glfwGetKey(p_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -195,12 +117,11 @@ public:
 		if (glfwGetKey(p_window, GLFW_KEY_D) == GLFW_PRESS)
 			m_Camera->MoveCamera(m_Camera->Right, 2.5f, p_dt);
 
-		if (p_mouseInput) 
-		{
-			double xpos, ypos;
-			glfwGetCursorPos(p_window, &xpos, &ypos);
-			m_Camera->RotateCamera(glm::vec2(xpos, ypos));
-		}	
+#if MOUSE_CONTROL_ENABLED
+		double xpos, ypos;
+		glfwGetCursorPos(p_window, &xpos, &ypos);
+		m_Camera->RotateCamera(glm::vec2(xpos, ypos));
+#endif		
 	}
 
     void Close() override
