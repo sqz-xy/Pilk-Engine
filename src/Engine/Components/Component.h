@@ -72,7 +72,7 @@ private:
 };
 
 
-//ComponentVelocity created by Eryk, edited by Thomas Beet
+//ComponentVelocity created by Eryk
 class ComponentVelocity : public Component
 {
 public:
@@ -100,7 +100,7 @@ private:
 	vec3 m_velocity;
 };
 
-//ComponentCollisionSphere created by Eryk, edited by Thomas Beet
+//ComponentCollisionSphere created by Eryk
 class ComponentCollisionSphere : public Component
 {
 public:

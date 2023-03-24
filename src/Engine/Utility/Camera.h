@@ -17,8 +17,8 @@ public:
 		Right
 	};
 
-	float m_yaw;
-	float m_pitch;
+	float m_yaw = 0;
+	float m_pitch = 0;
 	float m_sens;
 	float m_zoom;
 
@@ -28,12 +28,12 @@ public:
 	glm::vec3 m_cameraTarget;
 	glm::vec3 m_cameraDirection;
 	glm::vec3 m_cameraRight;
-	glm::vec3 m_cameraUp;
+	const glm::vec3 m_cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
 	glm::mat4 m_view;
 	glm::mat4 m_projection;
 
-	explicit Camera(const glm::vec3 p_pos, const glm::vec3 p_target, const glm::vec3 p_direction, const glm::vec3 p_cameraUp, const float p_width, const float p_height);
+	explicit Camera(const glm::vec3 p_pos, const glm::vec3 p_target, const float p_width, const float p_height);
 	~Camera();
 
 	void MoveCamera(const Direction p_direction, const float p_distance, const float p_dt);

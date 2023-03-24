@@ -59,9 +59,8 @@ int SceneManager::Run()
     // Set viewport dimensions
     glViewport(0, 0, m_width, m_height);
 
-    // Resize callback
-    //glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-
+    glfwSetWindowUserPointer(window, this);
+    // Resize callback   
     // ImGUI Init
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -194,5 +193,3 @@ void SceneManager::processInput(GLFWwindow* p_window, const float p_dt)
 {
     m_currentScene->ProcessInput(p_window, p_dt);
 }
-
-

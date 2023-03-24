@@ -13,7 +13,7 @@ class MainMenuScene : public Scene
 {
 public:
 
-	ComponentTransform* m_transformation = new  ComponentTransform(glm::vec3(0.6f, 0.5f, 2.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+	ComponentTransform* m_transformation = new  ComponentTransform(glm::vec3(0.0f, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
 
 	// TODO: Remove after refactor
 	unsigned int m_shaderProgramID;
@@ -34,10 +34,8 @@ public:
 	{
 		m_sceneManager->m_windowName = "MainMenuScene";
 		
-		m_Camera = new Camera(	glm::vec3(0.0f,0.5f,0.0f),	// camPos
-								glm::vec3(0.0f,0.0f,-2.0f),  // camTarget
-								glm::vec3(glm::normalize(glm::vec3(0.0f, 0.0f, 0.0f) - glm::vec3(0.0f, 0.0f, -2.0f))), // cam direction 
-								glm::vec3(0.0f,1.0f,0.0f),	// cam up
+		m_Camera = new Camera(	glm::vec3(0.0f,0.0f,-5.0f),	// camPos
+								glm::vec3(0.0f,0.0f,5.0f),  // camTarget
 								m_sceneManager->m_width,	// windows width
 								m_sceneManager->m_height);	// window height
 
