@@ -9,8 +9,10 @@ using namespace glm;
 class Component 
 {
 public:
+	virtual ~Component()
+	{
 
-	//virtual ~Component();
+	}
 
 private:
 
