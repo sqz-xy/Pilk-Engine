@@ -13,10 +13,11 @@
 #include <iostream>
 
 #define MOUSE_CONTROL_ENABLED 1;
+#include "../PilkEngineCommon.h"
 
 SceneManager::SceneManager(const int p_width, const int p_height, char* p_windowName) : m_currentScene(nullptr), m_width(p_width), m_height(p_height), m_windowName(p_windowName)
 {
-    m_currentScene = new PeterTestScene(this);
+    m_currentScene = new MainMenuScene(this);
 }
 
 SceneManager::SceneManager(const SceneManager& p_sceneManager) : m_currentScene(p_sceneManager.m_currentScene), m_width(p_sceneManager.m_width), m_height(p_sceneManager.m_height), m_windowName(p_sceneManager.m_windowName)
@@ -31,6 +32,7 @@ SceneManager::~SceneManager()
     m_currentScene = nullptr;
 }
 
+// By Thomas Beet
 /// <summary>
 /// Runs the program mainloop
 /// </summary>
@@ -55,7 +57,6 @@ int SceneManager::Run()
 
 #if MOUSE_CONTROL_ENABLED
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-    m_mouseControl = true;
 #endif
 
     // Initialize GLAD as it manages opengl function pointers
@@ -68,9 +69,8 @@ int SceneManager::Run()
     // Set viewport dimensions
     glViewport(0, 0, m_width, m_height);
 
-    // Resize callback
-    //glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-
+    glfwSetWindowUserPointer(window, this);
+    // Resize callback   
     // ImGUI Init
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -130,6 +130,7 @@ int SceneManager::Run()
     return 0;
 }
 
+// By Thomas Beet
 /// <summary>
 /// Changes the current scene, deletes the previous
 /// </summary>
@@ -168,6 +169,7 @@ SceneManager& SceneManager::operator=(const SceneManager& p_rhs)
     return *this;
 }
 
+// By Thomas Beet
 /// <summary>
 /// Load logic for current scene
 /// </summary>
@@ -176,6 +178,7 @@ void SceneManager::Load()
     m_currentScene->Load();
 }
 
+// By Thomas Beet
 /// <summary>
 /// Render logic for current scene
 /// </summary>
@@ -202,7 +205,5 @@ void SceneManager::Update(const float p_dt)
 /// <param name="p_window">The current window</param>
 void SceneManager::processInput(GLFWwindow* p_window, const float p_dt)
 {
-    m_currentScene->ProcessInput(p_window, p_dt, m_mouseControl);
+    m_currentScene->ProcessInput(p_window, p_dt);
 }
-
-

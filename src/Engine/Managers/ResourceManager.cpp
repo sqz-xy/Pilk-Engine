@@ -8,7 +8,10 @@
 #include "string"
 #include "cerrno"
 
+// Maps
 std::map<std::string, unsigned int*> ResourceManager::m_shaderMap;
+std::map<std::string, unsigned int*> ResourceManager::m_textureMap;
+std::map<std::string, Model*> ResourceManager::m_modelMap;
 
 /// <summary>
 /// Loads string data for a shader file
@@ -68,6 +71,31 @@ bool ResourceManager::CompileShader(const GLenum& p_shaderType, const char* p_fi
 	return true;
 }
 
+// By Thomas Beet
+/// <summary>
+/// Creates a model object using a path to the model and returns a pointer to it, if the model has already been loaded a reference will be returned
+/// </summary>
+/// <param name="p_path">Model path</param>
+/// <returns>A pointer to a model</returns>
+Model* ResourceManager::LoadModel(char* p_path)
+{
+	// If the model already exists, return it
+	// Check the map
+
+	const std::size_t modelCount = m_modelMap.count(static_cast<std::string>(p_path)), modelLimit = 1;
+	if (modelCount == modelLimit)
+	{
+		return m_modelMap.at(static_cast<std::string>(p_path));
+	}
+	else
+	{
+		Model* model = new Model(p_path);
+		m_modelMap.insert(std::pair<std::string, Model* >(static_cast<std::string>(p_path), model));
+		return model;
+	}
+}
+
+// By Thomas Beet
 /// <summary>
 /// Creates a shader program using the passed in shader paths
 /// </summary>
@@ -119,17 +147,104 @@ bool ResourceManager::CreateShaderProgram(unsigned int* p_sProgram, const char* 
 
 	// Add the shader to the map
 	m_shaderMap.insert(std::pair <std::string, unsigned int* > (static_cast<std::string>(shaderSig), p_sProgram));
+	delete[] shaderSig;
 
 	return true;
 }
 
+// By Thomas Beet, Code written using help from https://learnopengl.com/Getting-started/Textures 
+/// <summary>
+/// Loads a texture using STBI
+/// </summary>
+/// <param name="p_path">Texture path</param>
+/// <param name="p_directory">Texture directory</param>
+/// <returns>Texture buffer</returns>
+unsigned int ResourceManager::LoadTexture(const char* p_path, const std::string& p_directory)
+{
+	// Check if it already exists
+	const std::size_t texCount = m_textureMap.count(static_cast<std::string>(p_path)), texLimit = 1;
+	if (texCount == texLimit)
+	{
+		return *m_textureMap.at(static_cast<std::string>(p_path));
+	}
+	else
+	{
+		// Used these tutorials
+		// https://learnopengl.com/Getting-started/Textures
+		// https://learnopengl.com/Model-Loading/Model
+
+		std::string filename = std::string(p_path);
+		filename = p_directory + '/' + filename;
+
+		unsigned int textureID;
+		glGenTextures(1, &textureID);
+
+		int width, height, nrComponents;
+		unsigned char* data = stbi_load(filename.c_str(), &width, &height, &nrComponents, 0);
+		if (data)
+		{
+			GLenum format;
+			if (nrComponents == 1)
+				format = GL_RED;
+			else if (nrComponents == 3)
+				format = GL_RGB;
+			else if (nrComponents == 4)
+				format = GL_RGBA;
+
+			glBindTexture(GL_TEXTURE_2D, textureID);
+			glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+			glGenerateMipmap(GL_TEXTURE_2D);
+
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+			stbi_image_free(data);
+		}
+		else
+		{
+			std::cout << "Texture failed to load at path: " << p_path << std::endl;
+			stbi_image_free(data);
+		}
+
+		// Add loaded texture to map
+		m_textureMap.insert(std::pair<std::string, unsigned int*>(static_cast<std::string>(p_path), &textureID));
+		return textureID;
+	}	
+}
+
+// By Thomas Beet
 /// <summary>
 /// Delete stored resources
 /// </summary>
 void ResourceManager::DeleteResources()
 {
-	for (const auto& shader : m_shaderMap) {
+	for (const auto& shader : m_shaderMap) 
+	{
 		glDeleteProgram(*shader.second);
 	}
 	m_shaderMap.clear();
+
+	// Could be an isue
+	if (m_textureMap.size() > 0)
+	{
+		std::vector<GLuint> texIDs;
+
+		for (const auto& texture : m_textureMap) 
+		{
+			texIDs.push_back(static_cast<GLuint>(*texture.second));
+		}
+		glDeleteTextures(texIDs.size(), &texIDs[0]);
+
+		m_textureMap.clear();
+	}
+
+	for (const auto& model : m_modelMap) 
+	{
+		model.second->ClearData();
+		delete model.second;
+	}
+
+	m_modelMap.clear();
 }

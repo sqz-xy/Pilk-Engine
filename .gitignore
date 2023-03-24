@@ -6,6 +6,7 @@
 *.lo
 *.o
 *.obj
+!backpack.obj
 
 # Precompiled Headers
 *.gch
@@ -15,6 +16,7 @@
 *.so
 *.dylib
 *.dll
+!assimp-vc143-mtd.dll
 
 # Fortran module files
 *.mod
@@ -28,6 +30,7 @@
 *.lib
 !glfw3.lib
 !irrKlang.lib
+!assimp.lib
 
 # Executables
 *.exe

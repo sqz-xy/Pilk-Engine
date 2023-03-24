@@ -6,6 +6,7 @@
 #include "..\Scenes\Scene.h"
 #include "../Scenes/SceneTypes.h"
 
+// By Thomas Beet
 class SceneManager
 {
 	friend class Scene;
@@ -28,10 +29,9 @@ private:
 	void Load();
 
 	void processInput(GLFWwindow* p_window, const float p_dt);
-
-	Scene *m_currentScene;
+	
 	char* m_windowName = "";
-	bool m_mouseControl = false;
+	Scene* m_currentScene;
 	int m_width;
 	int m_height;
 

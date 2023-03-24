@@ -6,12 +6,11 @@
 #include <glad.h>
 #include <iostream>
 
-Camera::Camera(const glm::vec3 p_pos, const glm::vec3 p_target, const glm::vec3 p_direction, const glm::vec3 p_cameraUp, const float p_width, const float p_height)
+Camera::Camera(const glm::vec3 p_pos, const glm::vec3 p_target, const float p_width, const float p_height)
 {
 	m_cameraPos = p_pos;
 	m_cameraTarget = p_target;
-	m_cameraDirection = p_direction;
-	m_cameraUp = p_cameraUp;
+	m_cameraDirection = glm::vec3(glm::normalize(p_target - p_pos));
 
 	m_yaw = -90.0f;
 	m_pitch = 0.0f;
@@ -57,6 +56,8 @@ void Camera::RotateCamera(glm::vec2& p_mousePos)
 {
 	float mouseDeltaX = p_mousePos.x - m_lastMousePos.x;
 	float mouseDeltaY = p_mousePos.y - m_lastMousePos.y;
+
+
 	m_lastMousePos = p_mousePos;
 
 	m_yaw += mouseDeltaX * m_sens;
@@ -68,19 +69,19 @@ void Camera::RotateCamera(glm::vec2& p_mousePos)
 		m_pitch = -90.0f;
 	else
 		m_pitch -= mouseDeltaY * m_sens;
+	
+
+	m_cameraDirection.x = cos(glm::radians(m_pitch)) * cos(glm::radians(m_yaw));
+	m_cameraDirection.y = sin(glm::radians(m_pitch));
+	m_cameraDirection.z = cos(glm::radians(m_pitch)) * sin(glm::radians(m_yaw));
+
+	m_cameraRight = glm::normalize(glm::cross(m_cameraUp, m_cameraDirection));
+	m_cameraDirection = glm::normalize(m_cameraDirection);
 }
 
 void Camera::UpdateCamera(const int p_shaderHandle)
 {
-	m_cameraDirection.x = cos(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
-	m_cameraDirection.y = sin(glm::radians(m_pitch));
-	m_cameraDirection.z = sin(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
-
-	m_cameraRight = glm::normalize(glm::cross(m_cameraUp, m_cameraDirection));
-	m_cameraDirection = glm::normalize(m_cameraDirection);
-
-	m_cameraTarget = m_cameraPos + m_cameraDirection;
-	m_view = glm::lookAt(m_cameraPos, m_cameraTarget, m_cameraUp);
+	m_view = glm::lookAt(m_cameraPos, m_cameraPos + m_cameraDirection, m_cameraUp);
 
 	glUniformMatrix4fv(glGetUniformLocation(p_shaderHandle, "uView"), 1, GL_FALSE, &m_view[0][0]);
 	glUniformMatrix4fv(glGetUniformLocation(p_shaderHandle, "uProj"), 1, GL_FALSE, &m_projection[0][0]);

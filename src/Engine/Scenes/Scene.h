@@ -2,6 +2,7 @@
 
 #include "../Managers/SceneManager.h"
 
+// By Thomas Beet
 class Scene
 {
 	friend class SceneManager;
@@ -34,7 +35,7 @@ public:
 	/// <summary>
 	/// Input Processing
 	/// </summary>
-	virtual void ProcessInput(GLFWwindow* p_window, const float p_dt, const bool p_mouseInput) = 0;
+	virtual void ProcessInput(GLFWwindow* p_window, const float p_dt) = 0;
 
 protected:
 	SceneManager *m_sceneManager;
