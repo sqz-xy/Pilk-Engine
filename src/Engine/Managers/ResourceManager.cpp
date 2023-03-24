@@ -147,6 +147,7 @@ bool ResourceManager::CreateShaderProgram(unsigned int* p_sProgram, const char* 
 
 	// Add the shader to the map
 	m_shaderMap.insert(std::pair <std::string, unsigned int* > (static_cast<std::string>(shaderSig), p_sProgram));
+	delete[] shaderSig;
 
 	return true;
 }

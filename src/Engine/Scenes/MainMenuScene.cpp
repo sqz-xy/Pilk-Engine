@@ -6,11 +6,14 @@
 #include "../PilkEngineCommon.h"
 #include "../Objects/Geometry.h"
 #include "../Objects/Model.h"
+#include "../Components/Component.h"
 
 
 class MainMenuScene : public Scene
 {
 public:
+
+	ComponentTransform* m_transformation = new  ComponentTransform(glm::vec3(0.6f, 0.5f, 2.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
 
 	// TODO: Remove after refactor
 	unsigned int m_shaderProgramID;
@@ -43,6 +46,9 @@ public:
 		// scale
 		//m_modelMat = glm::rotate(m_modelMat, glm::radians(21.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 		m_modelMat = glm::translate(glm::mat4(1.0f), modelPos); // translatng the model in the matrix
+
+		m_modelMat = m_transformation->m_transform;
+
 		m_modelMat2 = glm::translate(glm::mat4(1.0f), modelPos2);
 		//m_modelMat = glm::rotate(m_modelMat, 72.f, glm::vec3(1, 1, 1));
 	}
@@ -127,6 +133,10 @@ public:
     void Close() override
 	{
 		std::cout << "Scene Closed" << std::endl;
+
+		delete m_Camera;
+		delete[] m_colour;
+
 		ResourceManager::DeleteResources();
 	}
 };
