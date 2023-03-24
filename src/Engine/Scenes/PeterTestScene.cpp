@@ -37,8 +37,6 @@ public:
 
 	ComponentTransform* m_transformation = new ComponentTransform(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
 
-	SystemPhysics* m_systemPhysicsTest = new SystemPhysics();
-	Entity* m_testEntity;
 
 	explicit PeterTestScene(SceneManager* pSceneManager) : Scene(pSceneManager)
 	{
@@ -59,17 +57,56 @@ public:
 		m_modelMat = glm::translate(glm::mat4(1.0f), modelPos); // translatng the model in the matrix
 		m_modelMat2 = glm::translate(glm::mat4(1.0f), modelPos2);
 
-		m_testEntity = new Entity("Test Entity");
-		m_testEntity->AddComponent(m_transformation);
-		ComponentTransform* component = m_testEntity->GetComponent<ComponentTransform>();
-		component->m_rotation = glm::vec3(0.6f, 0.5f, 2.0f);
-		m_systemPhysicsTest->UpdateEntity(m_testEntity);
+		TestConstructor();
 	}
 
 	~PeterTestScene() override
 	{
 		this->Close();
 	}
+
+
+
+	// -------- Test Area --------
+
+	SystemPhysics* m_testSystemPhysics = new SystemPhysics();
+	Entity* m_testEntity;
+
+	
+	// By: Piotr Moskala
+	void TestConstructor()
+	{
+		// Create Entity
+		m_testEntity = new Entity("Test Entity");
+		m_testEntity->AddComponent(m_transformation);
+
+		// Check GetComponent method works
+		ComponentTransform* component = m_testEntity->GetComponent<ComponentTransform>();
+
+		// Validate Entity against System
+		m_testSystemPhysics->ValidateEntity(m_testEntity);
+
+		// Check if RemoveComponent & removing invalid Entity from system works
+		/*m_testEntity->RemoveComponent(component);
+		m_testSystemPhysics->ValidateEntity(m_testEntity);*/
+	}
+
+	// By: Piotr Moskala
+	void TestUpdate(const float p_dt)
+	{
+		// System physics update checks
+		m_testSystemPhysics->Execute(p_dt);
+		
+		// Updated transform
+		ComponentTransform* component = m_testEntity->GetComponent<ComponentTransform>();
+
+		// Checking if component update works outside of system
+		/*vec3 rot = component->m_rotation;
+		component->UpdateRotation(glm::vec3(rot.x, rot.y, rot.z + 0.5 * p_dt));*/
+	}
+
+	// ---------------------------
+
 
 	void Render(const float p_dt) const override
 	{
@@ -121,8 +158,10 @@ public:
 	{
 		glUseProgram(m_shaderProgramID);
 		m_Camera->UpdateCamera(m_shaderProgramID);
-		m_systemPhysicsTest->OnAction(p_dt);
-		ComponentTransform* component = m_testEntity->GetComponent<ComponentTransform>();
+
+
+		TestUpdate(p_dt);
+		
 	}
 
 	void Load() override
