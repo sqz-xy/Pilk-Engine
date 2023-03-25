@@ -30,6 +30,8 @@ public:
 	Model* m_backpack;
 	Model* m_backpack2;
 
+	ComponentGeometry* m_geometry;
+
 	explicit MainMenuScene(SceneManager* pSceneManager) : Scene(pSceneManager)
 	{
 		m_sceneManager->m_windowName = "MainMenuScene";
@@ -66,11 +68,12 @@ public:
 		
 		m_Camera->UpdateCamera(m_shaderProgramID);
 
+		// Geometry component
 		glUniformMatrix4fv(glGetUniformLocation(m_shaderProgramID, "uModel"), 1, GL_FALSE, &m_modelMat[0][0]);
-		m_backpack2->Draw(m_shaderProgramID);
+		m_geometry->Draw(m_shaderProgramID);
 
-		glUniformMatrix4fv(glGetUniformLocation(m_shaderProgramID, "uModel"), 1, GL_FALSE, &m_modelMat2[0][0]);
-		m_backpack->Draw(m_shaderProgramID);
+		//glUniformMatrix4fv(glGetUniformLocation(m_shaderProgramID, "uModel"), 1, GL_FALSE, &m_modelMat2[0][0]);
+		//m_backpack->Draw(m_shaderProgramID);
 
 		ImVec2 vec(100, 50);
 		//std::cout << "Rendering" << std::endl;
@@ -99,6 +102,8 @@ public:
 
 		m_backpack = ResourceManager::LoadModel("resources/models/backpack/backpack.obj");
 		m_backpack2 = ResourceManager::LoadModel("resources/models/backpack/backpack.obj");
+
+		m_geometry = new ComponentGeometry("resources/models/backpack/backpack.obj");
 
 		if (!ResourceManager::CreateShaderProgram(&m_shaderProgramID, "resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag")) return;
 	}

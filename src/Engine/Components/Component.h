@@ -4,6 +4,9 @@
 #include "glm.hpp"
 #include "gtc/matrix_transform.hpp"
 #include "gtc/type_ptr.hpp"
+
+#include "../PilkEngineCommon.h"
+
 using namespace glm;
 
 class Component 
@@ -123,4 +126,27 @@ public:
 
 private:
 	float m_radius;
+};
+
+class ComponentGeometry : public Component
+{
+public:
+	ComponentGeometry(char* p_path)
+	{
+		m_model = ResourceManager::LoadModel(p_path);
+	}
+
+	~ComponentGeometry()
+	{
+		delete m_model;
+		m_model = nullptr;
+	}
+
+	void Draw(const int p_shaderHandle)
+	{
+		m_model->Draw(p_shaderHandle);
+	}
+
+private:
+	Model* m_model;
 };
