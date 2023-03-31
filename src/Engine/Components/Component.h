@@ -6,6 +6,7 @@
 #include "gtc/type_ptr.hpp"
 
 #include "../PilkEngineCommon.h"
+#include "../Managers/ResourceManager.h"
 
 using namespace glm;
 

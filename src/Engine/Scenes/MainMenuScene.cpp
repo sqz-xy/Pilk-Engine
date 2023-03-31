@@ -2,11 +2,14 @@
 
 #include "Scene.h"
 #include "../Managers/ResourceManager.h"
+#include "../Managers/EntityManager.h"
+#include "../Managers/FileManager.h"
 #include "../Utility/Camera.h"	
 #include "../PilkEngineCommon.h"
 #include "../Objects/Geometry.h"
 #include "../Objects/Model.h"
 #include "../Components/Component.h"
+#include "../Objects/Entity.h"
 
 
 class MainMenuScene : public Scene
@@ -31,6 +34,8 @@ public:
 	Model* m_backpack2;
 
 	ComponentGeometry* m_geometry;
+
+	EntityManager* m_entityManager = new EntityManager();
 
 	explicit MainMenuScene(SceneManager* pSceneManager) : Scene(pSceneManager)
 	{
@@ -98,6 +103,13 @@ public:
 
 	void Load() override
 	{
+		// File manager test
+		FileManager::LoadEntities("Resources/scripts/EntityScript.txt");
+
+		Entity* entity1 = new Entity("balls");
+		m_entityManager->AddEntity(entity1);
+		//m_entityManager->RemoveEntity("balls");
+
 		stbi_set_flip_vertically_on_load(true);
 
 		m_backpack = ResourceManager::LoadModel("resources/models/backpack/backpack.obj");
