@@ -151,3 +151,41 @@ public:
 private:
 	Model* m_model;
 };
+
+
+// Component shader created by James
+class ComponentShader : public Component
+{
+public:
+	ComponentShader(unsigned int p_shaderProgramID , Model* pModel)
+	{
+		//m_uniform_modelMat = glGetUniformLocation(p_shaderProgramID, "model");
+		m_colour = glGetUniformLocation(p_shaderProgramID, "uColour");
+		m_model = pModel;
+		m_shaderProgramID = p_shaderProgramID;
+
+		// m_tex = glGetUniformLocation(p_shaderProgramID, "uTextureDiffuse1");
+		// m_uniform_projMat = glGetUniformLocation(p_shaderProgramID, "projection");
+		// m_uniform_viewMat = glGetUniformLocation(p_shaderProgramID, "view");
+	}
+
+	void Render(glm::mat4* pModelMat)
+	{
+		glUniformMatrix4fv(glGetUniformLocation(m_shaderProgramID, "uModel"), 1, GL_FALSE, &(*pModelMat)[0][0]);
+		m_model->Draw(m_shaderProgramID);
+
+		//glUniform4f(glGetUniformLocation(m_shaderProgramID, "uColour"), m_colour[0], m_colour[1], m_colour[2], m_colour[3]);
+		//m_Camera->UpdateCamera(m_shaderProgramID);
+		//glUniformMatrix4fv(glGetUniformLocation(*m_shaderProgramID, "uModel"), 1, GL_FALSE, &temp[0][0]);
+	}
+
+private:
+	int m_uniform_modelMat;
+	int m_colour;
+	Model* m_model;
+	unsigned int m_shaderProgramID;
+
+	//int m_uniform_viewMat;
+	//int m_uniform_projMat;
+	//int m_tex;
+};

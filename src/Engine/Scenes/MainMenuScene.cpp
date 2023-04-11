@@ -10,6 +10,7 @@
 #include "../Objects/Model.h"
 #include "../Components/Component.h"
 #include "../Objects/Entity.h"
+#include "../Systems/System.h"
 
 
 class MainMenuScene : public Scene
@@ -22,7 +23,7 @@ public:
 	unsigned int m_shaderProgramID;
 	float* m_colour = new float[4] { 1.0f, 0.5f, 0.2f, 1.0f };
 
-	glm::vec3 modelPos = glm::vec3(0.0f, 0.0f, 2.0f);
+	glm::vec3 modelPos = glm::vec3(0.0f, 0.0f, 0.0f);
 	glm::vec3 modelPos2 = glm::vec3(0.6f, 0.0f, 2.0f);
 
 	glm::mat4 m_modelMat;
@@ -37,12 +38,15 @@ public:
 
 	EntityManager* m_entityManager = new EntityManager();
 
+	SystemRender* m_SystemRender = new SystemRender();
+	ComponentShader* m_Model1Shader ;
+
 	explicit MainMenuScene(SceneManager* pSceneManager) : Scene(pSceneManager)
 	{
 		m_sceneManager->m_windowName = "MainMenuScene";
 		
-		m_Camera = new Camera(	glm::vec3(0.0f,0.0f,-5.0f),	// camPos
-								glm::vec3(0.0f,0.0f,5.0f),  // camTarget
+		m_Camera = new Camera(	glm::vec3(0.0f,0.0f,-0.0f),	// camPos
+								glm::vec3(0.0f,0.0f,0.0f),  // camTarget
 								m_sceneManager->m_width,	// windows width
 								m_sceneManager->m_height);	// window height
 
@@ -55,7 +59,9 @@ public:
 		m_modelMat = m_transformation->m_transform;
 
 		m_modelMat2 = glm::translate(glm::mat4(1.0f), modelPos2);
-		//m_modelMat = glm::rotate(m_modelMat, 72.f, glm::vec3(1, 1, 1));
+		//m_modelMat = glm::rotate(m_modelMat, 72.f, glm::vec3(1, 1, 1)); 
+		
+		
 	}
 
 
@@ -74,8 +80,13 @@ public:
 		m_Camera->UpdateCamera(m_shaderProgramID);
 
 		// Geometry component
-		glUniformMatrix4fv(glGetUniformLocation(m_shaderProgramID, "uModel"), 1, GL_FALSE, &m_modelMat[0][0]);
-		m_geometry->Draw(m_shaderProgramID);
+		//glUniformMatrix4fv(glGetUniformLocation(m_shaderProgramID, "uModel"), 1, GL_FALSE, &m_modelMat[0][0]);
+		//m_geometry->Draw(m_shaderProgramID);
+
+		// m_SystemRender->Execute(p_dt);
+
+		const glm::mat4* modelMat = &m_modelMat2;
+		m_Model1Shader->Render(const_cast<glm::mat4*>(modelMat));
 
 		//glUniformMatrix4fv(glGetUniformLocation(m_shaderProgramID, "uModel"), 1, GL_FALSE, &m_modelMat2[0][0]);
 		//m_backpack->Draw(m_shaderProgramID);
@@ -118,6 +129,8 @@ public:
 		m_geometry = new ComponentGeometry("resources/models/backpack/backpack.obj");
 
 		if (!ResourceManager::CreateShaderProgram(&m_shaderProgramID, "resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag")) return;
+		
+		m_Model1Shader = new ComponentShader(m_shaderProgramID, m_backpack);
 	}
 
 	void ProcessInput(GLFWwindow* p_window, const float p_dt) override

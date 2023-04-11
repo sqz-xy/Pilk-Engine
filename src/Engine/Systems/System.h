@@ -121,3 +121,34 @@ public:
 		System::ValidateEntity(p_entity, requiredComponents);
 	}
 };
+
+class SystemRender : System
+{
+public:
+	SystemRender() {};
+
+	virtual void Execute(const float p_deltaTime) override
+	{
+		for each (Entity * entity in validEntities)
+		{
+			ComponentShader* ShaderComponent = entity->GetComponent<ComponentShader>();
+			if (ShaderComponent == nullptr) return;
+
+			ComponentTransform* TransformComponent = entity->GetComponent<ComponentTransform>();
+			if (TransformComponent == nullptr) return;
+
+			// ShaderComponent->Render(&TransformComponent->m_transform);
+		}
+	}
+
+
+	virtual void ValidateEntity(Entity* p_entity) override
+	{
+		// Specify valid components separated by "&&" here: 
+		bool requiredComponents =
+			p_entity->GetComponent<ComponentShader>() != nullptr;
+
+
+		System::ValidateEntity(p_entity, requiredComponents);
+	}
+};
