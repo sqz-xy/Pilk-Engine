@@ -4,6 +4,11 @@ EntityManager::EntityManager()
 {
 }
 
+EntityManager::~EntityManager()
+{
+	Clear();
+}
+
 bool EntityManager::AddEntity(Entity* p_entity)
 {
 	if (m_entities.empty())
@@ -38,4 +43,18 @@ bool EntityManager::RemoveEntity(const std::string& p_name)
 
 		return false;
 	}
+}
+
+/// Original Author: Piotr Moskala
+/// <summary>
+/// Deletes all tracked Entities from memory and clears pointers.
+/// </summary>
+void EntityManager::Clear()
+{
+	int size = m_entities.size();
+	for (int i = 0; i < size; i++)
+	{
+		delete m_entities[i];
+	}
+	m_entities.clear();
 }
