@@ -35,8 +35,6 @@ public:
 
 	ComponentGeometry* m_geometry;
 
-	EntityManager* m_entityManager = new EntityManager();
-
 	explicit MainMenuScene(SceneManager* pSceneManager) : Scene(pSceneManager)
 	{
 		m_sceneManager->m_windowName = "MainMenuScene";
@@ -45,6 +43,7 @@ public:
 								glm::vec3(0.0f,0.0f,5.0f),  // camTarget
 								m_sceneManager->m_width,	// windows width
 								m_sceneManager->m_height);	// window height
+
 
 
 		// rotation
@@ -147,6 +146,8 @@ public:
 
     void Close() override
 	{
+		Scene::Close();
+
 		std::cout << "Scene Closed" << std::endl;
 
 		delete m_Camera;

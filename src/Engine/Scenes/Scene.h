@@ -1,6 +1,8 @@
 #pragma once
 
 #include "../Managers/SceneManager.h"
+#include "../Managers/EntityManager.h"
+#include "../Managers/SystemManager.h"
 
 // By Thomas Beet
 class Scene
@@ -9,6 +11,8 @@ class Scene
 public:
 	explicit Scene(SceneManager *p_sceneManager);
 	virtual ~Scene();
+
+	virtual void Close();
 
 	/// <summary>
 	/// Render logic
@@ -28,17 +32,14 @@ public:
 	virtual void Load() = 0;
 
 	/// <summary>
-	/// Closing logic
-	/// </summary>
-	virtual void Close() = 0;
-
-	/// <summary>
 	/// Input Processing
 	/// </summary>
 	virtual void ProcessInput(GLFWwindow* p_window, const float p_dt) = 0;
 
 protected:
-	SceneManager *m_sceneManager;
+	SceneManager* m_sceneManager;
+	EntityManager* m_entityManager;
+	SystemManager* m_systemManager;
 };
 
 
