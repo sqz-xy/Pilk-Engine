@@ -47,10 +47,10 @@ bool EntityManager::RemoveEntity(const std::string& p_name)
 
 /// Original Author: Piotr Moskala
 /// <summary>
-/// Validates all tracked Entities against systems in System Manager
+/// Validates every tracked Entity against each system in the System Manager
 /// </summary>
 /// <param name="p_systemManager"> The System Manager that handles the validation against its systems </param>
-void EntityManager::ValidateEveryEntity(SystemManager* p_systemManager)
+void EntityManager::ValidateEntities(SystemManager* p_systemManager)
 {
 	int size = m_entities.size();
 	for (int i = 0; i < size; i++)

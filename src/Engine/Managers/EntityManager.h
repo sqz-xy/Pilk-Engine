@@ -12,7 +12,7 @@ public:
 
 	bool AddEntity(Entity* p_entity);
 	bool RemoveEntity(const std::string& p_name);
-	void ValidateEveryEntity(SystemManager* p_systemManager);
+	void ValidateEntities(SystemManager* p_systemManager);
 	void Clear();
 
 private:
