@@ -2,6 +2,7 @@
 
 #include "../PilkEngineCommon.h"
 #include "../Objects/Entity.h"
+#include "../Managers/SystemManager.h"
 
 class EntityManager final
 {
@@ -11,6 +12,7 @@ public:
 
 	bool AddEntity(Entity* p_entity);
 	bool RemoveEntity(const std::string& p_name);
+	void ValidateEveryEntity(SystemManager* p_systemManager);
 	void Clear();
 
 private:
