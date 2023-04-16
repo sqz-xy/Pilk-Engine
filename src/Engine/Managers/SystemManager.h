@@ -12,6 +12,7 @@ public:
 	~SystemManager();
 
 	void AddSystem(System* p_system);
+	void ExecuteSystems(const float p_deltaTime);
 	void Clear();
 
 	void ValidateEntity(Entity* p_entity);

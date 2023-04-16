@@ -5,10 +5,6 @@ SystemManager::SystemManager()
 
 }
 
-/// Original Author: Piotr Moskala
-/// <summary>
-/// Deletes systems from memory
-/// </summary>
 SystemManager::~SystemManager()
 {
 	Clear();
@@ -22,6 +18,19 @@ SystemManager::~SystemManager()
 void SystemManager::AddSystem(System* p_system)
 {
 	systems.push_back(p_system);
+}
+
+/// Original Author: Piotr Moskala
+/// <summary>
+/// Executes the behaviour of all tracked systems
+/// </summary>
+void SystemManager::ExecuteSystems(const float p_deltaTime)
+{
+	int size = systems.size();
+	for (int i = 0; i < size; i++)
+	{
+		systems[i]->Execute(p_deltaTime);
+	}
 }
 
 /// Original Author: Piotr Moskala
@@ -40,7 +49,7 @@ void SystemManager::Clear()
 
 /// Original Author: Piotr Moskala
 /// <summary>
-/// Validates entity against every system and its required components
+/// Validates entity against every system and its required components.
 /// </summary>
 /// <param name="p_entity"> Entity to validate </param>
 void SystemManager::ValidateEntity(Entity* p_entity)
