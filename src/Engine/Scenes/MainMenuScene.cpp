@@ -16,7 +16,10 @@ class MainMenuScene : public Scene
 {
 public:
 
-	ComponentTransform* m_transformation = new  ComponentTransform(glm::vec3(0.0f, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+	EntityManager* m_entityManager;
+	SystemManager* m_systemManager;
+
+	ComponentTransform* m_transformation = new ComponentTransform(glm::vec3(0.0f, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
 
 	// TODO: Remove after refactor
 	unsigned int m_shaderProgramID;
@@ -55,6 +58,9 @@ public:
 
 		m_modelMat2 = glm::translate(glm::mat4(1.0f), modelPos2);
 		//m_modelMat = glm::rotate(m_modelMat, 72.f, glm::vec3(1, 1, 1));
+
+		m_entityManager = new EntityManager();
+		m_systemManager = new SystemManager();
 	}
 
 
@@ -69,7 +75,6 @@ public:
 
 		// Change Colour
 		glUniform4f(glGetUniformLocation(m_shaderProgramID, "uColour"), m_colour[0], m_colour[1], m_colour[2], m_colour[3]);
-		
 		m_Camera->UpdateCamera(m_shaderProgramID);
 
 		// Geometry component
@@ -102,11 +107,19 @@ public:
 
 	void Load() override
 	{
-		// File manager test
-		FileManager::LoadEntities("Resources/scripts/EntityScript.txt");
+		// Player entity.
+		Entity* player = new Entity("Player");
+		player->AddComponent(m_transformation);
 
-		Entity* entity1 = new Entity("balls");
-		m_entityManager->AddEntity(entity1);
+		m_entityManager->AddEntity(player);
+
+
+
+		// File manager test
+		//FileManager::LoadEntities("Resources/scripts/EntityScript.txt");
+
+		//Entity* entity1 = new Entity("balls");
+		//m_entityManager->AddEntity(entity1);
 		//m_entityManager->RemoveEntity("balls");
 
 		stbi_set_flip_vertically_on_load(true);
@@ -114,7 +127,7 @@ public:
 		m_backpack = ResourceManager::LoadModel("resources/models/backpack/backpack.obj");
 		m_backpack2 = ResourceManager::LoadModel("resources/models/backpack/backpack.obj");
 
-		m_geometry = new ComponentGeometry("resources/models/backpack/backpack.obj");
+		m_geometry = new ComponentGeometry("resources/models/randy/randy.obj");
 
 		if (!ResourceManager::CreateShaderProgram(&m_shaderProgramID, "resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag")) return;
 	}

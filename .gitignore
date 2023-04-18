@@ -54,3 +54,4 @@ build/
 /ZERO_CHECK.vcxproj
 /Pilk-Engine.vcxproj.user
 /ZERO_CHECK.vcxproj.filters
+/libs/assimp/contrib/zlib/.vs/zlib

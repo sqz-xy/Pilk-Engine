@@ -121,3 +121,25 @@ public:
 		System::ValidateEntity(p_entity, requiredComponents);
 	}
 };
+
+/// <summary>
+/// Render system by Thomas Beet
+/// </summary>
+class SystemRender : System
+{
+public:
+	SystemRender() {}
+
+	virtual void Execute(const float p_deltaTime) override
+	{
+		for each (Entity* entity in validEntities)
+		{
+			
+		}
+	}
+
+	virtual void ValidateEntity(Entity* p_entity) override
+	{
+		bool requiredComponents = p_entity->GetComponent<ComponentTransform>() != nullptr && p_entity->GetComponent<ComponentGeometry>() != nullptr;
+	}
+};
