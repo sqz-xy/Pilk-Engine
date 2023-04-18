@@ -10,7 +10,7 @@
 #include "../Objects/Model.h"
 #include "../Components/Component.h"
 #include "../Objects/Entity.h"
-
+#include "../Managers/GameCollisionManager.cpp"
 
 class MainMenuScene : public Scene
 {
@@ -18,6 +18,7 @@ public:
 
 	EntityManager* m_entityManager;
 	SystemManager* m_systemManager;
+	GameCollisionManager* m_collisionManager;
 
 	Camera* m_Camera;
 
@@ -34,6 +35,7 @@ public:
 
 		m_entityManager = new EntityManager();
 		m_systemManager = new SystemManager();
+		m_collisionManager = new GameCollisionManager();
 	}
 
 
@@ -63,6 +65,9 @@ public:
 		m_Camera->UpdateCamera();
 
 		m_systemManager->ExecuteSystems(p_dt);
+
+		m_collisionManager->ProcessCollisions();
+		m_collisionManager->ClearManifold();
 	}
 
 	void Load() override
