@@ -128,7 +128,10 @@ public:
 class SystemRender : public System
 {
 public:
-	SystemRender() {}
+	SystemRender(Camera* p_camera) 
+	{
+		m_camera = p_camera;
+	}
 
 	virtual void Execute(const float p_deltaTime) override
 	{
@@ -138,7 +141,7 @@ public:
 			ComponentGeometry* geometry = entity->GetComponent<ComponentGeometry>();
 			ComponentShader* shader = entity->GetComponent<ComponentShader>();
 
-			shader->UseShader(&transform->m_transform);
+			shader->UseShader(&transform->m_transform, &m_camera->m_view, &m_camera->m_projection);
 			geometry->Draw(shader->m_shaderProgramID);
 		}
 	}

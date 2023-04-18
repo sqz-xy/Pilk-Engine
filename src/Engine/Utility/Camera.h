@@ -38,5 +38,5 @@ public:
 
 	void MoveCamera(const Direction p_direction, const float p_distance, const float p_dt);
 	void RotateCamera(glm::vec2& p_mousePos);
-	void UpdateCamera(const int p_shaderHandle);
+	void UpdateCamera();
 };

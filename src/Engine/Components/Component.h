@@ -7,6 +7,7 @@
 
 #include "../PilkEngineCommon.h"
 #include "../Managers/ResourceManager.h"
+#include "../Utility/Camera.h"
 
 using namespace glm;
 
@@ -170,10 +171,12 @@ public:
 		// m_uniform_viewMat = glGetUniformLocation(p_shaderProgramID, "view");
 	}
 
-	void UseShader(glm::mat4* pModelMat)
+	void UseShader(glm::mat4* p_modelMat, glm::mat4* p_viewMat, glm::mat4* p_projMat)
 	{
 		glUseProgram(m_shaderProgramID);
-		glUniformMatrix4fv(glGetUniformLocation(m_shaderProgramID, "uModel"), 1, GL_FALSE, &(*pModelMat)[0][0]);
+		glUniformMatrix4fv(glGetUniformLocation(m_shaderProgramID, "uModel"), 1, GL_FALSE, &(*p_modelMat)[0][0]);
+		glUniformMatrix4fv(glGetUniformLocation(m_shaderProgramID, "uView"), 1, GL_FALSE, &(*p_viewMat)[0][0]);
+		glUniformMatrix4fv(glGetUniformLocation(m_shaderProgramID, "uProj"), 1, GL_FALSE, &(*p_projMat)[0][0]);
 
 		//glUniform4f(glGetUniformLocation(m_shaderProgramID, "uColour"), m_colour[0], m_colour[1], m_colour[2], m_colour[3]);
 		//m_Camera->UpdateCamera(m_shaderProgramID);
