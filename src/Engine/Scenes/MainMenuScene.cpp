@@ -26,8 +26,8 @@ public:
 	{
 		m_sceneManager->m_windowName = "MainMenuScene";
 		
-		m_Camera = new Camera(	glm::vec3(0.0f,0.0f,-5.0f),	// camPos
-								glm::vec3(0.0f,0.0f,5.0f),  // camTarget
+		m_Camera = new Camera(	glm::vec3(0.0f,0.0f,15.0f),	// camPos
+								glm::vec3(0.0f,0.0f,-5.0f),  // camTarget
 								m_sceneManager->m_width,	// windows width
 								m_sceneManager->m_height);	// window height
 
@@ -79,14 +79,28 @@ public:
 		player->AddComponent(new ComponentTransform(glm::vec3(0.0f, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
 		player->AddComponent(new ComponentGeometry("resources/models/randy/randy.obj"));
 		player->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
+		player->AddComponent(new ComponentPhysics(glm::vec3(0.1f, 0.0f, 0.0f), glm::vec3(0.0f, -0.01f, 0.0f)));
+
+		Entity* floor = new Entity("Floor");
+		floor->AddComponent(new ComponentTransform(glm::vec3(0.0f, -3.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(5.0f, 1.0f, 1.0f)));
+		floor->AddComponent(new ComponentGeometry("resources/models/tempcube/tempcube.obj"));
+		floor->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
+		floor->AddComponent(new ComponentPhysics(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f)));
 
 		m_entityManager->AddEntity(player);
+		m_entityManager->AddEntity(floor);
 
 		// System render
 		System* systemRender = new SystemRender(m_Camera);
 		systemRender->ValidateEntity(player);
+		systemRender->ValidateEntity(floor);
+
+		System* systemPhysics = new SystemPhysics();
+		systemPhysics->ValidateEntity(player);
+		systemPhysics->ValidateEntity(floor);
 
 		m_systemManager->AddSystem(systemRender);
+		m_systemManager->AddSystem(systemPhysics);
 	}
 
 	void ProcessInput(GLFWwindow* p_window, const float p_dt) override
