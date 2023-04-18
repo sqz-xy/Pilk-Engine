@@ -157,28 +157,3 @@ public:
 private:
 	Camera* m_camera;
 };
-
-/// <summary>
-/// Render system by Matthew Liney
-/// </summary>
-class SystemPhysics : public System
-{
-public:
-	SystemPhysics() {}
-
-	virtual void Execute(const float p_deltaTime) override
-	{
-		for each (Entity * entity in validEntities)
-		{
-
-		}
-	}
-
-	virtual void ValidateEntity(Entity* p_entity) override
-	{
-		bool valid = p_entity->GetComponent<ComponentVelocity>() != nullptr &&
-					 p_entity->GetComponent<ComponentTransform>() != nullptr;
-
-		System::ValidateEntity(p_entity, valid);
-	}
-};
