@@ -79,11 +79,7 @@ void Camera::RotateCamera(glm::vec2& p_mousePos)
 	m_cameraDirection = glm::normalize(m_cameraDirection);
 }
 
-void Camera::UpdateCamera(const int p_shaderHandle)
+void Camera::UpdateCamera()
 {
 	m_view = glm::lookAt(m_cameraPos, m_cameraPos + m_cameraDirection, m_cameraUp);
-
-	glUniformMatrix4fv(glGetUniformLocation(p_shaderHandle, "uView"), 1, GL_FALSE, &m_view[0][0]);
-	glUniformMatrix4fv(glGetUniformLocation(p_shaderHandle, "uProj"), 1, GL_FALSE, &m_projection[0][0]);
-
 }

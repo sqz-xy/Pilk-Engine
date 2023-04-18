@@ -19,11 +19,6 @@ public:
 	EntityManager* m_entityManager;
 	SystemManager* m_systemManager;
 
-
-	// TODO: Remove after refactor
-	unsigned int m_shaderProgramID;
-	float* m_colour = new float[4] { 1.0f, 0.5f, 0.2f, 1.0f };
-
 	Camera* m_Camera;
 
 	explicit MainMenuScene(SceneManager* pSceneManager) : Scene(pSceneManager)
@@ -49,16 +44,10 @@ public:
 
 	void Render(const float p_dt) const override
 	{
-		//glUseProgram(m_shaderProgramID);
-		// 
-		// TODO: Maybe put cam matrices into the render system or component shader or smthn
-		m_Camera->UpdateCamera(m_shaderProgramID);
-
 		ImVec2 vec(100, 50);
 		//std::cout << "Rendering" << std::endl;
 		ImGui::Begin("ImGui Test");
 		ImGui::Text("Delta time %f", p_dt);
-		ImGui::ColorEdit4("Colour", m_colour);
 		bool button = ImGui::Button("Change scene", vec);
 
 		if (button)
@@ -71,8 +60,7 @@ public:
 
 	void Update(const float p_dt) override
 	{
-		glUseProgram(m_shaderProgramID);
-		m_Camera->UpdateCamera(m_shaderProgramID);
+		m_Camera->UpdateCamera();
 
 		m_systemManager->ExecuteSystems(p_dt);
 	}
@@ -90,14 +78,10 @@ public:
 		m_entityManager->AddEntity(player);
 
 		// System render
-		System* systemRender = new SystemRender();
+		System* systemRender = new SystemRender(m_Camera);
 		systemRender->ValidateEntity(player);
 
 		m_systemManager->AddSystem(systemRender);
-
-
-
-		if (!ResourceManager::CreateShaderProgram(&m_shaderProgramID, "resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag")) return;
 	}
 
 	void ProcessInput(GLFWwindow* p_window, const float p_dt) override
@@ -132,7 +116,6 @@ public:
 		std::cout << "Scene Closed" << std::endl;
 
 		delete m_Camera;
-		delete[] m_colour;
 
 		ResourceManager::DeleteResources();
 	}

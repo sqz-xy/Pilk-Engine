@@ -112,7 +112,7 @@ public:
 		// Change Colour
 		glUniform4f(glGetUniformLocation(m_shaderProgramID, "uColour"), m_colour[0], m_colour[1], m_colour[2], m_colour[3]);
 
-		m_Camera->UpdateCamera(m_shaderProgramID);
+		m_Camera->UpdateCamera();
 
 		glBindVertexArray(m_vao);
 
@@ -154,7 +154,7 @@ public:
 	void Update(const float p_dt) override
 	{
 		glUseProgram(m_shaderProgramID);
-		m_Camera->UpdateCamera(m_shaderProgramID);
+		m_Camera->UpdateCamera();
 
 
 		TestUpdate(p_dt);
