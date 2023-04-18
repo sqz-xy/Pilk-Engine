@@ -83,7 +83,7 @@ protected:
 };
 
 
-class SystemPhysics : System
+class SystemPhysics : public System
 {
 public:
 	SystemPhysics() {};
@@ -125,7 +125,7 @@ public:
 /// <summary>
 /// Render system by Thomas Beet
 /// </summary>
-class SystemRender : System
+class SystemRender : public System
 {
 public:
 	SystemRender() {}
@@ -134,12 +134,21 @@ public:
 	{
 		for each (Entity* entity in validEntities)
 		{
-			
+			ComponentTransform* transform = entity->GetComponent<ComponentTransform>();
+			ComponentGeometry* geometry = entity->GetComponent<ComponentGeometry>();
+			ComponentShader* shader = entity->GetComponent<ComponentShader>();
+
+			shader->UseShader(&transform->m_transform);
+			geometry->Draw(shader->m_shaderProgramID);
 		}
 	}
 
 	virtual void ValidateEntity(Entity* p_entity) override
 	{
-		bool requiredComponents = p_entity->GetComponent<ComponentTransform>() != nullptr && p_entity->GetComponent<ComponentGeometry>() != nullptr;
+		bool requiredComponents = p_entity->GetComponent<ComponentTransform>() != nullptr &&
+								  p_entity->GetComponent<ComponentGeometry>() != nullptr &&
+								  p_entity->GetComponent<ComponentShader>() != nullptr;
+
+		System::ValidateEntity(p_entity, requiredComponents);
 	}
 };
