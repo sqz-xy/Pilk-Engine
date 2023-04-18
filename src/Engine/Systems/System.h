@@ -154,6 +154,8 @@ public:
 
 		System::ValidateEntity(p_entity, requiredComponents);
 	}
+private:
+	Camera* m_camera;
 };
 
 /// <summary>
