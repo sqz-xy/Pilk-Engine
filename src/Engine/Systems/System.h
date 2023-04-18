@@ -171,3 +171,100 @@ public:
 private:
 	Camera* m_camera;
 };
+
+// class by matthew liney
+class SystemCollisionAABBAABB : public System
+{
+public:
+
+	// cm stands for collision manager, by the way.
+	SystemCollisionAABBAABB(CollisionManager p_cm)
+	{
+		m_cm = &p_cm;
+	}
+
+	virtual void Execute(const float p_deltaTime) override
+	{
+		for each (Entity* e1 in validEntities)
+		{
+			for each (Entity * e2 in validEntities)
+			{
+				if (e1 != e2)
+				{
+					Collision(e1, e2);
+				}
+			}
+		}
+	}
+
+	virtual void Collision(Entity* p_entity_1, Entity* p_entity_2)
+	{
+		ComponentTransform* e1_transform = p_entity_1->GetComponent<ComponentTransform>();
+		vec3 e1_pos = e1_transform->m_translation;
+		ComponentCollisionAABB* e1_collision = p_entity_1->GetComponent<ComponentCollisionAABB>();
+		float e1_height = e1_collision->GetHeight();
+		float e1_width = e1_collision->GetWidth();
+		float e1_depth = e1_collision->GetDepth();
+
+		ComponentTransform* e2_transform = p_entity_2->GetComponent<ComponentTransform>();
+		vec3 e2_pos = e2_transform->m_translation;
+		ComponentCollisionAABB* e2_collision = p_entity_2->GetComponent<ComponentCollisionAABB>();
+		float e2_height = e2_collision->GetHeight();
+		float e2_width = e2_collision->GetWidth();
+		float e2_depth = e2_collision->GetDepth();
+
+		if (e1_pos.x < e2_pos.x + e2_width &&
+			e1_pos.x + e1_width > e2_pos.x &&
+			e1_pos.y < e2_pos.y + e2_height &&
+			e1_height + e1_pos.y > e2_pos.y) // add z to this when u can be bothered
+		{
+			vec3 distance = e1_pos - e2_pos;
+			float x_extent_1 = e1_width / 2;
+			float x_extent_2 = e2_width / 2;
+			float x_overlap = (x_extent_1 - x_extent_2) - glm::abs(distance.x);
+
+			float y_extent_1 = e1_height / 2;
+			float y_extent_2 = e2_height / 2; // do this to z as well
+			float y_overlap = (y_extent_1 - y_extent_2) - glm::abs(distance.y);
+
+			if (y_overlap > x_overlap)
+			{
+				// to do:
+				// there will need to be collision types for all 4 sides
+				// 6 if we want depth-wise
+				// debug and figure out which side is represented...
+
+				if (distance.x > 0)
+				{
+					// here
+				}
+				else
+				{
+					// here
+				}
+			}
+			else
+			{
+				if (distance.y > 0)
+				{
+					// here
+				}
+				else
+				{
+					// and here
+				}
+			}
+		}
+	}
+
+	virtual void ValidateEntity(Entity* p_entity) override
+	{
+		bool requiredComponents = p_entity->GetComponent<ComponentCollisionAABB>() != nullptr &&
+							      p_entity->GetComponent<ComponentTransform>() != nullptr;
+
+		System::ValidateEntity(p_entity, requiredComponents);
+	}
+
+private:
+	CollisionManager* m_cm;
+};
