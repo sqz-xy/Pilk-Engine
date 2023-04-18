@@ -89,6 +89,7 @@ public:
 	SystemPhysics() {};
 
 	/// Original Author: Piotr Moskala
+	/// Logic By: Matthew Liney
 	/// <summary>
 	/// Orchestrates the physics of the entity using its Transform and X Components 
 	/// </summary>
@@ -99,6 +100,15 @@ public:
 			ComponentTransform* componentTransform = entity->GetComponent<ComponentTransform>();
 			if (componentTransform == nullptr) return;
 
+			ComponentVelocity* componentVelocity = entity->GetComponent<ComponentVelocity>();
+			if (componentVelocity == nullptr) return;
+
+			vec3 vel = componentVelocity->GetVelocity();
+			vec3 pos = componentTransform->m_translation;
+			vec3 newPos = pos + vel;
+
+			componentTransform->UpdateTranslation(newPos);
+
 			// TODO: Calculate new transformation with component Physics/Velocity/etc.
 			
 			/*glm::vec3 newTranslation = componentTransform->m_translation + glm::vec3(0.0f, 0.0f, 0.2f * p_deltaTime);
@@ -107,6 +117,7 @@ public:
 	}
 
 	/// Original Author: Piotr Moskala
+	/// Edited By: Matthew Liney
 	/// <summary>
 	/// Checks for valid SystemPhysics components, then validates the entity against them
 	/// </summary>
@@ -115,7 +126,8 @@ public:
 	{
 		// Specify valid components separated by "&&" here: 
 		bool requiredComponents =
-			p_entity->GetComponent<ComponentTransform>() != nullptr;
+			p_entity->GetComponent<ComponentTransform>() != nullptr &&
+			p_entity->GetComponent<ComponentVelocity>() != nullptr;
 
 
 		System::ValidateEntity(p_entity, requiredComponents);
