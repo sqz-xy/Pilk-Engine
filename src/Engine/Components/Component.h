@@ -156,6 +156,45 @@ private:
 	float m_radius;
 };
 
+// component by matthew liney
+class ComponentCollisionAABB : public Component
+{
+public:
+
+	ComponentCollisionAABB(float p_height, float p_width, float p_depth)
+	{
+		m_height = p_height;
+		m_width = p_width;
+		m_depth = p_depth;
+
+		m_is_active = true;
+	}
+
+	float ComponentCollisionAABB::GetHeight()
+	{
+		return m_height;
+	}
+
+	float ComponentCollisionAABB::GetWidth()
+	{
+		return m_width;
+	}
+
+	float ComponentCollisionAABB::GetDepth()
+	{
+		return m_depth;
+	}
+
+	// add setters later if ur a lamo
+
+private:
+	float m_height;
+	float m_width;
+	float m_depth;
+
+	bool m_is_active;
+};
+
 class ComponentGeometry : public Component
 {
 public:

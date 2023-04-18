@@ -76,13 +76,23 @@ public:
 		player->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
 		player->AddComponent(new ComponentPhysics(glm::vec3(0.1f, 0.0f, 0.0f), glm::vec3(0.0f, -0.01f, 0.0f)));
 
+		Entity* floor = new Entity("Floor");
+		floor->AddComponent(new ComponentTransform(glm::vec3(0.0f, -3.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(5.0f, 1.0f, 1.0f)));
+		floor->AddComponent(new ComponentGeometry("resources/models/tempcube/tempcube.obj"));
+		floor->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
+		floor->AddComponent(new ComponentPhysics(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f)));
+
 		m_entityManager->AddEntity(player);
+		m_entityManager->AddEntity(floor);
 
 		// System render
 		System* systemRender = new SystemRender(m_Camera);
 		systemRender->ValidateEntity(player);
+		systemRender->ValidateEntity(floor);
+
 		System* systemPhysics = new SystemPhysics();
 		systemPhysics->ValidateEntity(player);
+		systemPhysics->ValidateEntity(floor);
 
 		m_systemManager->AddSystem(systemRender);
 		m_systemManager->AddSystem(systemPhysics);

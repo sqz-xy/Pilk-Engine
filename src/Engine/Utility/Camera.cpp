@@ -19,6 +19,7 @@ Camera::Camera(const glm::vec3 p_pos, const glm::vec3 p_target, const float p_wi
 	m_lastMousePos = glm::vec2(0.0f, 0.0f);
 
 	m_projection = glm::perspective(glm::radians(m_zoom), (float)p_width / (float)p_height, 0.1f, 100.0f);
+
 	m_cameraRight = glm::normalize(glm::cross(m_cameraUp, m_cameraDirection));
 }
 
