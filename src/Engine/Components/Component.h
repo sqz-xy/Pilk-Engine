@@ -80,31 +80,57 @@ private:
 
 
 //ComponentVelocity created by Eryk
-class ComponentVelocity : public Component
+//Edited by: Matthew Liney
+//it's called component physics now
+class ComponentPhysics : public Component
 {
 public:
-	ComponentVelocity(const float p_x, const float p_y, const float p_z)
-	{
-		m_velocity = vec3(p_x, p_y, p_z);
-	}
+	//ComponentPhysics(const float p_x, const float p_y, const float p_z)
+	//{
+	//	m_velocity = vec3(p_x, p_y, p_z);
+	//} dumb
 
-	ComponentVelocity(vec3 p_velocity)
+	ComponentPhysics(vec3 p_velocity, vec3 p_gravity)
 	{
 		m_velocity = p_velocity;
+		m_gravity = p_gravity;
+		m_currentGravity = vec3(0.0f, 0.0f, 0.0f);
 	}
 
-	vec3 ComponentVelocity::GetVelocity()
+	vec3 ComponentPhysics::GetVelocity()
 	{
 		return m_velocity;
 	}
 
-	void ComponentVelocity::SetVelocity(vec3 p_velocity)
+	void ComponentPhysics::SetVelocity(vec3 p_velocity)
 	{
 		m_velocity = p_velocity;
 	}
 
+	vec3 ComponentPhysics::GetGravity()
+	{
+		return m_gravity;
+	}
+
+	void ComponentPhysics::SetGravity(vec3 p_gravity)
+	{
+		m_gravity = p_gravity;
+	}
+
+	vec3 ComponentPhysics::GetCurrentGravity()
+	{
+		return m_currentGravity;
+	}
+
+	void ComponentPhysics::SetCurrentGravity(vec3 p_gravity)
+	{
+		m_currentGravity = p_gravity;
+	}
+
 private:
 	vec3 m_velocity;
+	vec3 m_gravity; // value to be added onto current value
+	vec3 m_currentGravity; // current value, added (or subtracted) to the position
 };
 
 //ComponentCollisionSphere created by Eryk

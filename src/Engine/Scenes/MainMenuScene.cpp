@@ -74,7 +74,7 @@ public:
 		player->AddComponent(new ComponentTransform(glm::vec3(0.0f, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
 		player->AddComponent(new ComponentGeometry("resources/models/randy/randy.obj"));
 		player->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
-		player->AddComponent(new ComponentVelocity(glm::vec3(0.1f, 0.0f, 0.0f)));
+		player->AddComponent(new ComponentPhysics(glm::vec3(0.1f, 0.0f, 0.0f), glm::vec3(0.0f, -0.01f, 0.0f)));
 
 		m_entityManager->AddEntity(player);
 
