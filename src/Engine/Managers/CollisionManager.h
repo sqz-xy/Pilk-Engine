@@ -1,3 +1,5 @@
+#pragma once
+
 #include "../PilkEngineCommon.h"
 
 #include "../Objects/Entity.h"

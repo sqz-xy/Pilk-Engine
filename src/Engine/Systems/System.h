@@ -7,6 +7,7 @@
 #include <vector>
 #include <algorithm>
 
+#include "../Managers/CollisionManager.h"
 #include "../Objects/Entity.h"
 
 class System
@@ -172,20 +173,22 @@ private:
 	Camera* m_camera;
 };
 
+
+
 // class by matthew liney
 class SystemCollisionAABBAABB : public System
 {
 public:
 
 	// cm stands for collision manager, by the way.
-	SystemCollisionAABBAABB(CollisionManager p_cm)
+	SystemCollisionAABBAABB(CollisionManager* p_cm)
 	{
-		m_cm = &p_cm;
+		m_cm = p_cm;
 	}
 
 	virtual void Execute(const float p_deltaTime) override
 	{
-		for each (Entity* e1 in validEntities)
+		for each (Entity * e1 in validEntities)
 		{
 			for each (Entity * e2 in validEntities)
 			{
@@ -260,7 +263,7 @@ public:
 	virtual void ValidateEntity(Entity* p_entity) override
 	{
 		bool requiredComponents = p_entity->GetComponent<ComponentCollisionAABB>() != nullptr &&
-							      p_entity->GetComponent<ComponentTransform>() != nullptr;
+			p_entity->GetComponent<ComponentTransform>() != nullptr;
 
 		System::ValidateEntity(p_entity, requiredComponents);
 	}
