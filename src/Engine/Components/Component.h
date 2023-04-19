@@ -7,6 +7,7 @@
 
 #include "../PilkEngineCommon.h"
 #include "../Managers/ResourceManager.h"
+#include "../Utility/Camera.h"
 
 using namespace glm;
 
@@ -79,31 +80,57 @@ private:
 
 
 //ComponentVelocity created by Eryk
-class ComponentVelocity : public Component
+//Edited by: Matthew Liney
+//it's called component physics now
+class ComponentPhysics : public Component
 {
 public:
-	ComponentVelocity(const float p_x, const float p_y, const float p_z)
-	{
-		m_velocity = vec3(p_x, p_y, p_z);
-	}
+	//ComponentPhysics(const float p_x, const float p_y, const float p_z)
+	//{
+	//	m_velocity = vec3(p_x, p_y, p_z);
+	//} dumb
 
-	ComponentVelocity(vec3 p_velocity)
+	ComponentPhysics(vec3 p_velocity, vec3 p_gravity)
 	{
 		m_velocity = p_velocity;
+		m_gravity = p_gravity;
+		m_currentGravity = vec3(0.0f, 0.0f, 0.0f);
 	}
 
-	vec3 ComponentVelocity::GetVelocity()
+	vec3 ComponentPhysics::GetVelocity()
 	{
 		return m_velocity;
 	}
 
-	void ComponentVelocity::SetVelocity(vec3 p_velocity)
+	void ComponentPhysics::SetVelocity(vec3 p_velocity)
 	{
 		m_velocity = p_velocity;
 	}
 
+	vec3 ComponentPhysics::GetGravity()
+	{
+		return m_gravity;
+	}
+
+	void ComponentPhysics::SetGravity(vec3 p_gravity)
+	{
+		m_gravity = p_gravity;
+	}
+
+	vec3 ComponentPhysics::GetCurrentGravity()
+	{
+		return m_currentGravity;
+	}
+
+	void ComponentPhysics::SetCurrentGravity(vec3 p_gravity)
+	{
+		m_currentGravity = p_gravity;
+	}
+
 private:
 	vec3 m_velocity;
+	vec3 m_gravity; // value to be added onto current value
+	vec3 m_currentGravity; // current value, added (or subtracted) to the position
 };
 
 //ComponentCollisionSphere created by Eryk
@@ -129,6 +156,45 @@ private:
 	float m_radius;
 };
 
+// component by matthew liney
+class ComponentCollisionAABB : public Component
+{
+public:
+
+	ComponentCollisionAABB(float p_height, float p_width, float p_depth)
+	{
+		m_height = p_height;
+		m_width = p_width;
+		m_depth = p_depth;
+
+		m_is_active = true;
+	}
+
+	float ComponentCollisionAABB::GetHeight()
+	{
+		return m_height;
+	}
+
+	float ComponentCollisionAABB::GetWidth()
+	{
+		return m_width;
+	}
+
+	float ComponentCollisionAABB::GetDepth()
+	{
+		return m_depth;
+	}
+
+	// add setters later if ur a lamo
+
+private:
+	float m_height;
+	float m_width;
+	float m_depth;
+
+	bool m_is_active;
+};
+
 class ComponentGeometry : public Component
 {
 public:
@@ -150,4 +216,43 @@ public:
 
 private:
 	Model* m_model;
+};
+
+// Component shader created by James
+class ComponentShader : public Component
+{
+public:
+	unsigned int m_shaderProgramID;
+
+	ComponentShader(const std::string& p_vertexPath, const std::string& p_fragmentPath)
+	{
+		if (!ResourceManager::CreateShaderProgram(&m_shaderProgramID, "resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag")) return;
+		//m_uniform_modelMat = glGetUniformLocation(p_shaderProgramID, "model");
+		m_colour = glGetUniformLocation(m_shaderProgramID, "uColour");
+		m_shaderProgramID = m_shaderProgramID;
+
+		// m_tex = glGetUniformLocation(p_shaderProgramID, "uTextureDiffuse1");
+		// m_uniform_projMat = glGetUniformLocation(p_shaderProgramID, "projection");
+		// m_uniform_viewMat = glGetUniformLocation(p_shaderProgramID, "view");
+	}
+
+	void UseShader(glm::mat4* p_modelMat, glm::mat4* p_viewMat, glm::mat4* p_projMat)
+	{
+		glUseProgram(m_shaderProgramID);
+		glUniformMatrix4fv(glGetUniformLocation(m_shaderProgramID, "uModel"), 1, GL_FALSE, &(*p_modelMat)[0][0]);
+		glUniformMatrix4fv(glGetUniformLocation(m_shaderProgramID, "uView"), 1, GL_FALSE, &(*p_viewMat)[0][0]);
+		glUniformMatrix4fv(glGetUniformLocation(m_shaderProgramID, "uProj"), 1, GL_FALSE, &(*p_projMat)[0][0]);
+
+		//glUniform4f(glGetUniformLocation(m_shaderProgramID, "uColour"), m_colour[0], m_colour[1], m_colour[2], m_colour[3]);
+		//m_Camera->UpdateCamera(m_shaderProgramID);
+		//glUniformMatrix4fv(glGetUniformLocation(*m_shaderProgramID, "uModel"), 1, GL_FALSE, &temp[0][0]);
+	}
+
+private:
+	int m_uniform_modelMat;
+	int m_colour;
+
+	//int m_uniform_viewMat;
+	//int m_uniform_projMat;
+	//int m_tex;
 };

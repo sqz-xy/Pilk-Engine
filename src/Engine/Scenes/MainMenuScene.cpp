@@ -10,51 +10,32 @@
 #include "../Objects/Model.h"
 #include "../Components/Component.h"
 #include "../Objects/Entity.h"
-
+#include "../Managers/GameCollisionManager.cpp"
 
 class MainMenuScene : public Scene
 {
 public:
 
-	ComponentTransform* m_transformation = new  ComponentTransform(glm::vec3(0.0f, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+	EntityManager* m_entityManager;
+	SystemManager* m_systemManager;
+	GameCollisionManager* m_collisionManager;
 
-	// TODO: Remove after refactor
-	unsigned int m_shaderProgramID;
-	float* m_colour = new float[4] { 1.0f, 0.5f, 0.2f, 1.0f };
-
-	glm::vec3 modelPos = glm::vec3(0.0f, 0.0f, 2.0f);
-	glm::vec3 modelPos2 = glm::vec3(0.6f, 0.0f, 2.0f);
-
-	glm::mat4 m_modelMat;
-	glm::mat4 m_modelMat2;
-	
 	Camera* m_Camera;
-
-	Model* m_backpack;
-	Model* m_backpack2;
-
-	ComponentGeometry* m_geometry;
 
 	explicit MainMenuScene(SceneManager* pSceneManager) : Scene(pSceneManager)
 	{
 		m_sceneManager->m_windowName = "MainMenuScene";
 		
-		m_Camera = new Camera(	glm::vec3(0.0f,0.0f,-5.0f),	// camPos
-								glm::vec3(0.0f,0.0f,5.0f),  // camTarget
+		m_Camera = new Camera(	glm::vec3(0.0f,0.0f,15.0f),	// camPos
+								glm::vec3(0.0f,0.0f,-5.0f),  // camTarget
 								m_sceneManager->m_width,	// windows width
 								m_sceneManager->m_height);	// window height
 
 
 
-		// rotation
-		// scale
-		//m_modelMat = glm::rotate(m_modelMat, glm::radians(21.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-		m_modelMat = glm::translate(glm::mat4(1.0f), modelPos); // translatng the model in the matrix
-
-		m_modelMat = m_transformation->m_transform;
-
-		m_modelMat2 = glm::translate(glm::mat4(1.0f), modelPos2);
-		//m_modelMat = glm::rotate(m_modelMat, 72.f, glm::vec3(1, 1, 1));
+		m_entityManager = new EntityManager();
+		m_systemManager = new SystemManager();
+		m_collisionManager = new GameCollisionManager();
 	}
 
 
@@ -65,25 +46,10 @@ public:
 
 	void Render(const float p_dt) const override
 	{
-		glUseProgram(m_shaderProgramID);
-
-		// Change Colour
-		glUniform4f(glGetUniformLocation(m_shaderProgramID, "uColour"), m_colour[0], m_colour[1], m_colour[2], m_colour[3]);
-		
-		m_Camera->UpdateCamera(m_shaderProgramID);
-
-		// Geometry component
-		glUniformMatrix4fv(glGetUniformLocation(m_shaderProgramID, "uModel"), 1, GL_FALSE, &m_modelMat[0][0]);
-		m_geometry->Draw(m_shaderProgramID);
-
-		//glUniformMatrix4fv(glGetUniformLocation(m_shaderProgramID, "uModel"), 1, GL_FALSE, &m_modelMat2[0][0]);
-		//m_backpack->Draw(m_shaderProgramID);
-
 		ImVec2 vec(100, 50);
 		//std::cout << "Rendering" << std::endl;
 		ImGui::Begin("ImGui Test");
 		ImGui::Text("Delta time %f", p_dt);
-		ImGui::ColorEdit4("Colour", m_colour);
 		bool button = ImGui::Button("Change scene", vec);
 
 		if (button)
@@ -96,27 +62,45 @@ public:
 
 	void Update(const float p_dt) override
 	{
-		glUseProgram(m_shaderProgramID);
-		m_Camera->UpdateCamera(m_shaderProgramID);
+		m_Camera->UpdateCamera();
+
+		m_systemManager->ExecuteSystems(p_dt);
+
+		m_collisionManager->ProcessCollisions();
+		m_collisionManager->ClearManifold();
 	}
 
 	void Load() override
 	{
-		// File manager test
-		FileManager::LoadEntities("Resources/scripts/EntityScript.txt");
-
-		Entity* entity1 = new Entity("balls");
-		m_entityManager->AddEntity(entity1);
-		//m_entityManager->RemoveEntity("balls");
-
 		stbi_set_flip_vertically_on_load(true);
 
-		m_backpack = ResourceManager::LoadModel("resources/models/backpack/backpack.obj");
-		m_backpack2 = ResourceManager::LoadModel("resources/models/backpack/backpack.obj");
+		// Player entity.
+		Entity* player = new Entity("Player");
+		player->AddComponent(new ComponentTransform(glm::vec3(0.0f, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
+		player->AddComponent(new ComponentGeometry("resources/models/randy/randy.obj"));
+		player->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
+		player->AddComponent(new ComponentPhysics(glm::vec3(0.1f, 0.0f, 0.0f), glm::vec3(0.0f, -0.01f, 0.0f)));
 
-		m_geometry = new ComponentGeometry("resources/models/backpack/backpack.obj");
+		Entity* floor = new Entity("Floor");
+		floor->AddComponent(new ComponentTransform(glm::vec3(0.0f, -3.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(5.0f, 1.0f, 1.0f)));
+		floor->AddComponent(new ComponentGeometry("resources/models/tempcube/tempcube.obj"));
+		floor->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
+		floor->AddComponent(new ComponentPhysics(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f)));
 
-		if (!ResourceManager::CreateShaderProgram(&m_shaderProgramID, "resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag")) return;
+		m_entityManager->AddEntity(player);
+		m_entityManager->AddEntity(floor);
+
+		// System render
+		System* systemRender = new SystemRender(m_Camera);
+		systemRender->ValidateEntity(player);
+		systemRender->ValidateEntity(floor);
+
+		System* systemPhysics = new SystemPhysics();
+		systemPhysics->ValidateEntity(player);
+		systemPhysics->ValidateEntity(floor);
+
+		m_systemManager->AddSystem(systemRender);
+		m_systemManager->AddSystem(systemPhysics);
 	}
 
 	void ProcessInput(GLFWwindow* p_window, const float p_dt) override
@@ -151,7 +135,6 @@ public:
 		std::cout << "Scene Closed" << std::endl;
 
 		delete m_Camera;
-		delete[] m_colour;
 
 		ResourceManager::DeleteResources();
 	}

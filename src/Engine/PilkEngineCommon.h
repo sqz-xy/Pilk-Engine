@@ -31,4 +31,5 @@
 #include "stb_image.h"
 
 // Variables
-#define MOUSE_CONTROL_ENABLED 1;
+#define MOUSE_CONTROL_ENABLED 0;
+#define GRAVITY glm::vec3(0.0f, 9.8f, 0.0f);

@@ -19,6 +19,7 @@ Camera::Camera(const glm::vec3 p_pos, const glm::vec3 p_target, const float p_wi
 	m_lastMousePos = glm::vec2(0.0f, 0.0f);
 
 	m_projection = glm::perspective(glm::radians(m_zoom), (float)p_width / (float)p_height, 0.1f, 100.0f);
+
 	m_cameraRight = glm::normalize(glm::cross(m_cameraUp, m_cameraDirection));
 }
 
@@ -79,11 +80,7 @@ void Camera::RotateCamera(glm::vec2& p_mousePos)
 	m_cameraDirection = glm::normalize(m_cameraDirection);
 }
 
-void Camera::UpdateCamera(const int p_shaderHandle)
+void Camera::UpdateCamera()
 {
 	m_view = glm::lookAt(m_cameraPos, m_cameraPos + m_cameraDirection, m_cameraUp);
-
-	glUniformMatrix4fv(glGetUniformLocation(p_shaderHandle, "uView"), 1, GL_FALSE, &m_view[0][0]);
-	glUniformMatrix4fv(glGetUniformLocation(p_shaderHandle, "uProj"), 1, GL_FALSE, &m_projection[0][0]);
-
 }
