@@ -194,7 +194,7 @@ public:
 			{
 				if (entity1 != entity2)
 				{
-					Collision(entity1, entity2);
+					CollisionCheck(entity1, entity2);
 				}
 			}
 		}
@@ -202,7 +202,7 @@ public:
 
 	}
 
-	virtual void Collision(Entity* p_entity_1, Entity* p_entity_2)
+	virtual void CollisionCheck(Entity* p_entity_1, Entity* p_entity_2)
 	{
 		ComponentTransform* e1_transform = p_entity_1->GetComponent<ComponentTransform>();
 		vec3 e1_pos = e1_transform->m_translation;
@@ -241,7 +241,7 @@ public:
 
 				if (distance.x > 0)
 				{
-					// here
+
 				}
 				else
 				{
@@ -252,11 +252,11 @@ public:
 			{
 				if (distance.y > 0)
 				{
-					// here
+					m_cm->RegisterCollision(p_entity_1, p_entity_2, AABB_AABB_COLLISION_TOP);
 				}
 				else
 				{
-					// and here
+					m_cm->RegisterCollision(p_entity_1, p_entity_2, AABB_AABB_COLLISION_BOTTOM);
 				}
 			}
 		}
