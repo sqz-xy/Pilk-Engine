@@ -48,6 +48,9 @@ public:
 		new_pos.y += col2->GetHeight();
 
 		pos1->UpdateTranslation(new_pos);
+
+		ComponentPhysics* phys1 = e1->GetComponent<ComponentPhysics>();
+		phys1->SetGravity(vec3(0, 0, 0));
 	}
 	void RespondAABBAABBDown(Collision* p_col)
 	{

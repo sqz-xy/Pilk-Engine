@@ -102,6 +102,8 @@ public:
 		return m_velocity;
 	}
 
+	// set x and y instead of this (takes in float)
+
 	void SetVelocity(vec3 p_velocity)
 	{
 		m_velocity = p_velocity;
@@ -126,6 +128,8 @@ public:
 	{
 		m_currentGravity = p_gravity;
 	}
+
+	// gravity should deduct from velocity
 
 private:
 	vec3 m_velocity;

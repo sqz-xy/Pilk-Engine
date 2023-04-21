@@ -106,6 +106,9 @@ public:
 
 	void ProcessInput(GLFWwindow* p_window, const float p_dt) override
 	{
+		// uh oh! this is temp!
+		Entity* playor = m_entityManager->FindEntity("Player");
+
 		// Exit if escape key is pressed
 		if (glfwGetKey(p_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 			glfwSetWindowShouldClose(p_window, true);
@@ -121,6 +124,24 @@ public:
 
 		if (glfwGetKey(p_window, GLFW_KEY_D) == GLFW_PRESS)
 			m_Camera->MoveCamera(m_Camera->Right, 2.5f, p_dt);
+
+		if (glfwGetKey(p_window, GLFW_KEY_SPACE) == GLFW_PRESS)
+		{
+			ComponentPhysics* phys = playor->GetComponent<ComponentPhysics>();
+			phys->SetVelocity(vec3(0,10.0,0));
+		}
+
+		if (glfwGetKey(p_window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+		{
+			ComponentPhysics* phys = playor->GetComponent<ComponentPhysics>();
+			phys->SetVelocity(vec3(10.0, 0, 0));
+		}
+
+		if (glfwGetKey(p_window, GLFW_KEY_LEFT) == GLFW_PRESS)
+		{
+			ComponentPhysics* phys = playor->GetComponent<ComponentPhysics>();
+			phys->SetVelocity(vec3(-10.0, 0, 0));
+		}
 
 #if MOUSE_CONTROL_ENABLED
 		double xpos, ypos;

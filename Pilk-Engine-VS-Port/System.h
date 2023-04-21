@@ -186,6 +186,10 @@ public:
 		m_cm = p_cm;
 	}
 
+	//AHHHHH we need rto make it so it checks entities with phys against all others
+	// because we dont need to move ahything without phys component
+	// also will make more effocoemt amd npot break
+
 	virtual void Execute(const float p_deltaTime) override
 	{
 		for (Entity* entity1 : validEntities)
