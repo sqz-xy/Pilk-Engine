@@ -85,6 +85,8 @@ public:
 		floor2->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
 		floor2->AddComponent(new ComponentPhysics(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f)));
 
+		FileManager::LoadEntities("resources/scripts/EntityScript.txt");
+
 		m_entityManager->AddEntity(player);
 		m_entityManager->AddEntity(floor);
 		m_entityManager->AddEntity(floor2);

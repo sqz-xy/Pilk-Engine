@@ -64,6 +64,9 @@
     <None Include="resources\shaders\FragmentShader.frag" />
     <None Include="resources\shaders\VertexShader.vert" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="resources\scripts\EntityScript.txt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>

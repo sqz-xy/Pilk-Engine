@@ -43,6 +43,9 @@
     <Filter Include="Resource Files\Shaders">
       <UniqueIdentifier>{2a06b550-5865-4c0f-9680-de3cbb78a7da}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Scripts">
+      <UniqueIdentifier>{19fca4ce-f56f-4539-9a66-394d3f1794fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -169,5 +172,10 @@
     <None Include="resources\shaders\VertexShader.vert">
       <Filter>Resource Files\Shaders</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="resources\scripts\EntityScript.txt">
+      <Filter>Resource Files\Scripts</Filter>
+    </Text>
   </ItemGroup>
 </Project>

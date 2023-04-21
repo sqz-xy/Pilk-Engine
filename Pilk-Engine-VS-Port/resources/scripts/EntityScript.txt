@@ -1,3 +1,10 @@
-test
+&
+ComponentName
+joe
+&
 test2
+jane
+&
 test3
+james
+&
