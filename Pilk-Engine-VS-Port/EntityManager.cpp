@@ -72,3 +72,21 @@ void EntityManager::Clear()
 	}
 	m_entities.clear();
 }
+
+/// Original Author: Thomas Beet
+/// <summary>
+/// Finds an entity based on name
+/// </summary>
+/// <param name="p_name">Entity to find</param>
+/// <returns>Entity or nullptr</returns>
+Entity* EntityManager::FindEntity(const std::string& p_name)
+{
+	for (int i = 0; i < m_entities.size(); i++)
+	{
+		if (m_entities[i]->GetName() == p_name)
+		{
+			return m_entities[i];
+		}
+	}
+	return nullptr;
+}

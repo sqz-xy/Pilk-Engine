@@ -69,34 +69,38 @@ public:
 		
 		Entity* player = new Entity("Player");
 		player->AddComponent(new ComponentTransform(glm::vec3(0.0f, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
+		player->AddComponent(new ComponentCollisionAABB(2.0f, 2.0f, 0.5f));
 		player->AddComponent(new ComponentGeometry("resources/models/randy/randy.obj"));
 		player->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
-		player->AddComponent(new ComponentPhysics(glm::vec3(0.1f, 0.0f, 0.0f), glm::vec3(0.0f, -0.01f, 0.0f)));
+		player->AddComponent(new ComponentPhysics(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -0.01f, 0.0f)));
 
 		Entity* floor = new Entity("Floor");
 		floor->AddComponent(new ComponentTransform(glm::vec3(0.0f, -3.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
+		floor->AddComponent(new ComponentCollisionAABB(2.0f, 2.0f, 0.5f));
 		floor->AddComponent(new ComponentGeometry("resources/models/tempcube/tempcube.obj"));
 		floor->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
 		floor->AddComponent(new ComponentPhysics(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f)));
 
-		Entity* floor2 = new Entity("Floor2");
-		floor2->AddComponent(new ComponentTransform(glm::vec3(2.0f, -3.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
-		floor2->AddComponent(new ComponentGeometry("resources/models/tempcube/tempcube.obj"));
-		floor2->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
-		floor2->AddComponent(new ComponentPhysics(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f)));
+		//Entity* floor2 = new Entity("Floor2");
+		//floor2->AddComponent(new ComponentTransform(glm::vec3(2.0f, -3.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
+		//floor2->AddComponent(new ComponentGeometry("resources/models/tempcube/tempcube.obj"));
+		//floor2->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
+		//floor2->AddComponent(new ComponentPhysics(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f)));
 
 		FileManager::LoadEntities("resources/scripts/EntityScript.txt");
 
 		m_entityManager->AddEntity(player);
 		m_entityManager->AddEntity(floor);
-		m_entityManager->AddEntity(floor2);
+		//m_entityManager->AddEntity(floor2);
 
 		// System render
 		System* systemRender = new SystemRender(m_Camera);
 		System* systemPhysics = new SystemPhysics();
+		System* system_collision_AABB_AABB = new SystemCollisionAABBAABB(m_collisionManager);
 
 		m_systemManager->AddSystem(systemRender);
 		m_systemManager->AddSystem(systemPhysics);
+		m_systemManager->AddSystem(system_collision_AABB_AABB);
 
 		m_entityManager->ValidateEntities(m_systemManager);
 		
@@ -104,6 +108,9 @@ public:
 
 	void ProcessInput(GLFWwindow* p_window, const float p_dt) override
 	{
+		// uh oh! this is temp!
+		Entity* playor = m_entityManager->FindEntity("Player");
+
 		// Exit if escape key is pressed
 		if (glfwGetKey(p_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 			glfwSetWindowShouldClose(p_window, true);
@@ -119,6 +126,24 @@ public:
 
 		if (glfwGetKey(p_window, GLFW_KEY_D) == GLFW_PRESS)
 			m_Camera->MoveCamera(m_Camera->Right, 2.5f, p_dt);
+
+		if (glfwGetKey(p_window, GLFW_KEY_SPACE) == GLFW_PRESS)
+		{
+			ComponentPhysics* phys = playor->GetComponent<ComponentPhysics>();
+			phys->SetVelocity(vec3(0,10.0,0));
+		}
+
+		if (glfwGetKey(p_window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+		{
+			ComponentPhysics* phys = playor->GetComponent<ComponentPhysics>();
+			phys->SetVelocity(vec3(10.0, 0, 0));
+		}
+
+		if (glfwGetKey(p_window, GLFW_KEY_LEFT) == GLFW_PRESS)
+		{
+			ComponentPhysics* phys = playor->GetComponent<ComponentPhysics>();
+			phys->SetVelocity(vec3(-10.0, 0, 0));
+		}
 
 #if MOUSE_CONTROL_ENABLED
 		double xpos, ypos;

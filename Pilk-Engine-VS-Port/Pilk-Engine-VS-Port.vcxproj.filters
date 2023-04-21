@@ -117,6 +117,9 @@
     <ClCompile Include="stb_image.cpp">
       <Filter>Source Files\External</Filter>
     </ClCompile>
+    <ClCompile Include="PrefabManager.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PilkEngineCommon.h">
@@ -163,6 +166,9 @@
     </ClInclude>
     <ClInclude Include="Model.h">
       <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="PrefabManager.h">
+      <Filter>Header Files\Managers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

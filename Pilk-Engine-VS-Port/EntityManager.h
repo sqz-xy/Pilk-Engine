@@ -15,6 +15,8 @@ public:
 	void ValidateEntities(SystemManager* p_systemManager);
 	void Clear();
 
+	Entity* FindEntity(const std::string& p_name);
+
 private:
 	std::vector<Entity*> m_entities;
 };

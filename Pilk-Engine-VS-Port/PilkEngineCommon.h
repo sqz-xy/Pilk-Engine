@@ -39,6 +39,7 @@
 #include "ResourceManager.h"
 #include "SceneManager.h"
 #include "SystemManager.h"
+#include "PrefabManager.h"
 
 // Entity
 #include "Entity.h"

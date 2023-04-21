@@ -80,3 +80,8 @@ void Camera::UpdateCamera()
 {
 	m_view = glm::lookAt(m_cameraPos, m_cameraPos + m_cameraDirection, m_cameraUp);
 }
+
+void Camera::UpdateProjection(const float p_width, const float p_height)
+{
+	m_projection = glm::perspective(glm::radians(m_zoom), (float)p_width / (float)p_height, 0.1f, 100.0f);
+}

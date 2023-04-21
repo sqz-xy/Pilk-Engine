@@ -186,6 +186,10 @@ public:
 		m_cm = p_cm;
 	}
 
+	//AHHHHH we need rto make it so it checks entities with phys against all others
+	// because we dont need to move ahything without phys component
+	// also will make more effocoemt amd npot break
+
 	virtual void Execute(const float p_deltaTime) override
 	{
 		for (Entity* entity1 : validEntities)
@@ -194,7 +198,7 @@ public:
 			{
 				if (entity1 != entity2)
 				{
-					Collision(entity1, entity2);
+					CollisionCheck(entity1, entity2);
 				}
 			}
 		}
@@ -202,7 +206,7 @@ public:
 
 	}
 
-	virtual void Collision(Entity* p_entity_1, Entity* p_entity_2)
+	virtual void CollisionCheck(Entity* p_entity_1, Entity* p_entity_2)
 	{
 		ComponentTransform* e1_transform = p_entity_1->GetComponent<ComponentTransform>();
 		vec3 e1_pos = e1_transform->m_translation;
@@ -241,7 +245,7 @@ public:
 
 				if (distance.x > 0)
 				{
-					// here
+
 				}
 				else
 				{
@@ -252,11 +256,11 @@ public:
 			{
 				if (distance.y > 0)
 				{
-					// here
+					m_cm->RegisterCollision(p_entity_1, p_entity_2, AABB_AABB_COLLISION_TOP);
 				}
 				else
 				{
-					// and here
+					m_cm->RegisterCollision(p_entity_1, p_entity_2, AABB_AABB_COLLISION_BOTTOM);
 				}
 			}
 		}
