@@ -7,6 +7,8 @@
 *.o
 *.obj
 !backpack.obj
+!randy.obj
+!tempcube.obj
 
 # Precompiled Headers
 *.gch
@@ -54,3 +56,4 @@ build/
 /ZERO_CHECK.vcxproj
 /Pilk-Engine.vcxproj.user
 /ZERO_CHECK.vcxproj.filters
+/libs/assimp/contrib/zlib/.vs/zlib
