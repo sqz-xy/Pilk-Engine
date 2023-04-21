@@ -37,6 +37,7 @@
     <ClCompile Include="MainMenuScene.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="PeterTestScene.cpp" />
+    <ClCompile Include="PrefabManager.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
@@ -53,6 +54,7 @@
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="PilkEngineCommon.h" />
+    <ClInclude Include="PrefabManager.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />

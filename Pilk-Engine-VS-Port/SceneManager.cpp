@@ -5,6 +5,12 @@
 #include "MainMenuScene.cpp"
 #include "PeterTestScene.cpp"
 
+void window_size_callback(GLFWwindow* window, int width, int height)
+{
+    glViewport(0, 0, width, height);
+}
+
+
 
 SceneManager::SceneManager(const int p_width, const int p_height, const char* p_windowName) : m_currentScene(nullptr), m_width(p_width), m_height(p_height), m_windowName(p_windowName)
 {
@@ -45,6 +51,8 @@ int SceneManager::Run()
     }
     // Set the window as the main context of the current thread
     glfwMakeContextCurrent(window);
+
+    glfwSetWindowSizeCallback(window, window_size_callback);
 
 #if MOUSE_CONTROL_ENABLED
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
