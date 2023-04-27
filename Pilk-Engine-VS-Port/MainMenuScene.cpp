@@ -10,6 +10,7 @@ public:
 	EntityManager* m_entityManager;
 	SystemManager* m_systemManager;
 	GameCollisionManager* m_collisionManager;
+	PrefabManager* m_prefabManager;
 
 	Camera* m_Camera;
 
@@ -27,6 +28,7 @@ public:
 		m_entityManager = new EntityManager();
 		m_systemManager = new SystemManager();
 		m_collisionManager = new GameCollisionManager();
+		m_prefabManager = new PrefabManager();
 	}
 
 
@@ -63,6 +65,8 @@ public:
 
 	void Load() override
 	{
+		m_prefabManager->LoadPrefabs("resources/prefabs/Level1", "");
+
 		stbi_set_flip_vertically_on_load(true);
 
 		// Player entity.
@@ -87,7 +91,7 @@ public:
 		//floor2->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
 		//floor2->AddComponent(new ComponentPhysics(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f)));
 
-		FileManager::LoadEntities("resources/scripts/EntityScript.txt");
+		//FileManager::LoadEntities("resources/scripts/EntityScript.txt");
 
 		m_entityManager->AddEntity(player);
 		m_entityManager->AddEntity(floor);

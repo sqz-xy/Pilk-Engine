@@ -13,6 +13,7 @@
 #include "ostream"
 #include "vector"
 #include "map"
+#include "filesystem" // Swapped to C++ 17 from 14
 
 // OpenGL/GLFW
 #include "glad.h"

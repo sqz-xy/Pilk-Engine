@@ -164,6 +164,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)libs\assimp;$(ProjectDir)libs\glad;$(ProjectDir)libs\glfw;$(ProjectDir)libs\glm;$(ProjectDir)libs\imgui;$(ProjectDir)libs\irrKlang;$(ProjectDir)libs\KHR;$(ProjectDir)libs\stb;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -186,6 +187,7 @@ xcopy "$(ProjectDir)resources" "$(TargetDir)resources" /e /y /i /r</Command>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)libs\assimp;$(ProjectDir)libs\glad;$(ProjectDir)libs\glfw;$(ProjectDir)libs\glm;$(ProjectDir)libs\imgui;$(ProjectDir)libs\irrKlang;$(ProjectDir)libs\KHR;$(ProjectDir)libs\stb;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
