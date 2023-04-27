@@ -14,12 +14,24 @@ void PrefabManager::LoadPrefabs(const std::string& p_prefabPath, const std::stri
 		if (!prefabFile)
 			return;
 
+		Prefab* prefab = new Prefab();
+		int lineIndex = 0;
+
 		while (!prefabFile.eof())
 		{
 			std::string line;
 			prefabFile >> line;
-			std::cout << line << std::endl;
+
+			for (int i = 0; i < line.length(); i++)
+			{
+				// block
+				if (line[i] == '1')
+					prefab->Entities[lineIndex][i] = new Entity("blockhere");
+			}
+
+			lineIndex++;
 		}
+		m_level.push_back(prefab);
 	}
 }
 

@@ -26,5 +26,5 @@ public:
 	Prefab* FetchPrefab(const int p_seed);
 
 private:
-	std::vector<Prefab> m_prefabs;
+	std::vector<Prefab*> m_level;
 };
