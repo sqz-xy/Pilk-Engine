@@ -25,107 +25,95 @@ vector<string> customSplit(string& str, char separator) {
     return strings;
 }
 
-std::vector<Entity> FileManager::LoadEntities(const std::string& p_filePath)
+std::vector<Entity*> FileManager::LoadEntities(const std::string& p_filePath)
 {
-    //vector<std::string> array;
-    //string line;
+    vector<Entity*> entityList;
+    vector<std::string> array;
+    string line;
 
-    //ifstream readFile;
-    //readFile.open(p_filePath);
+    ifstream readFile;
+    readFile.open(p_filePath);
 
-    //string entityString;
+    string entityString;
 
-    //if (!readFile) 
-    //{
-    //    std::cout << "Error reading file";
-    //}
-    //else
-    //{
-    //    char cha;
-    //    while (!readFile.eof()) 
-    //    {
-    //        readFile >> line;
-    //        entityString += line + " ";
-    //    }
-    //    char sep = '&';
-    //    vector<string> strings = customSplit(entityString, sep);
-    //     
-    //    for (int i = 1; i <= strings.size(); i++)
-    //    {
-    //        char sepe = ' ';
-    //        char seperator = ',';
-    //        vector<string> entityArray = customSplit(strings[i], sepe);
-    //        entityArray.erase(entityArray.begin() + 0);
-    //        Entity* newEntity = new Entity(entityArray[0].c_str());
+    if (!readFile) 
+    {
+        std::cout << "Error reading file";
+    }
+    else
+    {
+        char cha;
+        while (!readFile.eof()) 
+        {
+            readFile >> line;
+            entityString += line + " ";
+        }
+        char sep = '&';
+        vector<string> strings = customSplit(entityString, sep);
+         
+        for (int i = 1; i <= strings.size() - 1; i++)
+        {
+            char sepe = ' ';
+            char seperator = ',';
+            vector<string> entityArray = customSplit(strings[i], sepe);
+            entityArray.erase(entityArray.begin() + 0);
 
-    //        for(int y = 0; y <= entityArray.size(); y++)
-    //        {
-    //            if (entityArray[y] == "ComponentTransform")
-    //            {
-    //                vector<string> arrayVectorValue = { customSplit(entityArray[y + 1], seperator) };
+            //strcpy
+            const int returnBufferSize = 512;
+            char* name = new char[returnBufferSize];
+            strcpy_s(name, returnBufferSize, entityArray[0].c_str());
 
-    //                vector<string> translation;
-    //                translation.push_back(arrayVectorValue[0]); 
-    //                translation.push_back(arrayVectorValue[2]);
-    //                translation.push_back(arrayVectorValue[1]);
+            Entity* newEntity = new Entity(name);
 
-    //                vector<string> rotation;
-    //                rotation.push_back(arrayVectorValue[3]);
-    //                rotation.push_back(arrayVectorValue[4]);
-    //                rotation.push_back(arrayVectorValue[5]);
+            for(int y = 0; y <= entityArray.size() - 1; y++)
+            {
+                if (entityArray[y] == "ComponentTransform")
+                {
+                    vector<string> arrayVectorValue = { customSplit(entityArray[y + 1], seperator) };
 
-    //                vector<string> scale;
-    //                scale.push_back(arrayVectorValue[6]);
-    //                scale.push_back(arrayVectorValue[7]);
-    //                scale.push_back(arrayVectorValue[8]);
+                    glm::vec3 trans(std::stof(arrayVectorValue[0].c_str()), std::stof(arrayVectorValue[1].c_str()), std::stof(arrayVectorValue[2].c_str()));
+                    glm::vec3 rot(std::stof(arrayVectorValue[3].c_str()), std::stof(arrayVectorValue[4].c_str()), std::stof(arrayVectorValue[5].c_str()));
+                    glm::vec3 scale(std::stof(arrayVectorValue[6].c_str()), std::stof(arrayVectorValue[7].c_str()), std::stof(arrayVectorValue[8].c_str()));
 
-    //                //newEntity->AddComponent(new ComponentTransform(static_cast<>(translation), rotation, scale));
-    //            }
-    //            else if (entityArray[y] == "ComponentCollisionAABB") 
-    //            {
-    //                vector<string> arrayVectorValue = { customSplit(entityArray[y + 1], seperator) };
-    //                //newEntity->AddComponent(new ComponentCollisionAABB(static_cast<float>(arrayVectorValue[0]), arrayVectorValue[1], arrayVectorValue[2]));
-    //            }
-    //            else if (entityArray[y] == "ComponentCollisionSphere")
-    //            {
-    //                //newEntity->AddComponent(new ComponentCollisionSphere(entityArray[y + 1]));
-    //            }
-    //            else if (entityArray[y] == "ComponentPhysics")
-    //            {
-    //                vector<string> arrayVectorValue = { customSplit(entityArray[y + 1], seperator) };
+                    newEntity->AddComponent(new ComponentTransform(trans, rot, scale));
+                }
+                else if (entityArray[y] == "ComponentCollisionAABB") 
+                {
+                    vector<string> arrayVectorValue = { customSplit(entityArray[y + 1], seperator) };
+                    newEntity->AddComponent(new ComponentCollisionAABB(stof(arrayVectorValue[0].c_str()), stof(arrayVectorValue[1].c_str()), atof(arrayVectorValue[2].c_str())));
+                }
+                else if (entityArray[y] == "ComponentCollisionSphere")
+                {
+                    newEntity->AddComponent(new ComponentCollisionSphere(stof(entityArray[y + 1].c_str())));
+                }
+                else if (entityArray[y] == "ComponentPhysics")
+                {
+                    vector<string> arrayVectorValue = { customSplit(entityArray[y + 1], seperator) };
 
-    //                vector<string> velocity;
-    //                velocity.push_back(arrayVectorValue[0]);
-    //                velocity.push_back(arrayVectorValue[2]);
-    //                velocity.push_back(arrayVectorValue[1]);
+                    int vel1 = std::stof(arrayVectorValue[0].c_str()), vel2 = std::stof(arrayVectorValue[1].c_str()), vel3 = std::stof(arrayVectorValue[2].c_str());
+                    int grav1 = std::stof(arrayVectorValue[3].c_str()), grav2 = std::stof(arrayVectorValue[4].c_str()), grav3 = std::stof(arrayVectorValue[5].c_str());
 
-    //                vector<string> gravity;
-    //                gravity.push_back(arrayVectorValue[3]);
-    //                gravity.push_back(arrayVectorValue[4]);
-    //                gravity.push_back(arrayVectorValue[5]);
+                    glm::vec3 velocity(vel1, vel2, vel3);
+                    glm::vec3 gravity(grav1, grav2, grav3);
 
-    //                //newEntity->AddComponent(new ComponentPhysics(static_cast<float>(velocity), gravity));
-    //            }
-    //            else if (entityArray[y] == "ComponentGeometry")
-    //            {
+                    newEntity->AddComponent(new ComponentPhysics(velocity, gravity));
+                }
+                else if (entityArray[y] == "ComponentGeometry")
+                {
+                    newEntity->AddComponent(new ComponentGeometry(entityArray[y + 1].c_str()));
+                }
+                else if (entityArray[y] == "ComponentShader")
+                {
+                    vector<string> arrayVectorValue = { customSplit(entityArray[y + 1], seperator) };
+                    newEntity->AddComponent(new ComponentShader(arrayVectorValue[0].c_str(), arrayVectorValue[1].c_str()));
+                }
+            }
+            entityList.push_back(newEntity);
+        }
+      
+    }
+    readFile.close();
 
-    //            }
-    //            else if (entityArray[y] == "ComponentPhysics")
-    //            {
-
-    //            }
-    //            else if (entityArray[y] == "ComponentShader")
-    //            {
-
-    //            }
-    //        }
-    //        
-    //        cout << entityArray[i];
-    //    }
-    //  
-    //}
-    //readFile.close();
-
-    return std::vector<Entity>();
+    return entityList;
 }
 

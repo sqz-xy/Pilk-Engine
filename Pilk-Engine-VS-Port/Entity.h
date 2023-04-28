@@ -23,6 +23,15 @@ public:
 
 	}
 
+	/// Original Author : Thomas Beet
+	/// <summary>
+	/// Deletes the name
+	/// </summary>
+	~Entity()
+	{
+		delete[] m_name;
+	}
+
 	/// Original Author: Piotr Moskala.
 	/// <summary>
 	/// Returns the name of the Entity.
