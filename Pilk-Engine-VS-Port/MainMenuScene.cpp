@@ -76,7 +76,8 @@ public:
 		player->AddComponent(new ComponentCollisionAABB(2.0f, 2.0f, 0.5f));
 		player->AddComponent(new ComponentGeometry("resources/models/randy/randy.obj"));
 		player->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
-		player->AddComponent(new ComponentPhysics(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -0.01f, 0.0f)));
+		player->AddComponent(new ComponentPhysics(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -0.03f, 0.0f)));
+		player->AddComponent(new ComponentCollisionPoint(glm::vec3(0.0f, 0.0f, 0.0f)));
 
 
 		FileManager::LoadEntities("resources/scripts/EntityScript.txt");
@@ -87,10 +88,12 @@ public:
 		System* systemRender = new SystemRender(m_Camera);
 		System* systemPhysics = new SystemPhysics();
 		System* system_collision_AABB_AABB = new SystemCollisionAABBAABB(m_collisionManager);
+		System* system_collision_aabb_point = new SystemCollisionAABBPoint(m_collisionManager);
 
 		m_systemManager->AddSystem(systemRender);
 		m_systemManager->AddSystem(systemPhysics);
 		m_systemManager->AddSystem(system_collision_AABB_AABB);
+		m_systemManager->AddSystem(system_collision_aabb_point);
 
 		m_prefabManager->RegisterLevel(*m_entityManager, *m_systemManager);	
 	}

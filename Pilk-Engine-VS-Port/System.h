@@ -113,8 +113,8 @@ public:
 
 
 			vec3 pos = componentTransform->m_translation;
-			//vec3 newPos = (pos + vel) + newGrav;
-			vec3 newPos = (pos + vel);
+			vec3 newPos = (pos + vel) + newGrav;
+			//vec3 newPos = (pos + vel);
 
 			componentTransform->UpdateTranslation(newPos);
 		}
@@ -276,6 +276,75 @@ public:
 	{
 		bool requiredComponents = p_entity->GetComponent<ComponentCollisionAABB>() != nullptr &&
 			p_entity->GetComponent<ComponentTransform>() != nullptr;
+
+		System::ValidateEntity(p_entity, requiredComponents);
+	}
+
+private:
+	CollisionManager* m_cm;
+};
+
+// class by matthew liney
+class SystemCollisionAABBPoint : public System
+{
+public:
+
+	// cm stands for collision manager, by the way.
+	SystemCollisionAABBPoint(CollisionManager* p_cm)
+	{
+		m_cm = p_cm;
+	}
+
+	virtual void Execute(const float p_deltaTime) override
+	{
+		for (Entity* entity1 : validEntities)
+		{
+			ComponentPhysics* phys = entity1->GetComponent<ComponentPhysics>();
+
+			if (phys != nullptr)
+			{
+				for (Entity* entity2 : validEntities)
+				{
+
+					if (entity1 != entity2)
+					{
+						CollisionCheck(entity1, entity2);
+					}
+				}
+			}
+		}
+
+
+	}
+
+	virtual void CollisionCheck(Entity* p_entity_1, Entity* p_entity_2)
+	{
+		ComponentTransform* trans1 = p_entity_1->GetComponent<ComponentTransform>();
+		ComponentCollisionPoint* point1 = p_entity_1->GetComponent<ComponentCollisionPoint>();
+		vec3 point = trans1->m_translation + point1->GetPoint();
+
+		ComponentTransform* trans2 = p_entity_2->GetComponent<ComponentTransform>();
+		ComponentCollisionAABB* aabb1 = p_entity_2->GetComponent<ComponentCollisionAABB>();
+		vec3 pos2 = trans2->m_translation;
+
+
+		vec2 top_left = vec2(pos2.x - (aabb1->GetWidth() / 2), pos2.y + (aabb1->GetHeight() / 2));
+		vec2 bottom_right = vec2(pos2.x + (aabb1->GetWidth() / 2), pos2.y - (aabb1->GetHeight() / 2));
+
+		if (point.x > top_left.x && point.x < bottom_right.x)
+		{
+			if (point.y < top_left.y && point.y > bottom_right.y)
+			{
+				m_cm->RegisterCollision(p_entity_1, p_entity_2, AABB_POINT);
+			}
+		}
+	}
+
+	virtual void ValidateEntity(Entity* p_entity) override
+	{
+		bool requiredComponents = (p_entity->GetComponent<ComponentCollisionPoint>() != nullptr &&
+			p_entity->GetComponent<ComponentTransform>() != nullptr) || (p_entity->GetComponent<ComponentCollisionAABB>() != nullptr &&
+				p_entity->GetComponent<ComponentTransform>() != nullptr);
 
 		System::ValidateEntity(p_entity, requiredComponents);
 	}
