@@ -40,7 +40,6 @@ void PrefabManager::LoadPrefabs(const std::string& p_prefabPath, const std::stri
 					block->AddComponent(new ComponentCollisionAABB(2.0f, 2.0f, 0.5f));
 					block->AddComponent(new ComponentGeometry("resources/models/tempcube/tempcube.obj"));
 					block->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
-					block->AddComponent(new ComponentPhysics(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f)));
 
 					prefab->Entities[lineIndex][i] = block;
 				}

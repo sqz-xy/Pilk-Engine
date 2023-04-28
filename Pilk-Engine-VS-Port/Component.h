@@ -214,6 +214,42 @@ private:
 	bool m_is_active;
 };
 
+// component by matthew liney
+class ComponentCollisionPoint : public Component
+{
+public:
+
+	// the collision point represents a point relative to the entity, not the point on screen.
+	ComponentCollisionPoint(vec3 p_point)
+	{
+
+		m_point = p_point;
+		m_is_active = true;
+	}
+
+	// add setters later if ur a lamo
+
+	vec3 GetPoint()
+	{
+		return m_point;
+	}
+
+	float GetX()
+	{
+		return m_point.x;
+	}
+
+	float GetY()
+	{
+		return m_point.y;
+	}
+
+private:
+
+	vec3 m_point;
+	bool m_is_active;
+};
+
 class ComponentGeometry : public Component
 {
 public:

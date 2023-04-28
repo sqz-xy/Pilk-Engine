@@ -15,6 +15,10 @@ public:
 			{
 				RespondAABBAABBUpDown(col);
 			}
+			else if (col->m_collisionType == AABB_POINT)
+			{
+				RespondAABBPoint(col);
+			}
 		}
 	}
 
@@ -40,8 +44,6 @@ public:
 
 		pos1->UpdateTranslation(new_pos);
 
-		ComponentPhysics* phys1 = e1->GetComponent<ComponentPhysics>();
-		phys1->SetGravity(vec3(0, 0, 0));
 	}
 
 	void RespondAABBAABBUpDown(Collision* p_col)
@@ -58,8 +60,6 @@ public:
 		if (p_col->m_collisionType == AABB_AABB_COLLISION_TOP)
 		{
 			new_pos.y += col2->GetHeight();
-
-			ComponentPhysics* phys = p_col->m_entity1->GetComponent<ComponentPhysics>();
 		}
 		else
 		{
@@ -67,8 +67,11 @@ public:
 		}
 
 		pos1->UpdateTranslation(new_pos);
+	}
 
-		ComponentPhysics* phys1 = e1->GetComponent<ComponentPhysics>();
+	void RespondAABBPoint(Collision* p_col)
+	{
+		ComponentPhysics* phys1 = p_col->m_entity1->GetComponent<ComponentPhysics>();
 		phys1->SetGravity(vec3(0, 0, 0));
 	}
 };
