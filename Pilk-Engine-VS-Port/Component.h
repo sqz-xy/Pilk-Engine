@@ -104,9 +104,24 @@ public:
 
 	// set x and y instead of this (takes in float)
 
-	void SetVelocity(vec3 p_velocity)
+	void SetVelVector(vec3 p_velocity)
 	{
 		m_velocity = p_velocity;
+	}
+
+	void SetVelX(float p_x)
+	{
+		m_velocity.x = p_x;
+	}
+
+	void SetVelY(float p_x)
+	{
+		m_velocity.y = p_x;
+	}
+
+	void SetVelZ(float p_x)
+	{
+		m_velocity.z = p_x;
 	}
 
 	vec3 GetGravity()

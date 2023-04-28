@@ -11,10 +11,11 @@ public:
 	~EntityManager();
 
 	bool AddEntity(Entity* p_entity);
-	bool RemoveEntity(const std::string& p_name);
+	bool RemoveEntity(const int p_id);
 	void ValidateEntities(SystemManager* p_systemManager);
 	void Clear();
 
+	Entity* FindEntity(const int p_id);
 	Entity* FindEntity(const std::string& p_name);
 
 private:

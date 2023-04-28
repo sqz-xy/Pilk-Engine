@@ -113,7 +113,8 @@ public:
 
 
 			vec3 pos = componentTransform->m_translation;
-			vec3 newPos = (pos + vel) + newGrav;
+			//vec3 newPos = (pos + vel) + newGrav;
+			vec3 newPos = (pos + vel);
 
 			componentTransform->UpdateTranslation(newPos);
 		}
@@ -194,11 +195,16 @@ public:
 	{
 		for (Entity* entity1 : validEntities)
 		{
-			for (Entity* entity2 : validEntities)
+			ComponentPhysics* phys = entity1->GetComponent<ComponentPhysics>();
+
+			if (phys != nullptr)
 			{
-				if (entity1 != entity2)
+				for (Entity* entity2 : validEntities)
 				{
-					CollisionCheck(entity1, entity2);
+					if (entity1 != entity2)
+					{
+						CollisionCheck(entity1, entity2);
+					}
 				}
 			}
 		}
@@ -245,11 +251,11 @@ public:
 
 				if (distance.x > 0)
 				{
-
+					m_cm->RegisterCollision(p_entity_1, p_entity_2, AABB_AABB_COLLISION_RIGHT);
 				}
 				else
 				{
-					// here
+					m_cm->RegisterCollision(p_entity_1, p_entity_2, AABB_AABB_COLLISION_LEFT);
 				}
 			}
 			else
