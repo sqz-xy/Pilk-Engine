@@ -82,7 +82,7 @@ public:
 		Entity* fire = new Entity("Fire");
 		fire->AddComponent(new ComponentTransform(glm::vec3(3.0f, 1.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
 		fire->AddComponent(new ComponentCollisionAABB(2.0f, 2.0f, 0.5f));
-		fire->AddComponent(new ComponentGeometry("resources/models/tempcube/tempcube.obj"));
+		fire->AddComponent(new ComponentGeometry("resources/models/fire/fire.obj"));
 		fire->AddComponent(new ComponentShader("resources/shaders/FireShader.vert", "resources/shaders/FireShader.frag"));
 
 		FileManager::LoadEntities("resources/scripts/EntityScript.txt");
@@ -167,7 +167,8 @@ public:
 #if MOUSE_CONTROL_ENABLED
 		double xpos, ypos;
 		glfwGetCursorPos(p_window, &xpos, &ypos);
-		m_Camera->RotateCamera(glm::vec2(xpos, ypos));
+		glm::vec2 pos(xpos, ypos);
+		m_Camera->RotateCamera(pos);
 #endif		
 	}
 

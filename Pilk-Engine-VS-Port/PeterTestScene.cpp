@@ -240,7 +240,8 @@ public:
 #if MOUSE_CONTROL_ENABLED
 		double xpos, ypos;
 		glfwGetCursorPos(p_window, &xpos, &ypos);
-		m_Camera->RotateCamera(glm::vec2(xpos, ypos));
+		glm::vec2 pos(xpos, ypos);
+		m_Camera->RotateCamera(pos);
 #endif		
 	}
 
