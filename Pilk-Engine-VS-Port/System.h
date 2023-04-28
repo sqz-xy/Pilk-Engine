@@ -113,7 +113,8 @@ public:
 
 
 			vec3 pos = componentTransform->m_translation;
-			vec3 newPos = (pos + vel) + newGrav;
+			//vec3 newPos = (pos + vel) + newGrav;
+			vec3 newPos = (pos + vel);
 
 			componentTransform->UpdateTranslation(newPos);
 		}
@@ -245,11 +246,11 @@ public:
 
 				if (distance.x > 0)
 				{
-
+					m_cm->RegisterCollision(p_entity_1, p_entity_2, AABB_AABB_COLLISION_RIGHT);
 				}
 				else
 				{
-					// here
+					m_cm->RegisterCollision(p_entity_1, p_entity_2, AABB_AABB_COLLISION_LEFT);
 				}
 			}
 			else
