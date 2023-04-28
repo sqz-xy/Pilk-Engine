@@ -79,10 +79,16 @@ public:
 		player->AddComponent(new ComponentPhysics(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -0.03f, 0.0f)));
 		player->AddComponent(new ComponentCollisionPoint(glm::vec3(0.0f, 0.0f, 0.0f)));
 
+		Entity* fire = new Entity("Fire");
+		fire->AddComponent(new ComponentTransform(glm::vec3(3.0f, 1.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
+		fire->AddComponent(new ComponentCollisionAABB(2.0f, 2.0f, 0.5f));
+		fire->AddComponent(new ComponentGeometry("resources/models/tempcube/tempcube.obj"));
+		fire->AddComponent(new ComponentShader("resources/shaders/FireShader.vert", "resources/shaders/FireShader.frag"));
 
 		FileManager::LoadEntities("resources/scripts/EntityScript.txt");
 
 		m_entityManager->AddEntity(player);
+		m_entityManager->AddEntity(fire);
 
 		// System render
 		System* systemRender = new SystemRender(m_Camera);

@@ -63,6 +63,8 @@
     <ClInclude Include="SystemManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="resources\shaders\FireShader.frag" />
+    <None Include="resources\shaders\FireShader.vert" />
     <None Include="resources\shaders\FragmentShader.frag" />
     <None Include="resources\shaders\VertexShader.vert" />
   </ItemGroup>

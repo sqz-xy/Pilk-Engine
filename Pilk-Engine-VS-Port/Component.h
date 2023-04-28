@@ -281,7 +281,7 @@ public:
 
 	ComponentShader(const std::string& p_vertexPath, const std::string& p_fragmentPath)
 	{
-		if (!ResourceManager::CreateShaderProgram(&m_shaderProgramID, "resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag")) return;
+		if (!ResourceManager::CreateShaderProgram(&m_shaderProgramID, p_vertexPath.c_str(), p_fragmentPath.c_str())) return;
 		//m_uniform_modelMat = glGetUniformLocation(p_shaderProgramID, "model");
 		m_colour = glGetUniformLocation(m_shaderProgramID, "uColour");
 		m_shaderProgramID = m_shaderProgramID;
