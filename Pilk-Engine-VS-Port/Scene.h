@@ -1,8 +1,6 @@
 #pragma once
 
-#include "SceneManager.h"
-#include "EntityManager.h"
-#include "SystemManager.h"
+#include "PilkEngineCommon.h"
 
 // By Thomas Beet
 class Scene

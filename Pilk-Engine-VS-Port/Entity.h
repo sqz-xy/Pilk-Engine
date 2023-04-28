@@ -8,6 +8,8 @@
 #include <vector>
 #include <string>
 
+static int ENTITY_ID = 0;
+
 class Entity
 {
 public:
@@ -16,7 +18,7 @@ public:
 	/// Constructs an Entity.
 	/// </summary>
 	/// <param name="p_name"> The Entity's name. </param>
-	Entity(const char* p_name) : m_name(p_name) 
+	Entity(const char* p_name) : m_name(p_name), m_id(ENTITY_ID++)
 	{
 
 	}
@@ -28,6 +30,16 @@ public:
 	const char* GetName()
 	{
 		return m_name;
+	}
+
+	/// Original Author: Thomas Beet
+	/// <summary>
+	/// Returns entity ID
+	/// </summary>
+	/// <returns></returns>
+	const int GetID()
+	{
+		return m_id;
 	}
 
 	/// Original Author: Piotr Moskala.
@@ -73,5 +85,6 @@ public:
 
 private:
 	const char* m_name;
+	const int m_id;
 	std::vector<Component*> m_components;
 };
