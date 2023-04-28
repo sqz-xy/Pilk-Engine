@@ -79,18 +79,20 @@ public:
 		player->AddComponent(new ComponentPhysics(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -0.01f, 0.0f)));
 
 		Entity* floor = new Entity("Floor");
-		floor->AddComponent(new ComponentTransform(glm::vec3(0.0f, -2.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
+		floor->AddComponent(new ComponentTransform(glm::vec3(0.0f, -3.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
 		floor->AddComponent(new ComponentCollisionAABB(2.0f, 2.0f, 0.5f));
 		floor->AddComponent(new ComponentGeometry("resources/models/tempcube/tempcube.obj"));
 		floor->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
 		floor->AddComponent(new ComponentPhysics(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f)));
 
 		Entity* floor2 = new Entity("Floor2");
-		floor2->AddComponent(new ComponentTransform(glm::vec3(1.0f, -2.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
+		floor2->AddComponent(new ComponentTransform(glm::vec3(1.0f, -3.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
 		floor2->AddComponent(new ComponentCollisionAABB(2.0f, 2.0f, 0.5f));
 		floor2->AddComponent(new ComponentGeometry("resources/models/tempcube/tempcube.obj"));
 		floor2->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
 		floor2->AddComponent(new ComponentPhysics(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f)));
+
+
 
 		//Entity* floor2 = new Entity("Floor2");
 		//floor2->AddComponent(new ComponentTransform(glm::vec3(2.0f, -3.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));

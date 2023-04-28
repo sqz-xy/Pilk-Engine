@@ -195,11 +195,16 @@ public:
 	{
 		for (Entity* entity1 : validEntities)
 		{
-			for (Entity* entity2 : validEntities)
+			ComponentPhysics* phys = entity1->GetComponent<ComponentPhysics>();
+
+			if (phys != nullptr)
 			{
-				if (entity1 != entity2)
+				for (Entity* entity2 : validEntities)
 				{
-					CollisionCheck(entity1, entity2);
+					if (entity1 != entity2)
+					{
+						CollisionCheck(entity1, entity2);
+					}
 				}
 			}
 		}

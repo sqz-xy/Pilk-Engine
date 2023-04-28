@@ -58,6 +58,8 @@ public:
 		if (p_col->m_collisionType == AABB_AABB_COLLISION_TOP)
 		{
 			new_pos.y += col2->GetHeight();
+
+			ComponentPhysics* phys = p_col->m_entity1->GetComponent<ComponentPhysics>();
 		}
 		else
 		{
