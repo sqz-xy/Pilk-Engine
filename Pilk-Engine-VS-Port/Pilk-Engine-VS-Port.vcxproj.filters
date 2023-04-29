@@ -181,7 +181,7 @@
     <None Include="resources\shaders\FireShader.frag">
       <Filter>Resource Files\Shaders</Filter>
     </None>
-    <None Include="resources\shaders\FireShader.vert">
+    <None Include="resources\shaders\Billboard.vert">
       <Filter>Resource Files\Shaders</Filter>
     </None>
   </ItemGroup>
