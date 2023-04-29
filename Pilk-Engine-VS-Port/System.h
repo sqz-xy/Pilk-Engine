@@ -228,10 +228,24 @@ public:
 		float e2_width = e2_collision->GetWidth();
 		float e2_depth = e2_collision->GetDepth();
 
-		if (e1_pos.x < e2_pos.x + e2_width &&
-			e1_pos.x + e1_width > e2_pos.x &&
-			e1_pos.y < e2_pos.y + e2_height &&
-			e1_height + e1_pos.y > e2_pos.y) // add z to this when u can be bothered
+
+		// a min and max values
+		float a_x_min = e1_pos.x - (e1_collision->GetWidth() / 2);
+		float a_x_max = e1_pos.x + (e1_collision->GetWidth() / 2);
+
+		float a_y_min = e1_pos.y - (e1_collision->GetHeight() / 2);
+		float a_y_max = e1_pos.y + (e1_collision->GetHeight() / 2);
+
+		// b min and max values
+		float b_x_min = e2_pos.x - (e2_collision->GetWidth() / 2);
+		float b_x_max = e2_pos.x + (e2_collision->GetWidth() / 2);
+
+		float b_y_min = e2_pos.y - (e2_collision->GetHeight() / 2);
+		float b_y_max = e2_pos.y + (e2_collision->GetHeight() / 2);
+
+
+		if (a_x_max > b_x_min && a_x_min < b_x_max &&
+			a_y_max > b_y_min && a_y_min < b_y_max) // add z to this when u can be bothered
 		{
 			vec3 distance = e1_pos - e2_pos;
 			float x_extent_1 = e1_width / 2;
