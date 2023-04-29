@@ -338,6 +338,11 @@ public:
 				m_cm->RegisterCollision(p_entity_1, p_entity_2, AABB_POINT);
 			}
 		}
+		else
+		{
+			ComponentPhysics* phys = p_entity_1->GetComponent<ComponentPhysics>();
+			phys->SetGravity(vec3(0, 0.0f, 0));
+		}
 	}
 
 	virtual void ValidateEntity(Entity* p_entity) override
