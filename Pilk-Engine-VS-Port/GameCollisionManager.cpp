@@ -37,11 +37,11 @@ public:
 
 		if (p_col->m_collisionType == AABB_AABB_COLLISION_RIGHT)
 		{
-			new_pos.x += col2->GetWidth();
+			new_pos.x += ((col1->GetWidth() / 2) + (col2->GetWidth() / 2));
 		}
 		else if (p_col->m_collisionType == AABB_AABB_COLLISION_LEFT)
 		{
-			new_pos.x -= col1->GetWidth();
+			new_pos.x -= ((col1->GetWidth()/2) + (col2->GetWidth()/2));
 		}
 
 		pos1->UpdateTranslation(new_pos);
@@ -62,11 +62,11 @@ public:
 		vec3 new_pos = vec3(pos1->m_translation.x, pos2->m_translation.y, pos1->m_translation.z);
 		if (p_col->m_collisionType == AABB_AABB_COLLISION_TOP)
 		{
-			new_pos.y += col2->GetHeight();
+			new_pos.y += ((col1->GetHeight() / 2) + (col2->GetHeight() / 2));
 		}
 		else
 		{
-			new_pos.y -= col1->GetHeight();
+			new_pos.y -= ((col1->GetHeight() / 2) + (col2->GetHeight() / 2));
 		}
 
 		pos1->UpdateTranslation(new_pos);
