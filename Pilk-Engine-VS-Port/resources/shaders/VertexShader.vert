@@ -7,13 +7,15 @@ uniform mat4 uProj;
 uniform mat4 uView;
 uniform mat4 uModel;
 
+uniform vec2 uScale;
+
 uniform float uTime;
 
 out vec2 oTexCoords;
 
 void main()
 {
-    oTexCoords = aTexCoords;
+    oTexCoords = aTexCoords.xy * uScale;
 
     vec3 pos = aPos;
     gl_Position = uProj * uView * uModel * vec4(pos, 1.0);

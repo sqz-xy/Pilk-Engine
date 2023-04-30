@@ -157,7 +157,7 @@ public:
 			ComponentGeometry* geometry = entity->GetComponent<ComponentGeometry>();
 			ComponentShader* shader = entity->GetComponent<ComponentShader>();
 
-			shader->UseShader(&transform->m_transform, &m_camera->m_view, &m_camera->m_projection);
+			shader->UseShader(&transform->m_transform, &m_camera->m_view, &m_camera->m_projection, transform);
 			geometry->Draw(shader->m_shaderProgramID);
 		}
 	}

@@ -8,12 +8,14 @@ uniform mat4 uView;
 uniform mat4 uModel;
 
 uniform float uTime;
+uniform vec2 uScale;
 
 out vec2 oTexCoords;
 out vec3 oFragPos;
 
 void main()
 {
+    oTexCoords = aTexCoords.xy * uScale;
     oTexCoords = vec2(aTexCoords.x, 1.0 - aTexCoords.y);
 
     mat4 modelView = uModel * uView;
