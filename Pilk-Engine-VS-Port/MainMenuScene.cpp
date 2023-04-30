@@ -141,18 +141,13 @@ public:
 		if (glfwGetKey(p_window, GLFW_KEY_UP) == GLFW_PRESS && prop->m_hasJumped == false)
 		{
 			ComponentPhysics* phys = playor->GetComponent<ComponentPhysics>();
-			phys->SetVelY(100.0f);
+			phys->SetVelY(10.0f);
 			prop->m_hasJumped = true;
 		}
 		else if (glfwGetKey(p_window, GLFW_KEY_DOWN) == GLFW_PRESS)
 		{
 			ComponentPhysics* phys = playor->GetComponent<ComponentPhysics>();
 			phys->SetVelY(-5.0f);
-		}
-		else
-		{
-			ComponentPhysics* phys = playor->GetComponent<ComponentPhysics>();
-			phys->SetVelY(0.0f);
 		}
 
 
