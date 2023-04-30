@@ -60,13 +60,13 @@ void main()
 {
     vec2 uv = oTexCoords.xy;
     float gradient = 1.0 - uv.y;
-    float gradientStep = 0.7;
+    float gradientStep = 0.2;
    
     vec2 pos = oTexCoords.xy;
-    pos.y += uTime * 0.3125;
+    pos.y -= uTime * 0.3125;
     
-    vec4 darkerColor = vec4(1.0, 0.65, 0.1, 0.25);
-    vec4 brighterColor = vec4(1.0, 0.0, 0.15, 0.0625);
+    vec4 brighterColor = vec4(1.0, 0.65, 0.1, 0.25);
+    vec4 darkerColor = vec4(1.0, 0.0, 0.15, 0.0625);
     vec4 middleColor = mix(brighterColor, darkerColor, 0.5);
 
     float noiseTexel = pnoise(pos, 10.0, 5, 0.5);
@@ -78,7 +78,7 @@ void main()
 
     float middleColorStep = smoothstep(0.0, noiseTexel, gradient - 0.2 * 2.0);
     
-    color = mix(color, middleColor, middleColorStep - darkerColorStep);
+    color = mix(color, middleColor, darkerColorStep - middleColorStep);
     color = mix(vec4(0.0), color, firstStep);
 
 	FragColor = color + texture(uTextureDiffuse1, oTexCoords);

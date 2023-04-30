@@ -14,7 +14,7 @@ out vec3 oFragPos;
 
 void main()
 {
-    oTexCoords = aTexCoords;
+    oTexCoords = vec2(aTexCoords.x, 1.0 - aTexCoords.y);
 
     mat4 modelView = uModel * uView;
 
