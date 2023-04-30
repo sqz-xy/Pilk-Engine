@@ -87,7 +87,7 @@ int SceneManager::Run()
     auto lastTime = static_cast<float>(glfwGetTime());
 
     // DELETE
-    m_soundEngine->play2D("resources/sounds/rhulk.mp3", false);
+    //m_soundEngine->play2D("resources/sounds/rhulk.mp3", false);
 
     // Simple update loop
     while (!glfwWindowShouldClose(window))
