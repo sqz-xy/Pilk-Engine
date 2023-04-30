@@ -9,7 +9,7 @@ void CollisionManager::RegisterCollision(Entity* p_entity1, Entity* p_entity2, c
 {
 	for (Collision* col : m_collisionManifold)
 	{
-		if (col->m_entity1 == p_entity1 && col->m_entity2 == p_entity2)
+		if (col->m_entity1 == p_entity1 && col->m_entity2 == p_entity2 && col->m_collisionType == p_collisionType)
 			return;
 	}
 
