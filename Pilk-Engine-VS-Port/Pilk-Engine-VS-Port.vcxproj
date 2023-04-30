@@ -177,6 +177,7 @@
     </Link>
     <PostBuildEvent>
       <Command>xcopy /d /y "$(ProjectDir)binaries\assimp\*.*" "$(OutDir)"
+xcopy /d /y "$(ProjectDir)binaries\irrklang\*.*" "$(OutDir)"
 xcopy "$(ProjectDir)resources" "$(TargetDir)resources" /e /y /i /r</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -202,6 +203,7 @@ xcopy "$(ProjectDir)resources" "$(TargetDir)resources" /e /y /i /r</Command>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /d /y "$(ProjectDir)binaries\assimp\*.*" "$(OutDir)"
+xcopy /d /y "$(ProjectDir)binaries\irrklang\*.*" "$(OutDir)"
 xcopy "$(ProjectDir)resources" "$(TargetDir)resources" /e /y /i /r</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>

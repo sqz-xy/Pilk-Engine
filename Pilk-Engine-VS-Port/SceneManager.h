@@ -30,6 +30,8 @@ private:
 
 	void processInput(GLFWwindow* p_window, const float p_dt);
 	
+	irrklang::ISoundEngine* m_soundEngine;
+
 	const char* m_windowName = nullptr;
 	Scene* m_currentScene;
 	int m_width;

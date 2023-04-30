@@ -31,6 +31,9 @@
 // STB
 #include "stb_image.h"
 
+// irrKlang
+#include "irrKlang.h"
+
 // Internal Headers
 
 // Managers

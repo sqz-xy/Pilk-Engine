@@ -15,6 +15,7 @@ void window_size_callback(GLFWwindow* window, int width, int height)
 SceneManager::SceneManager(const int p_width, const int p_height, const char* p_windowName) : m_currentScene(nullptr), m_width(p_width), m_height(p_height), m_windowName(p_windowName)
 {
     m_currentScene = new MainMenuScene(this);
+    m_soundEngine = irrklang::createIrrKlangDevice();
 }
 
 SceneManager::SceneManager(const SceneManager& p_sceneManager) : m_currentScene(p_sceneManager.m_currentScene), m_width(p_sceneManager.m_width), m_height(p_sceneManager.m_height), m_windowName(p_sceneManager.m_windowName)
@@ -84,6 +85,9 @@ int SceneManager::Run()
 
     float dt;
     auto lastTime = static_cast<float>(glfwGetTime());
+
+    // DELETE
+    m_soundEngine->play2D("resources/sounds/rhulk.mp3", false);
 
     // Simple update loop
     while (!glfwWindowShouldClose(window))
