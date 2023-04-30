@@ -80,6 +80,7 @@ StyleCopReport.xml
 !backpack.obj
 !randy.obj
 !tempcube.obj
+!fire.obj
 
 *.iobj
 *.pch
