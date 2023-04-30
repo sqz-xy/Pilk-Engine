@@ -48,10 +48,6 @@ public:
 		if (button)
 			m_sceneManager->ChangeScene(MainMenu);
 
-		Entity* playor = m_entityManager->FindEntity("Player");
-		ComponentPhysics* phys = playor->GetComponent<ComponentPhysics>();
-		ImGui::Text("current grav %f", phys->GetCurrentGravity());
-
 		glUseProgram(0);
 
 		ImGui::End();
