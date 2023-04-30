@@ -57,13 +57,13 @@ void PrefabManager::LoadPrefabs(const std::string& p_prefabPath, const std::stri
 
 			for (int i = 0; i < line.length(); i++)
 			{
+				float xPos = ((i * 2) - (PREFAB_SIZE - 1)) + levelStartPos.x;
+				float yPos = ((yOffset * 2) - (PREFAB_SIZE - 1)) - 2.0f;
+
 				// block
 				if (line[i] == '1')
 				{
 					Entity* block = new Entity("Block");
-
-					float xPos = ((i * 2) - (PREFAB_SIZE - 1)) + levelStartPos.x;
-					float yPos = ((yOffset * 2) - (PREFAB_SIZE - 1)) - 2.0f;
 
 					block->AddComponent(new ComponentTransform(glm::vec3(xPos, yPos, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
 					block->AddComponent(new ComponentCollisionAABB(2.0f, 2.0f, 0.0f));
@@ -71,6 +71,22 @@ void PrefabManager::LoadPrefabs(const std::string& p_prefabPath, const std::stri
 					block->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
 
 					prefab->Entities[lineIndex][i] = block;
+				}
+
+				// Enemy
+				if (line[i] == 'E')
+				{
+					Entity* enemy = new Entity("Enemy");
+
+					enemy->AddComponent(new ComponentTransform(glm::vec3(xPos, yPos, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
+					enemy->AddComponent(new ComponentCollisionAABB(1.0f, 1.0f, 0.5f));
+					enemy->AddComponent(new ComponentGeometry("resources/models/fire/fire.obj"));
+					enemy->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
+					enemy->AddComponent(new ComponentPhysics(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -0.3f, 0.0f)));
+					enemy->AddComponent(new ComponentCollisionPoint(glm::vec3(0.0f, -1.1f, 0.0f)));
+					enemy->AddComponent(new ComponentProperties(false));
+
+					prefab->Entities[lineIndex][i] = enemy;
 				}
 			}
 
