@@ -11,6 +11,9 @@ EntityManager::~EntityManager()
 
 bool EntityManager::AddEntity(Entity* p_entity)
 {
+	if (p_entity == nullptr)
+		return false;
+
 	if (m_entities.empty())
 	{
 		m_entities.push_back(p_entity);

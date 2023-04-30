@@ -10,13 +10,9 @@ struct Prefab
 {
 	// Prefab entities
 	Entity* Entities[PREFAB_SIZE][PREFAB_SIZE];
-
-	// These entities will be copied to fill the prefab
-	Entity* WallEntity;
-	std::vector<Entity*> EnemyEntities;
-
-	int Width;
-	int Height;
+	Entity* BackWall;
+	Entity* Ceiling;
+	Entity* Floor;
 };
 
 // By Thomas Beet

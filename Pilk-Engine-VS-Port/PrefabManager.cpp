@@ -8,7 +8,7 @@ PrefabManager::PrefabManager()
 void PrefabManager::LoadPrefabs(const std::string& p_prefabPath, const std::string& p_entityScriptPath)
 {
 
-	glm::vec3 levelStartPos(0.0f, 0.0f, 0.0f);
+	glm::vec3 levelStartPos(0.0f, 0.0f, 5.0f);
 
 	for (const auto& prefabFilePath : std::filesystem::directory_iterator(p_prefabPath))
 	{
@@ -20,6 +20,35 @@ void PrefabManager::LoadPrefabs(const std::string& p_prefabPath, const std::stri
 		Prefab* prefab = new Prefab();
 		int lineIndex = 0;
 		int yOffset = PREFAB_SIZE;
+
+		// Extra Geometry
+		glm::vec3 backwallPos = levelStartPos;
+		backwallPos.z -= 2.0f;
+
+		Entity* backwall = new Entity("Backwall");
+		backwall->AddComponent(new ComponentTransform(backwallPos, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(6.0f, 6.0f, 1.0f)));
+		backwall->AddComponent(new ComponentGeometry("resources/models/tempcube/tempcube.obj"));
+		backwall->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
+		prefab->BackWall = backwall;
+
+		glm::vec3 ceilingPos = levelStartPos;
+		ceilingPos.y += 7;
+
+		Entity* ceiling = new Entity("Ceiling");
+		ceiling->AddComponent(new ComponentTransform(ceilingPos, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(6.0f, 1.0f, 1.0f)));
+		ceiling->AddComponent(new ComponentGeometry("resources/models/tempcube/tempcube.obj"));
+		ceiling->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
+		prefab->Ceiling = ceiling;
+
+		glm::vec3 floorPos = levelStartPos;
+		floorPos.y -= 7;
+
+		Entity* floor = new Entity("Floor");
+		floor->AddComponent(new ComponentTransform(floorPos, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(6.0f, 1.0f, 1.0f)));
+		floor->AddComponent(new ComponentGeometry("resources/models/tempcube/tempcube.obj"));
+		floor->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
+		prefab->Floor = floor;
+		//END
 
 		while (!prefabFile.eof())
 		{
@@ -43,7 +72,6 @@ void PrefabManager::LoadPrefabs(const std::string& p_prefabPath, const std::stri
 
 					prefab->Entities[lineIndex][i] = block;
 				}
-
 			}
 
 			lineIndex++;
@@ -58,6 +86,11 @@ std::vector<Prefab*> PrefabManager::RegisterLevel(EntityManager& p_entityManager
 {
 	for (auto& prefab : m_level)
 	{
+
+		p_entityManager.AddEntity(prefab->BackWall);
+		p_entityManager.AddEntity(prefab->Floor);
+		p_entityManager.AddEntity(prefab->Ceiling);
+
 		for (int i = 0; i < PREFAB_SIZE; i++)
 			for (int j = 0; j < PREFAB_SIZE; j++)
 			{
