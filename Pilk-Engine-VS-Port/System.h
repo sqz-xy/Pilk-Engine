@@ -355,7 +355,9 @@ public:
 		else
 		{
 			ComponentPhysics* phys = p_entity_1->GetComponent<ComponentPhysics>();
-			phys->SetGravity(vec3(0, 0.0f, 0));
+			phys->SetGravity(vec3(0, -0.3f, 0));
+			ComponentProperties* prop = p_entity_1->GetComponent<ComponentProperties>();
+			prop->m_hasJumped = true;
 		}
 	}
 

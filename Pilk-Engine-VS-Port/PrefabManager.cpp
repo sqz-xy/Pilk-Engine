@@ -37,7 +37,7 @@ void PrefabManager::LoadPrefabs(const std::string& p_prefabPath, const std::stri
 					float yPos = ((yOffset * 2) - (PREFAB_SIZE - 1)) - 2.0f;
 
 					block->AddComponent(new ComponentTransform(glm::vec3(xPos, yPos, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
-					block->AddComponent(new ComponentCollisionAABB(1.0f, 1.0f, 0.0f));
+					block->AddComponent(new ComponentCollisionAABB(2.0f, 2.0f, 0.0f));
 					block->AddComponent(new ComponentGeometry("resources/models/tempcube/tempcube.obj"));
 					block->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
 

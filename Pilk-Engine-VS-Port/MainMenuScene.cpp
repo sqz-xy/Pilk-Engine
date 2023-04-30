@@ -48,6 +48,10 @@ public:
 		if (button)
 			m_sceneManager->ChangeScene(MainMenu);
 
+		Entity* playor = m_entityManager->FindEntity("Player");
+		ComponentPhysics* phys = playor->GetComponent<ComponentPhysics>();
+		ImGui::Text("current grav %f", phys->GetCurrentGravity());
+
 		glUseProgram(0);
 
 		ImGui::End();
@@ -76,8 +80,9 @@ public:
 		player->AddComponent(new ComponentCollisionAABB(1.0f, 1.0f, 0.5f));
 		player->AddComponent(new ComponentGeometry("resources/models/randy/randy.obj"));
 		player->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
-		player->AddComponent(new ComponentPhysics(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f)));
+		player->AddComponent(new ComponentPhysics(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -0.3f, 0.0f)));
 		player->AddComponent(new ComponentCollisionPoint(glm::vec3(0.0f, -1.1f, 0.0f)));
+		player->AddComponent(new ComponentProperties(false));
 
 		Entity* fire = new Entity("Fire");
 		fire->AddComponent(new ComponentTransform(glm::vec3(3.0f, 1.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
@@ -132,10 +137,12 @@ public:
 			// jump
 		}
 
-		if (glfwGetKey(p_window, GLFW_KEY_UP) == GLFW_PRESS)
+		ComponentProperties* prop = playor->GetComponent<ComponentProperties>();
+		if (glfwGetKey(p_window, GLFW_KEY_UP) == GLFW_PRESS && prop->m_hasJumped == false)
 		{
 			ComponentPhysics* phys = playor->GetComponent<ComponentPhysics>();
-			phys->SetVelY(5.0f);
+			phys->SetVelY(100.0f);
+			prop->m_hasJumped = true;
 		}
 		else if (glfwGetKey(p_window, GLFW_KEY_DOWN) == GLFW_PRESS)
 		{

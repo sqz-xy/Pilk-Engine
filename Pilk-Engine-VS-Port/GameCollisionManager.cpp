@@ -77,5 +77,8 @@ public:
 		ComponentPhysics* phys1 = p_col->m_entity1->GetComponent<ComponentPhysics>();
 		phys1->SetGravity(vec3(0, 0, 0));
 		phys1->SetCurrentGravity(vec3(0, 0, 0));
+
+		ComponentProperties* prop = p_col->m_entity1->GetComponent<ComponentProperties>();
+		prop->m_hasJumped = false;
 	}
 };

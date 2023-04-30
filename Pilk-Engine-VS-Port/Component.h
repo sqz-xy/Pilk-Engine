@@ -250,6 +250,23 @@ private:
 	bool m_is_active;
 };
 
+// component by matthew liney?
+// add whatever you think something in the scene would need
+// like health or whatever.
+// needed to make this for jumping. players and enemies can both use this.
+class ComponentProperties : public Component
+{
+public:
+	ComponentProperties(bool p_hasJumped)
+	{
+		m_hasJumped = p_hasJumped;
+	}
+
+	bool m_hasJumped;
+
+private:
+};
+
 class ComponentGeometry : public Component
 {
 public:
