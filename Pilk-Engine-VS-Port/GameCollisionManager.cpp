@@ -60,6 +60,7 @@ public:
 		ComponentCollisionAABB* col2 = e2->GetComponent<ComponentCollisionAABB>();
 
 		vec3 new_pos = vec3(pos1->m_translation.x, pos2->m_translation.y, pos1->m_translation.z);
+
 		if (p_col->m_collisionType == AABB_AABB_COLLISION_TOP)
 		{
 			new_pos.y += ((col1->GetHeight() / 2) + (col2->GetHeight() / 2));

@@ -71,7 +71,14 @@ public:
 
 		// Player entity.
 		
-
+		Entity* player1 = new Entity("Player1");
+		player1->AddComponent(new ComponentTransform(glm::vec3(0.0f, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
+		player1->AddComponent(new ComponentCollisionAABB(1.0f, 1.0f, 0.5f));
+		player1->AddComponent(new ComponentGeometry("resources/models/randy/randy.obj"));
+		player1->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
+		player1->AddComponent(new ComponentPhysics(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -0.3f, 0.0f)));
+		player1->AddComponent(new ComponentCollisionPoint(glm::vec3(0.0f, -1.1f, 0.0f)));
+		player1->AddComponent(new ComponentProperties(false, 3.0f, 1.0f, vec3(0.0f, 0.0f, 0.0f)));
 
 		Entity* player2 = new Entity("Player2");
 		player2->AddComponent(new ComponentTransform(glm::vec3(1.0f, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
@@ -80,7 +87,7 @@ public:
 		player2->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
 		player2->AddComponent(new ComponentPhysics(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -0.3f, 0.0f)));
 		player2->AddComponent(new ComponentCollisionPoint(glm::vec3(0.0f, -1.1f, 0.0f)));
-		player2->AddComponent(new ComponentProperties(false, 3.0f, 1.0f));
+		player2->AddComponent(new ComponentProperties(false, 3.0f, 1.0f, vec3(0.0f, 0.0f, 0.0f)));
 
 		FileManager::LoadEntities("resources/scripts/EntityScript.txt");
 
@@ -144,7 +151,7 @@ public:
 
 		// player control below here
 		MovePlayerOne(p_window, p_dt, player1);
-		MovePlayerOne(p_window, p_dt, player2);
+		MovePlayerTwo(p_window, p_dt, player2);
 
 #if MOUSE_CONTROL_ENABLED
 		double xpos, ypos;
@@ -163,28 +170,6 @@ public:
 			phys->SetVelY(10.0f);
 			prop->m_hasJumped = true;
 		}
-		else if (glfwGetKey(p_window, GLFW_KEY_DOWN) == GLFW_PRESS)
-		{
-			ComponentPhysics* phys = p_player->GetComponent<ComponentPhysics>();
-			phys->SetVelY(-5.0f);
-		}
-
-	
-
-	void MovePlayerTwo(GLFWwindow* p_window, const float p_dt, Entity* p_player)
-	{
-		ComponentProperties* prop = p_player->GetComponent<ComponentProperties>();
-		if (glfwGetKey(p_window, GLFW_KEY_UP) == GLFW_PRESS && prop->m_hasJumped == false)
-		{
-			ComponentPhysics* phys = p_player->GetComponent<ComponentPhysics>();
-			phys->SetVelY(10.0f);
-			prop->m_hasJumped = true;
-		}
-		else if (glfwGetKey(p_window, GLFW_KEY_DOWN) == GLFW_PRESS)
-		{
-			ComponentPhysics* phys = p_player->GetComponent<ComponentPhysics>();
-			phys->SetVelY(-5.0f);
-		}
 
 		if (glfwGetKey(p_window, GLFW_KEY_RIGHT) == GLFW_PRESS)
 		{
@@ -192,6 +177,34 @@ public:
 			phys->SetVelX(5.0f);
 		}
 		else if (glfwGetKey(p_window, GLFW_KEY_LEFT) == GLFW_PRESS)
+		{
+			ComponentPhysics* phys = p_player->GetComponent<ComponentPhysics>();
+			phys->SetVelX(-5.0f);
+		}
+		else
+		{
+			ComponentPhysics* phys = p_player->GetComponent<ComponentPhysics>();
+			phys->SetVelX(0.0f);
+		}
+
+
+	}
+	void MovePlayerTwo(GLFWwindow* p_window, const float p_dt, Entity* p_player)
+	{
+		ComponentProperties* prop = p_player->GetComponent<ComponentProperties>();
+		if (glfwGetKey(p_window, GLFW_KEY_W) == GLFW_PRESS && prop->m_hasJumped == false)
+		{
+			ComponentPhysics* phys = p_player->GetComponent<ComponentPhysics>();
+			phys->SetVelY(10.0f);
+			prop->m_hasJumped = true;
+		}
+
+		if (glfwGetKey(p_window, GLFW_KEY_D) == GLFW_PRESS)
+		{
+			ComponentPhysics* phys = p_player->GetComponent<ComponentPhysics>();
+			phys->SetVelX(5.0f);
+		}
+		else if (glfwGetKey(p_window, GLFW_KEY_A) == GLFW_PRESS)
 		{
 			ComponentPhysics* phys = p_player->GetComponent<ComponentPhysics>();
 			phys->SetVelX(-5.0f);
