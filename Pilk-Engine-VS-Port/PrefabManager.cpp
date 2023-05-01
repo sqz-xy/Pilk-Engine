@@ -86,7 +86,7 @@ void PrefabManager::LoadPrefabs(const std::string& p_prefabPath, const std::stri
 					enemy->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FireShader.frag"));
 					enemy->AddComponent(new ComponentPhysics(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -0.3f, 0.0f)));
 					enemy->AddComponent(new ComponentCollisionPoint(glm::vec3(0.0f, -1.1f, 0.0f)));
-					enemy->AddComponent(new ComponentProperties(false));
+					enemy->AddComponent(new ComponentProperties(false, 3.0f, 1.0f));
 
 					prefab->Entities[lineIndex][i] = enemy;
 				}

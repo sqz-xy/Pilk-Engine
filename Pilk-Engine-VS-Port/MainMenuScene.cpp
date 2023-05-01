@@ -71,25 +71,28 @@ public:
 
 		// Player entity.
 		
-		Entity* player = new Entity("Player");
-		player->AddComponent(new ComponentTransform(glm::vec3(0.0f, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
-		player->AddComponent(new ComponentCollisionAABB(1.0f, 1.0f, 0.5f));
-		player->AddComponent(new ComponentGeometry("resources/models/randy/randy.obj"));
-		player->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
-		player->AddComponent(new ComponentPhysics(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -0.3f, 0.0f)));
-		player->AddComponent(new ComponentCollisionPoint(glm::vec3(0.0f, -1.1f, 0.0f)));
-		player->AddComponent(new ComponentProperties(false));
+		Entity* player1 = new Entity("Player1");
+		player1->AddComponent(new ComponentTransform(glm::vec3(0.0f, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
+		player1->AddComponent(new ComponentCollisionAABB(1.0f, 1.0f, 0.5f));
+		player1->AddComponent(new ComponentGeometry("resources/models/randy/randy.obj"));
+		player1->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
+		player1->AddComponent(new ComponentPhysics(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -0.3f, 0.0f)));
+		player1->AddComponent(new ComponentCollisionPoint(glm::vec3(0.0f, -1.1f, 0.0f)));
+		player1->AddComponent(new ComponentProperties(false, 3.0f, 1.0f));
 
-		Entity* fire = new Entity("Fire");
-		fire->AddComponent(new ComponentTransform(glm::vec3(3.0f, 1.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
-		fire->AddComponent(new ComponentCollisionAABB(2.0f, 2.0f, 0.5f));
-		fire->AddComponent(new ComponentGeometry("resources/models/randy/randy.obj"));
-		fire->AddComponent(new ComponentShader("resources/shaders/Billboard.vert", "resources/shaders/FireShader.frag"));
+		Entity* player2 = new Entity("Player2");
+		player2->AddComponent(new ComponentTransform(glm::vec3(1.0f, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
+		player2->AddComponent(new ComponentCollisionAABB(1.0f, 1.0f, 0.5f));
+		player2->AddComponent(new ComponentGeometry("resources/models/randy/randy.obj"));
+		player2->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
+		player2->AddComponent(new ComponentPhysics(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -0.3f, 0.0f)));
+		player2->AddComponent(new ComponentCollisionPoint(glm::vec3(0.0f, -1.1f, 0.0f)));
+		player2->AddComponent(new ComponentProperties(false, 3.0f, 1.0f));
 
 		FileManager::LoadEntities("resources/scripts/EntityScript.txt");
 
-		m_entityManager->AddEntity(player);
-		m_entityManager->AddEntity(fire);
+		m_entityManager->AddEntity(player1);
+		m_entityManager->AddEntity(player2);
 
 		// System render
 		System* systemRender = new SystemRender(m_Camera);
@@ -108,8 +111,9 @@ public:
 
 	void ProcessInput(GLFWwindow* p_window, const float p_dt) override
 	{
-		// uh oh! this is temp!
-		Entity* playor = m_entityManager->FindEntity("Player");
+		// get the players from the list
+		Entity* player1 = m_entityManager->FindEntity("Player1");
+		Entity* player2 = m_entityManager->FindEntity("Player2");
 
 		// Exit if escape key is pressed
 		if (glfwGetKey(p_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -127,41 +131,9 @@ public:
 		if (glfwGetKey(p_window, GLFW_KEY_D) == GLFW_PRESS)
 			m_Camera->MoveCamera(m_Camera->Right, 2.5f, p_dt);
 
-		if (glfwGetKey(p_window, GLFW_KEY_SPACE) == GLFW_PRESS)
-		{
-			ComponentPhysics* phys = playor->GetComponent<ComponentPhysics>();
-			// jump
-		}
-
-		ComponentProperties* prop = playor->GetComponent<ComponentProperties>();
-		if (glfwGetKey(p_window, GLFW_KEY_UP) == GLFW_PRESS && prop->m_hasJumped == false)
-		{
-			ComponentPhysics* phys = playor->GetComponent<ComponentPhysics>();
-			phys->SetVelY(10.0f);
-			prop->m_hasJumped = true;
-		}
-		else if (glfwGetKey(p_window, GLFW_KEY_DOWN) == GLFW_PRESS)
-		{
-			ComponentPhysics* phys = playor->GetComponent<ComponentPhysics>();
-			phys->SetVelY(-5.0f);
-		}
-
-
-		if (glfwGetKey(p_window, GLFW_KEY_RIGHT) == GLFW_PRESS)
-		{
-			ComponentPhysics* phys = playor->GetComponent<ComponentPhysics>();
-			phys->SetVelX(5.0f);
-		}
-		else if (glfwGetKey(p_window, GLFW_KEY_LEFT) == GLFW_PRESS)
-		{
-			ComponentPhysics* phys = playor->GetComponent<ComponentPhysics>();
-			phys->SetVelX(-5.0f);
-		}
-		else
-		{
-			ComponentPhysics* phys = playor->GetComponent<ComponentPhysics>();
-			phys->SetVelX(0.0f);
-		}
+		// player control below here
+		MovePlayerOne(p_window, p_dt, player1);
+		MovePlayerOne(p_window, p_dt, player2);
 
 #if MOUSE_CONTROL_ENABLED
 		double xpos, ypos;
@@ -169,6 +141,70 @@ public:
 		glm::vec2 pos(xpos, ypos);
 		m_Camera->RotateCamera(pos);
 #endif		
+	}
+
+	void MovePlayerOne(GLFWwindow* p_window, const float p_dt, Entity* p_player)
+	{
+		ComponentProperties* prop = p_player->GetComponent<ComponentProperties>();
+		if (glfwGetKey(p_window, GLFW_KEY_UP) == GLFW_PRESS && prop->m_hasJumped == false)
+		{
+			ComponentPhysics* phys = p_player->GetComponent<ComponentPhysics>();
+			phys->SetVelY(10.0f);
+			prop->m_hasJumped = true;
+		}
+		else if (glfwGetKey(p_window, GLFW_KEY_DOWN) == GLFW_PRESS)
+		{
+			ComponentPhysics* phys = p_player->GetComponent<ComponentPhysics>();
+			phys->SetVelY(-5.0f);
+		}
+
+		if (glfwGetKey(p_window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+		{
+			ComponentPhysics* phys = p_player->GetComponent<ComponentPhysics>();
+			phys->SetVelX(5.0f);
+		}
+		else if (glfwGetKey(p_window, GLFW_KEY_LEFT) == GLFW_PRESS)
+		{
+			ComponentPhysics* phys = p_player->GetComponent<ComponentPhysics>();
+			phys->SetVelX(-5.0f);
+		}
+		else
+		{
+			ComponentPhysics* phys = p_player->GetComponent<ComponentPhysics>();
+			phys->SetVelX(0.0f);
+		}
+	}
+
+	void MovePlayerTwo(GLFWwindow* p_window, const float p_dt, Entity* p_player)
+	{
+		ComponentProperties* prop = p_player->GetComponent<ComponentProperties>();
+		if (glfwGetKey(p_window, GLFW_KEY_UP) == GLFW_PRESS && prop->m_hasJumped == false)
+		{
+			ComponentPhysics* phys = p_player->GetComponent<ComponentPhysics>();
+			phys->SetVelY(10.0f);
+			prop->m_hasJumped = true;
+		}
+		else if (glfwGetKey(p_window, GLFW_KEY_DOWN) == GLFW_PRESS)
+		{
+			ComponentPhysics* phys = p_player->GetComponent<ComponentPhysics>();
+			phys->SetVelY(-5.0f);
+		}
+
+		if (glfwGetKey(p_window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+		{
+			ComponentPhysics* phys = p_player->GetComponent<ComponentPhysics>();
+			phys->SetVelX(5.0f);
+		}
+		else if (glfwGetKey(p_window, GLFW_KEY_LEFT) == GLFW_PRESS)
+		{
+			ComponentPhysics* phys = p_player->GetComponent<ComponentPhysics>();
+			phys->SetVelX(-5.0f);
+		}
+		else
+		{
+			ComponentPhysics* phys = p_player->GetComponent<ComponentPhysics>();
+			phys->SetVelX(0.0f);
+		}
 	}
 
     void Close() override
