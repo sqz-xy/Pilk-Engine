@@ -78,7 +78,7 @@ void EntityManager::Clear()
 
 /// Original Author: Thomas Beet
 /// <summary>
-/// Finds an entity based on name
+/// Finds an entity based on ID
 /// </summary>
 /// <param name="p_name">Entity to find</param>
 /// <returns>Entity or nullptr</returns>
@@ -94,6 +94,12 @@ Entity* EntityManager::FindEntity(const int p_id)
 	return nullptr;
 }
 
+/// Original Author: Thomas Beet
+/// <summary>
+/// Finds an entity based on name
+/// </summary>
+/// <param name="p_name">Entity to find</param>
+/// <returns>Entity or nullptr</returns>
 Entity* EntityManager::FindEntity(const std::string& p_name)
 {
 	for (int i = 0; i < m_entities.size(); i++)
@@ -104,4 +110,14 @@ Entity* EntityManager::FindEntity(const std::string& p_name)
 		}
 	}
 	return nullptr;
+}
+
+/// Original Author: Thomas Beet
+/// <summary>
+/// Gets entity count
+/// </summary>
+/// <returns>EntityCount</returns>
+int EntityManager::EntityCount()
+{
+	return m_entities.size();
 }

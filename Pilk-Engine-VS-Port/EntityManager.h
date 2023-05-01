@@ -18,6 +18,8 @@ public:
 	Entity* FindEntity(const int p_id);
 	Entity* FindEntity(const std::string& p_name);
 
+	int EntityCount();
+
 private:
 	std::vector<Entity*> m_entities;
 };
