@@ -38,7 +38,7 @@ void PrefabManager::LoadPrefabs(const std::string& p_prefabPath, const std::stri
 		ceiling->AddComponent(new ComponentTransform(ceilingPos, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(6.0f, 1.0f, 1.0f)));
 		ceiling->AddComponent(new ComponentGeometry("resources/models/tempcube/tempcube.obj"));
 		ceiling->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
-		ceiling->AddComponent(new ComponentCollisionAABB(1.0f, 12.0f, 0.0f));
+		ceiling->AddComponent(new ComponentCollisionAABB(2.0f, 12.0f, 0.0f));
 		prefab->Ceiling = ceiling;
 
 		glm::vec3 floorPos = levelStartPos;
