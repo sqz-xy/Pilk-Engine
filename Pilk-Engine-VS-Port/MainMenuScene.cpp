@@ -78,7 +78,7 @@ public:
 		player1->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
 		player1->AddComponent(new ComponentPhysics(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -0.3f, 0.0f)));
 		player1->AddComponent(new ComponentCollisionPoint(glm::vec3(0.0f, -1.1f, 0.0f)));
-		player1->AddComponent(new ComponentProperties(false, 3.0f, 1.0f, vec3(0.0f, 0.0f, 0.0f)));
+		player1->AddComponent(new ComponentProperties(false, 3.0f, 1.0f, vec3(1.0f, 0.0f, 0.0f)));
 
 		Entity* player2 = new Entity("Player2");
 		player2->AddComponent(new ComponentTransform(glm::vec3(1.0f, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
@@ -87,7 +87,7 @@ public:
 		player2->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
 		player2->AddComponent(new ComponentPhysics(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -0.3f, 0.0f)));
 		player2->AddComponent(new ComponentCollisionPoint(glm::vec3(0.0f, -1.1f, 0.0f)));
-		player2->AddComponent(new ComponentProperties(false, 3.0f, 1.0f, vec3(0.0f, 0.0f, 0.0f)));
+		player2->AddComponent(new ComponentProperties(false, 3.0f, 1.0f, vec3(1.0f, 0.0f, 0.0f)));
 
 		FileManager::LoadEntities("resources/scripts/EntityScript.txt");
 
@@ -171,7 +171,7 @@ public:
 			prop->m_hasJumped = true;
 		}
 
-		if (glfwGetKey(p_window, GLFW_KEY_SPACE) == GLFW_PRESS)
+		if (glfwGetKey(p_window, GLFW_KEY_ENTER) == GLFW_PRESS)
 		{
 			Shoot(p_player);
 		}
@@ -208,7 +208,7 @@ public:
 			prop->m_hasJumped = true;
 		}
 
-		if (glfwGetKey(p_window, GLFW_KEY_ENTER) == GLFW_PRESS)
+		if (glfwGetKey(p_window, GLFW_KEY_SPACE) == GLFW_PRESS)
 		{
 			Shoot(p_player);
 		}
