@@ -21,8 +21,8 @@ public:
 	{
 		m_sceneManager->m_windowName = "MainMenuScene";
 		
-		m_Camera = new Camera(	glm::vec3(0.0f,0.0f,15.0f),	// camPos
-								glm::vec3(0.0f,0.0f,0.0f),  // camTarget
+		m_Camera = new Camera(	glm::vec3(3.75f,0.0f,21.50f),	// camPos
+								glm::vec3(3.75f,0.0f,0.0f),  // camTarget
 								m_sceneManager->m_width,	// windows width
 								m_sceneManager->m_height);	// window height
 
