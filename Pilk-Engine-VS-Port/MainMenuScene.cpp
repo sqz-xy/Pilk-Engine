@@ -43,7 +43,10 @@ public:
 		//std::cout << "Rendering" << std::endl;
 		ImGui::Begin("ImGui Test");
 		ImGui::Text("Delta time %f", p_dt);
-		ImGui::Text("EntityCount %f", m_entityManager->EntityCount());
+
+		int count = m_entityManager->EntityCount();
+
+		ImGui::Text("Entity Count %d", count);
 		bool button = ImGui::Button("Change scene", vec);
 
 		if (button)
