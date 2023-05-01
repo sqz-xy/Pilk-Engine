@@ -358,7 +358,7 @@ public:
 				m_cm->RegisterCollision(p_entity_1, p_entity_2, AABB_POINT);
 			}
 		}
-		else
+		else if(p_entity_1->GetName() != "FlyingEnemy")
 		{
 			ComponentPhysics* phys = p_entity_1->GetComponent<ComponentPhysics>();
 			phys->SetGravity(vec3(0, -0.3f, 0));

@@ -38,10 +38,21 @@ public:
 		if (p_col->m_collisionType == AABB_AABB_COLLISION_RIGHT)
 		{
 			new_pos.x += ((col1->GetWidth() / 2) + (col2->GetWidth() / 2));
+
+			if (p_col->m_entity1->GetName() == "GroundEnemy")
+			{
+				ComponentPhysics* phys = p_col->m_entity1->GetComponent<ComponentPhysics>();
+				phys->SetVelX(-phys->GetVelocity().x);
+			}
 		}
 		else if (p_col->m_collisionType == AABB_AABB_COLLISION_LEFT)
 		{
 			new_pos.x -= ((col1->GetWidth()/2) + (col2->GetWidth()/2));
+			if (p_col->m_entity1->GetName() == "GroundEnemy")
+			{
+				ComponentPhysics* phys = p_col->m_entity1->GetComponent<ComponentPhysics>();
+				phys->SetVelX(-phys->GetVelocity().x);
+			}
 		}
 
 		pos1->UpdateTranslation(new_pos);
