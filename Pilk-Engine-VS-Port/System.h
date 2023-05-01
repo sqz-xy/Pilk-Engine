@@ -256,6 +256,12 @@ public:
 			float y_extent_2 = e2_height / 2; // do this to z as well
 			float y_overlap = (y_extent_1 - y_extent_2) - glm::abs(distance.y);
 
+			if (p_entity_2->GetName() == "Ceiling")
+			{
+				m_cm->RegisterCollision(p_entity_1, p_entity_2, AABB_AABB_COLLISION_BOTTOM);
+				return;
+			}
+
 			if (y_overlap > x_overlap)
 			{
 				// to do:
