@@ -60,3 +60,17 @@ void SystemManager::ValidateEntity(Entity* p_entity)
 		systems[i]->ValidateEntity(p_entity);
 	}
 }
+
+/// Original Auther: Thomas Beet
+/// <summary>
+/// Deletes a specific entity from the systems valid entity list
+/// </summary>
+/// <param name="p_entity"></param>
+void SystemManager::RemoveEntity(Entity* p_entity)
+{
+	int size = systems.size();
+	for (int i = 0; i < size; i++)
+	{
+		systems[i]->RemoveEntity(p_entity);
+	}
+}
