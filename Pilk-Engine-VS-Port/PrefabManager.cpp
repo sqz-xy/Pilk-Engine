@@ -78,14 +78,31 @@ void PrefabManager::LoadPrefabs(const std::string& p_prefabPath, const std::stri
 				// Enemy
 				if (line[i] == 'E')
 				{
-					Entity* enemy = new Entity("Enemy");
+					Entity* enemy = new Entity("GroundEnemy");
 
 					enemy->AddComponent(new ComponentTransform(glm::vec3(xPos, yPos, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
-					//enemy->AddComponent(new ComponentCollisionAABB(1.0f, 1.0f, 0.5f));
+					enemy->AddComponent(new ComponentCollisionAABB(1.0f, 1.0f, 0.5f));
 					enemy->AddComponent(new ComponentGeometry("resources/models/fire/fire.obj"));
 					enemy->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FireShader.frag"));
 					enemy->AddComponent(new ComponentPhysics(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -0.3f, 0.0f)));
-					//enemy->AddComponent(new ComponentCollisionPoint(glm::vec3(0.0f, -1.1f, 0.0f)));
+					enemy->AddComponent(new ComponentCollisionPoint(glm::vec3(0.0f, -1.1f, 0.0f)));
+					enemy->AddComponent(new ComponentProperties(false, 3.0f, 3.0f, glm::vec3(0.0f, 0.0f, 0.0f)));
+
+					prefab->Entities[lineIndex][i] = enemy;
+				}
+
+				// Enemy
+				if (line[i] == 'F')
+				{
+					Entity* enemy = new Entity("FlyingEnemy");
+
+					enemy->AddComponent(new ComponentTransform(glm::vec3(xPos, yPos, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
+					enemy->AddComponent(new ComponentCollisionAABB(1.0f, 1.0f, 0.5f));
+					enemy->AddComponent(new ComponentGeometry("resources/models/fire/fire.obj"));
+					enemy->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
+					enemy->AddComponent(new ComponentPhysics(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f)));
+					enemy->AddComponent(new ComponentCollisionPoint(glm::vec3(0.0f, -1.1f, 0.0f)));
+					enemy->AddComponent(new ComponentCollisionSphere(1.0f));
 					enemy->AddComponent(new ComponentProperties(false, 3.0f, 3.0f, glm::vec3(0.0f, 0.0f, 0.0f)));
 
 					prefab->Entities[lineIndex][i] = enemy;
