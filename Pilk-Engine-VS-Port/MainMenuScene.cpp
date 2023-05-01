@@ -12,6 +12,9 @@ public:
 	GameCollisionManager* m_collisionManager;
 	PrefabManager* m_prefabManager;
 
+	Timer* player1Timer;
+	Timer* player2Timer;
+
 	Camera* m_Camera;
 
 	explicit MainMenuScene(SceneManager* pSceneManager) : Scene(pSceneManager)
@@ -29,6 +32,8 @@ public:
 		m_systemManager = new SystemManager();
 		m_collisionManager = new GameCollisionManager();
 		m_prefabManager = new PrefabManager();
+		player1Timer = new Timer();
+		player2Timer = new Timer();
 	}
 
 
@@ -59,6 +64,8 @@ public:
 
 	void Update(const float p_dt) override
 	{
+
+
 		m_Camera->UpdateCamera();
 
 		m_systemManager->ExecuteSystems(p_dt);
@@ -69,6 +76,7 @@ public:
 
 	void Load() override
 	{
+
 		m_prefabManager->LoadPrefabs("resources/prefabs/Level1", "");
 
 		stbi_set_flip_vertically_on_load(true);
@@ -177,7 +185,12 @@ public:
 
 		if (glfwGetKey(p_window, GLFW_KEY_ENTER) == GLFW_PRESS)
 		{
-			Shoot(p_player);
+			if (player1Timer->GetElapsedTime() > 0.25f)
+			{
+				std::cout << player1Timer->GetElapsedTime() << std::endl;
+				Shoot(p_player);
+				player1Timer->Restart();
+			}
 		}
 
 		if (glfwGetKey(p_window, GLFW_KEY_RIGHT) == GLFW_PRESS)
@@ -214,7 +227,12 @@ public:
 
 		if (glfwGetKey(p_window, GLFW_KEY_SPACE) == GLFW_PRESS)
 		{
-			Shoot(p_player);
+			if (player2Timer->GetElapsedTime() > 0.25f)
+			{
+				std::cout << player2Timer->GetElapsedTime() << std::endl;
+				Shoot(p_player);
+				player2Timer->Restart();
+			}
 		}
 
 		if (glfwGetKey(p_window, GLFW_KEY_D) == GLFW_PRESS)

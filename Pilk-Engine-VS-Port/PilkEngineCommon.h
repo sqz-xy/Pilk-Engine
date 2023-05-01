@@ -14,6 +14,7 @@
 #include "vector"
 #include "map"
 #include "filesystem" // Swapped to C++ 17 from 14
+#include "chrono"
 
 // OpenGL/GLFW
 #include "glad.h"
@@ -53,6 +54,7 @@
 #include "Camera.h"
 #include "Geometry.h"
 #include "Model.h"
+#include "Timer.h"
 
 // System
 #include "System.h"

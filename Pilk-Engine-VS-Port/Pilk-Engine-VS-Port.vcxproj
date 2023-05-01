@@ -61,6 +61,7 @@
     <ClInclude Include="SceneTypes.h" />
     <ClInclude Include="System.h" />
     <ClInclude Include="SystemManager.h" />
+    <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\shaders\FireShader.frag" />
