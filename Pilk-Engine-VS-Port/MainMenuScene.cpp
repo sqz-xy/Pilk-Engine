@@ -117,7 +117,7 @@ public:
 
 		Entity* bullet = new Entity("Bullet");
 		bullet->AddComponent(new ComponentTransform(pos, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
-		bullet->AddComponent(new ComponentPhysics(dir, glm::vec3(0.0f, 0.0f, 0.0f)));
+		bullet->AddComponent(new ComponentPhysics(dir * 20.0f, glm::vec3(0.0f, 0.0f, 0.0f)));
 		bullet->AddComponent(new ComponentProperties(true, 1.0f, dmg, dir));
 		bullet->AddComponent(new ComponentGeometry("resources/models/randy/randy.obj"));
 		bullet->AddComponent(new ComponentShader("resources/shaders/Billboard.vert", "resources/shaders/FireShader.frag"));
@@ -171,14 +171,23 @@ public:
 			prop->m_hasJumped = true;
 		}
 
+		if (glfwGetKey(p_window, GLFW_KEY_SPACE) == GLFW_PRESS)
+		{
+			Shoot(p_player);
+		}
+
 		if (glfwGetKey(p_window, GLFW_KEY_RIGHT) == GLFW_PRESS)
 		{
 			ComponentPhysics* phys = p_player->GetComponent<ComponentPhysics>();
+			ComponentProperties* prop = p_player->GetComponent<ComponentProperties>();
+			prop->m_direction = glm::vec3(1.0f, 0.0f, 0.0f);
 			phys->SetVelX(5.0f);
 		}
 		else if (glfwGetKey(p_window, GLFW_KEY_LEFT) == GLFW_PRESS)
 		{
 			ComponentPhysics* phys = p_player->GetComponent<ComponentPhysics>();
+			ComponentProperties* prop = p_player->GetComponent<ComponentProperties>();
+			prop->m_direction = glm::vec3(-1.0f, 0.0f, 0.0f);
 			phys->SetVelX(-5.0f);
 		}
 		else
@@ -199,14 +208,23 @@ public:
 			prop->m_hasJumped = true;
 		}
 
+		if (glfwGetKey(p_window, GLFW_KEY_ENTER) == GLFW_PRESS)
+		{
+			Shoot(p_player);
+		}
+
 		if (glfwGetKey(p_window, GLFW_KEY_D) == GLFW_PRESS)
 		{
 			ComponentPhysics* phys = p_player->GetComponent<ComponentPhysics>();
+			ComponentProperties* prop = p_player->GetComponent<ComponentProperties>();
+			prop->m_direction = glm::vec3(1.0f, 0.0f, 0.0f);
 			phys->SetVelX(5.0f);
 		}
 		else if (glfwGetKey(p_window, GLFW_KEY_A) == GLFW_PRESS)
 		{
 			ComponentPhysics* phys = p_player->GetComponent<ComponentPhysics>();
+			ComponentProperties* prop = p_player->GetComponent<ComponentProperties>();
+			prop->m_direction = glm::vec3(-1.0f, 0.0f, 0.0f);
 			phys->SetVelX(-5.0f);
 		}
 		else
