@@ -258,16 +258,18 @@ private:
 class ComponentProperties : public Component
 {
 public:
-	ComponentProperties(bool p_hasJumped, float p_health, float p_damage)
+	ComponentProperties(bool p_hasJumped, float p_health, float p_damage, vec3 p_dir)
 	{
 		m_hasJumped = p_hasJumped;
 		m_health = p_health;
 		m_damage = p_damage;
+		m_direction = p_dir;
 	}
 
 	bool m_hasJumped;
 	float m_health;
 	float m_damage;
+	vec3 m_direction;
 
 private:
 };

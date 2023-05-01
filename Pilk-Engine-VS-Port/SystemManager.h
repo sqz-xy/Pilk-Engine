@@ -16,6 +16,7 @@ public:
 	void Clear();
 
 	void ValidateEntity(Entity* p_entity);
+	void RemoveEntity(Entity* p_entity);
 
 private:
 	std::vector<System*> systems;

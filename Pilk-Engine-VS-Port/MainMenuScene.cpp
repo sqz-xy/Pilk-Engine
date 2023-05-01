@@ -78,7 +78,7 @@ public:
 		player->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
 		player->AddComponent(new ComponentPhysics(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -0.3f, 0.0f)));
 		player->AddComponent(new ComponentCollisionPoint(glm::vec3(0.0f, -1.1f, 0.0f)));
-		player->AddComponent(new ComponentProperties(false));
+		player->AddComponent(new ComponentProperties(false, 3.0f, 3.0f, glm::vec3(1.0f, 0.0f, 0.0f)));
 
 		Entity* fire = new Entity("Fire");
 		fire->AddComponent(new ComponentTransform(glm::vec3(3.0f, 1.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
@@ -106,6 +106,24 @@ public:
 		m_prefabManager->RegisterLevel(*m_entityManager, *m_systemManager);	
 	}
 
+	void Shoot(Entity* p_player)
+	{
+		glm::vec3 pos = p_player->GetComponent<ComponentTransform>()->m_translation;
+		glm::vec3 dir = p_player->GetComponent<ComponentProperties>()->m_direction;
+		float dmg = p_player->GetComponent<ComponentProperties>()->m_damage;
+
+		Entity* bullet = new Entity("Bullet");
+		bullet->AddComponent(new ComponentTransform(pos, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
+		bullet->AddComponent(new ComponentPhysics(dir, glm::vec3(0.0f, 0.0f, 0.0f)));
+		bullet->AddComponent(new ComponentProperties(true, 1.0f, dmg, dir));
+		bullet->AddComponent(new ComponentGeometry("resources/models/randy/randy.obj"));
+		bullet->AddComponent(new ComponentShader("resources/shaders/Billboard.vert", "resources/shaders/FireShader.frag"));
+
+		m_entityManager->AddEntity(bullet);
+		m_systemManager->ValidateEntity(bullet);
+		//m_entityManager->ValidateEntities(m_systemManager);
+	}
+
 	void ProcessInput(GLFWwindow* p_window, const float p_dt) override
 	{
 		// uh oh! this is temp!
@@ -129,8 +147,7 @@ public:
 
 		if (glfwGetKey(p_window, GLFW_KEY_SPACE) == GLFW_PRESS)
 		{
-			ComponentPhysics* phys = playor->GetComponent<ComponentPhysics>();
-			// jump
+			Shoot(playor);
 		}
 
 		ComponentProperties* prop = playor->GetComponent<ComponentProperties>();
