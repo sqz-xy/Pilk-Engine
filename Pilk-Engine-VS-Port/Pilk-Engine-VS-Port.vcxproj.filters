@@ -198,5 +198,11 @@
     <Text Include="resources\scripts\EntityScript.txt">
       <Filter>Resource Files\Scripts</Filter>
     </Text>
+    <Text Include="resources\shaders\LightingShader.frag">
+      <Filter>Resource Files\Shaders</Filter>
+    </Text>
+    <Text Include="resources\shaders\LightingShader.vert">
+      <Filter>Resource Files\Shaders</Filter>
+    </Text>
   </ItemGroup>
 </Project>
