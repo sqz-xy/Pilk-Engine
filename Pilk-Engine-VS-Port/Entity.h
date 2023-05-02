@@ -20,7 +20,7 @@ public:
 	/// <param name="p_name"> The Entity's name. </param>
 	Entity(const char* p_name) : m_name(p_name), m_id(ENTITY_ID++)
 	{
-
+		m_delete = false;
 	}
 
 	/// Original Author : Thomas Beet
@@ -92,8 +92,20 @@ public:
 		return nullptr;
 	}
 
+	//sets delete value. is deleted if true.
+	void Delete(bool p_delete)
+	{
+		m_delete = p_delete;
+	}
+
+	bool IsDelete()
+	{
+		return m_delete;
+	}
+
 private:
 	const char* m_name;
 	const int m_id;
+	bool m_delete;
 	std::vector<Component*> m_components;
 };

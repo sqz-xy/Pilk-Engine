@@ -3,7 +3,6 @@
 #pragma once
 
 #include "PilkEngineCommon.h"
-
 #include "CollisionManager.h"
 
 class GameCollisionManager : public CollisionManager
@@ -109,11 +108,11 @@ public:
 	{
 		if (p_e1->GetName() == "Bullet")
 		{
-			// derlete e1
+			p_e1->Delete(true);
 		}
 		else
 		{
-			// delte 2
+			p_e2->Delete(true);
 		}
 	}
 

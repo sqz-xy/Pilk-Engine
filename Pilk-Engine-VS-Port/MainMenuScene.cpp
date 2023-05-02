@@ -94,6 +94,14 @@ public:
 
 		m_collisionManager->ProcessCollisions();
 		m_collisionManager->ClearManifold();
+
+		for (int i = 0; i < m_entityManager->m_entities.size(); i++)
+		{
+			if (m_entityManager->m_entities[i]->IsDelete())
+			{
+				m_systemManager->RemoveEntity(m_entityManager->m_entities[i]);
+			}
+		}
 	}
 
 	void Load() override

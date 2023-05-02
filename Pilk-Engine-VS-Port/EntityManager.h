@@ -19,6 +19,6 @@ public:
 
 	int EntityCount();
 
-private:
 	std::vector<Entity*> m_entities;
+private:
 };
