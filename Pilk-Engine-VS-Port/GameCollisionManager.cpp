@@ -1,7 +1,5 @@
 #pragma once
 
-#pragma once
-
 #include "PilkEngineCommon.h"
 #include "CollisionManager.h"
 
@@ -16,11 +14,9 @@ public:
 	{
 		for (Collision* col : m_collisionManifold)
 		{
-			if (CollisionEdgeCase(col))
-			{
-				return;
-			}
-			else if (col->m_collisionType == AABB_AABB_COLLISION_RIGHT || col->m_collisionType == AABB_AABB_COLLISION_LEFT)
+			CollisionEdgeCase(col);
+
+			if (col->m_collisionType == AABB_AABB_COLLISION_RIGHT || col->m_collisionType == AABB_AABB_COLLISION_LEFT)
 			{
 				RespondAABBAABBLeftRight(col);
 			}
@@ -42,6 +38,33 @@ public:
 	bool CollisionEdgeCase(Collision* p_col)
 	{
 		bool edge = false;
+		Entity* e1 = p_col->m_entity1;
+		Entity* e2 = p_col->m_entity2;
+
+		// bullet cases
+		if (e1->GetName() == "Bullet" || e2->GetName() == "Bullet")
+		{
+			if (e1->GetName() == "Block" || e2->GetName() == "Block")
+			{
+				BulletWall(e1, e2);
+			}
+			else if (e1->GetName() == "GroundEnemy" || e2->GetName() == "GroundEnemy" || e1->GetName() == "FlyingEnemy" || e2->GetName() == "FlyingEnemy")
+			{
+				BulletEnemy(e1, e2);
+			}
+		}
+		// enemy cases
+		else if (e1->GetName() == "GroundEnemy" || e2->GetName() == "GroundEnemy" || e1->GetName() == "FlyingEnemy" || e2->GetName() == "FlyingEnemy")
+		{
+			if (e1->GetName() == "Player1" || e2->GetName() == "Player1")
+			{
+				EnemyPlayer(e1,e2);
+			}
+			else if (e1->GetName() == "Player2" || e2->GetName() == "Player2")
+			{
+				EnemyPlayer(e1,e2);
+			}
+		}
 
 		return edge;
 	}
@@ -51,11 +74,6 @@ public:
 
 		Entity* e1 = p_col->m_entity1;
 		Entity* e2 = p_col->m_entity2;
-
-		if ((e1->GetName() == "Bullet" && e2->GetName() == "Block") || (e2->GetName() == "Bullet" && e1->GetName() == "Block"))
-		{
-			BulletWall(e1, e2);
-		}
 
 		ComponentTransform* pos1 = e1->GetComponent<ComponentTransform>();
 		ComponentTransform* pos2 = e2->GetComponent<ComponentTransform>();
@@ -94,11 +112,6 @@ public:
 		Entity* e1 = p_col->m_entity1;
 		Entity* e2 = p_col->m_entity2;
 
-		if ((e1->GetName() == "Bullet" && e2->GetName() == "Block") || (e2->GetName() == "Bullet" && e1->GetName() == "Block"))
-		{
-			BulletWall(e1, e2);
-		}
-
 		ComponentTransform* pos1 = e1->GetComponent<ComponentTransform>();
 		ComponentTransform* pos2 = e2->GetComponent<ComponentTransform>();
 
@@ -129,6 +142,25 @@ public:
 		{
 			p_e2->Delete(true);
 		}
+	}
+
+	void BulletEnemy(Entity* p_e1, Entity* p_e2)
+	{
+		if (p_e1->GetName() == "Bullet")
+		{
+			p_e1->Delete(true);
+		}
+		else
+		{
+			p_e2->Delete(true);
+		}
+
+		// remove health from enemy
+	}
+
+	void EnemyPlayer(Entity* p_e1, Entity* p_e2)
+	{
+
 	}
 
 	void RespondAABBPoint(Collision* p_col)

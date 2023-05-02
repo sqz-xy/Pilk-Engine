@@ -82,13 +82,13 @@ public:
 
 		m_Camera->UpdateCamera();
 
-		Entity* rearWall = m_entityManager->FindEntity("RearWall");
-		ComponentTransform* rearTrans = rearWall->GetComponent<ComponentTransform>();
-		rearTrans->UpdateTranslation(rearTrans->m_translation += movementRate);
+		//Entity* rearWall = m_entityManager->FindEntity("RearWall");
+		//ComponentTransform* rearTrans = rearWall->GetComponent<ComponentTransform>();
+		//rearTrans->UpdateTranslation(rearTrans->m_translation += movementRate);
 
-		Entity* frontWall = m_entityManager->FindEntity("FrontWall");
-		ComponentTransform* frontTrans = frontWall->GetComponent<ComponentTransform>();
-		frontTrans->UpdateTranslation(frontTrans->m_translation += movementRate);
+		//Entity* frontWall = m_entityManager->FindEntity("FrontWall");
+		//ComponentTransform* frontTrans = frontWall->GetComponent<ComponentTransform>();
+		//frontTrans->UpdateTranslation(frontTrans->m_translation += movementRate);
 
 		m_systemManager->ExecuteSystems(p_dt);
 
@@ -117,14 +117,14 @@ public:
 		rearWall->AddComponent(new ComponentCollisionAABB(10.0f, 2.0f, 0.0f));
 		rearWall->AddComponent(new ComponentGeometry("resources/models/tempcube/tempcube.obj"));
 		rearWall->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
-		m_entityManager->AddEntity(rearWall);
+		//m_entityManager->AddEntity(rearWall);
 
 		Entity* frontWall = new Entity("FrontWall");
 		frontWall->AddComponent(new ComponentTransform(glm::vec3(15.0f, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 10.0f, 1.0f)));
 		frontWall->AddComponent(new ComponentCollisionAABB(10.0f, 2.0f, 0.0f));
 		frontWall->AddComponent(new ComponentGeometry("resources/models/tempcube/tempcube.obj"));
 		frontWall->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
-		m_entityManager->AddEntity(frontWall);
+		//m_entityManager->AddEntity(frontWall);
 
 
 		// Player entity.
