@@ -1,4 +1,9 @@
+#pragma once
+
+
 #include "PilkEngineCommon.h"
+
+#include "CollisionManager.h"
 
 class GameCollisionManager : public CollisionManager
 {

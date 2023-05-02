@@ -2,6 +2,16 @@
 
 #include "PilkEngineCommon.h"
 
+#include "GameCollisionManager.cpp"
+#include "Scene.h"
+#include "PrefabManager.h"
+#include "Timer.h"
+#include "Entity.h"
+#include "Component.h"
+#include "System.h"
+#include "SceneManager.h"
+#include "FileManager.h"
+
 class PeterTestScene : public Scene
 {
 public:

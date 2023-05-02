@@ -1,6 +1,8 @@
 #pragma once
 
-#include "PilkEngineCommon.h"
+#include "Entity.h"
+#include "SystemManager.h"
+#include "EntityManager.h"
 
 // Prefabs are 6x6
 

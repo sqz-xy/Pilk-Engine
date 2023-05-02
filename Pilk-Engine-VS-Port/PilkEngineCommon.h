@@ -35,34 +35,6 @@
 // irrKlang
 #include "irrKlang.h"
 
-// Internal Headers
-
-// Managers
-#include "CollisionManager.h"
-#include "EntityManager.h"
-#include "FileManager.h"
-#include "ResourceManager.h"
-#include "SceneManager.h"
-#include "SystemManager.h"
-#include "PrefabManager.h"
-
-// Entity
-#include "Entity.h"
-#include "Component.h"
-
-// Objects
-#include "Camera.h"
-#include "Geometry.h"
-#include "Model.h"
-#include "Timer.h"
-
-// System
-#include "System.h"
-
-// Scenes
-#include "Scene.h"
-#include "SceneTypes.h"
-
 // Variables
 #define MOUSE_CONTROL_ENABLED 0;
 #define GRAVITY glm::vec3(0.0f, 9.8f, 0.0f);

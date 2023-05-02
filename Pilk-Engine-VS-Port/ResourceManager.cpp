@@ -2,6 +2,8 @@
 
 #include "PilkEngineCommon.h"
 
+#include "ResourceManager.h"
+
 // Maps
 std::map<std::string, unsigned int*> ResourceManager::m_shaderMap;
 std::map<std::string, unsigned int*> ResourceManager::m_textureMap;

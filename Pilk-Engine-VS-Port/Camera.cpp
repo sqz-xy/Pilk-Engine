@@ -1,6 +1,6 @@
-#include "Camera.h"
-
 #include "PilkEngineCommon.h"
+
+#include "Camera.h"
 
 Camera::Camera(const glm::vec3 p_pos, const glm::vec3 p_target, const float p_width, const float p_height)
 {

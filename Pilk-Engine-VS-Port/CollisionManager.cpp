@@ -1,5 +1,7 @@
 #include "PilkEngineCommon.h"
 
+#include "CollisionManager.h"
+
 void CollisionManager::ClearManifold()
 {
 	m_collisionManifold.clear();

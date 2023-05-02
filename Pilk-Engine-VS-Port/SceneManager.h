@@ -1,7 +1,6 @@
 #pragma once
 
-#include "glad.h"
-#include "glfw3.h"
+#include "PilkEngineCommon.h"
 
 #include "scene.h"
 #include "SceneTypes.h"

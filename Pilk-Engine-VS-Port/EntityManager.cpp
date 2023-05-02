@@ -1,5 +1,7 @@
 #include "PilkEngineCommon.h"
 
+#include "EntityManager.h"
+
 EntityManager::EntityManager()
 {
 }

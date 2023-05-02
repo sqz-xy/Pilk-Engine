@@ -1,7 +1,5 @@
 #pragma once
 
-#include "PilkEngineCommon.h"
-
 #include "Entity.h"
 
 enum CollisionType

@@ -1,5 +1,7 @@
 #include "PilkEngineCommon.h"
 
+#include "Geometry.h"
+
 Geometry::Geometry(std::vector<Vertex> p_vertices, std::vector<unsigned int> p_indices, std::vector<Texture> p_textures)
 {
 	m_vertices = p_vertices;

@@ -1,5 +1,8 @@
 #include "PilkEngineCommon.h"
 
+#include "Model.h"
+#include "ResourceManager.h"
+
 Model::Model(const char* p_filePath)
 {
     loadModel(p_filePath);

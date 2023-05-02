@@ -1,4 +1,7 @@
 #include "PilkEngineCommon.h"
+
+#include "PrefabManager.h"
+
 PrefabManager::PrefabManager()
 {
 }

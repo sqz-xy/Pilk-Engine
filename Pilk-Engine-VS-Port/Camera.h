@@ -1,9 +1,6 @@
 #pragma once
 
-#include "glm.hpp"
-#include "gtc/matrix_transform.hpp"
-#include "gtc/type_ptr.hpp"
-#include <vector>
+#include "PilkEngineCommon.h"
 
 class Camera final 
 {

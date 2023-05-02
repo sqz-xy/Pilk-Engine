@@ -5,7 +5,6 @@
 #include "gtc/matrix_transform.hpp"
 #include "gtc/type_ptr.hpp"
 
-#include "PilkEngineCommon.h"
 #include "ResourceManager.h"
 #include "Camera.h"
 

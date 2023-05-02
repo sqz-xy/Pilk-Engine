@@ -2,6 +2,7 @@
 
 #include "PilkEngineCommon.h"
 
+#include "SceneManager.h"
 #include "MainMenuScene.cpp"
 #include "PeterTestScene.cpp"
 

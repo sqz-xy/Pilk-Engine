@@ -2,6 +2,10 @@
 
 #include "PilkEngineCommon.h"
 
+#include "EntityManager.h"
+#include "SceneManager.h"
+#include "SystemManager.h"
+
 // By Thomas Beet
 class Scene
 {

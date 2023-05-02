@@ -1,6 +1,5 @@
 #pragma once
 
-#include "PilkEngineCommon.h"
 #include "Entity.h"
 #include "SystemManager.h"
 

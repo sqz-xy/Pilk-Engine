@@ -1,5 +1,7 @@
 #include "PilkEngineCommon.h"
 
+#include "FileManager.h"
+
 using namespace std;
 
 

@@ -1,5 +1,7 @@
 #include "PilkEngineCommon.h"
 
+#include "SystemManager.h"
+
 SystemManager::SystemManager()
 {
 
