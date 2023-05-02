@@ -132,6 +132,7 @@ public:
 		Entity* bullet = new Entity("Bullet");
 		bullet->AddComponent(new ComponentTransform(pos, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
 		bullet->AddComponent(new ComponentPhysics(dir * 20.0f, glm::vec3(0.0f, 0.0f, 0.0f)));
+		bullet->AddComponent(new ComponentCollisionAABB(1.0f, 1.0f, 1.0f));
 		bullet->AddComponent(new ComponentProperties(true, 1.0f, dmg, dir));
 		bullet->AddComponent(new ComponentGeometry("resources/models/randy/randy.obj"));
 		bullet->AddComponent(new ComponentShader("resources/shaders/Billboard.vert", "resources/shaders/FireShader.frag"));
