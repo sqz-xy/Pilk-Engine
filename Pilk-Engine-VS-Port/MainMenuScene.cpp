@@ -104,35 +104,24 @@ public:
 					}
 				}
 			}
+
+			ComponentProperties* prop = entity->GetComponent<ComponentProperties>();
+
+			if (prop != nullptr)
+			{
+				if (prop->m_health <= 0.0f)
+				{
+					if (entity->GetName() == "Player1" || entity->GetName() == "Player2")
+					{
+						m_systemManager->RemoveEntity(entity);
+						m_entityManager->RemoveEntity(entity->GetID());
+					}
+				}
+			}
 		}
 
 		m_Camera->UpdateCamera();
 
-		//Entity* rearWall = m_entityManager->FindEntity("RearWall");
-		//ComponentTransform* rearTrans = rearWall->GetComponent<ComponentTransform>();
-		//rearTrans->UpdateTranslation(rearTrans->m_translation += movementRate);
-
-		//Entity* frontWall = m_entityManager->FindEntity("FrontWall");
-		//ComponentTransform* frontTrans = frontWall->GetComponent<ComponentTransform>();
-		//frontTrans->UpdateTranslation(frontTrans->m_translation += movementRate);
-
-		/*
-		if (modelTimer->GetElapsedTime() > 5.0f)
-		{
-			for (auto groundEnemy : m_entityManager->m_entities)
-			{
-				if (groundEnemy->GetName() == "GroundEnemy")
-				{
-					groundEnemy->RemoveComponent(groundEnemy->GetComponent<ComponentGeometry>());
-
-					std::string idx = std::to_string(texIndex).c_str();
-					std::string fname = "snake_0" + idx + ".obj";
-
-					groundEnemy->AddComponent(new ComponentGeometry(fname.c_str()));
-				}
-			}
-		}
-		*/
 
 		m_systemManager->ExecuteSystems(p_dt);
 

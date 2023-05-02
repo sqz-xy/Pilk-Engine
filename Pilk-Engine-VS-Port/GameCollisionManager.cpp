@@ -2,13 +2,15 @@
 
 #include "PilkEngineCommon.h"
 #include "CollisionManager.h"
+#include "Timer.h"
 
 class GameCollisionManager : public CollisionManager
 {
 public:
 
 	using CollisionManager::CollisionManager;
-
+	Timer* player1DamageTimer = new Timer();
+	Timer* player2DamageTimer = new Timer();
 
 	void ProcessCollisions() override
 	{
@@ -192,8 +194,22 @@ public:
 	}
 
 	void EnemyPlayer(Entity* p_e1, Entity* p_e2)
-	{
-		std::cout << "ouch!" << std::endl;
+	{	
+		if (p_e1->GetName() == "Player1" && player1DamageTimer->GetElapsedTime() > 1.0f) 
+		{
+			ComponentProperties* prop = p_e1->GetComponent<ComponentProperties>();
+			prop->m_health -= 1.0f;
+			std::cout << "p1 ouch!" << std::endl;
+			player1DamageTimer->Restart();
+		}
+
+		if (p_e1->GetName() == "Player2" && player2DamageTimer->GetElapsedTime() > 1.0f)
+		{
+			ComponentProperties* prop = p_e1->GetComponent<ComponentProperties>();
+			prop->m_health -= 1.0f;
+			std::cout << "p2 ouch!" << std::endl;
+			player2DamageTimer->Restart();
+		}
 	}
 
 	void RespondAABBPoint(Collision* p_col)
