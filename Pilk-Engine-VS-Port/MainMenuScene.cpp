@@ -84,6 +84,26 @@ public:
 		if (m_Camera->m_cameraPos.x + 24.0f < m_levelWidth)
 			m_Camera->m_cameraPos += glm::vec3(1.0f, 0.0f, 0.0f) * p_dt;
 
+		for (auto entity : m_entityManager->m_entities)
+		{
+			ComponentTransform* trans = entity->GetComponent<ComponentTransform>();
+			if (trans != nullptr)
+			{
+				if (trans->m_translation.z > 10.0f)
+				{
+					m_systemManager->RemoveEntity(entity);
+				}
+
+				if (entity->GetName() == "Player1" || entity->GetName() == "Player2")
+				{
+					if (trans->m_translation.x < m_Camera->m_cameraPos.x - 10.0f)
+					{
+						m_systemManager->RemoveEntity(entity);
+					}
+				}
+			}
+		}
+
 		m_Camera->UpdateCamera();
 
 		//Entity* rearWall = m_entityManager->FindEntity("RearWall");
