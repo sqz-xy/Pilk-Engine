@@ -12,7 +12,11 @@ public:
 	{
 		for (Collision* col : m_collisionManifold)
 		{
-			if (col->m_collisionType == AABB_AABB_COLLISION_RIGHT || col->m_collisionType == AABB_AABB_COLLISION_LEFT)
+			if (CollisionEdgeCase(col))
+			{
+				return;
+			}
+			else if (col->m_collisionType == AABB_AABB_COLLISION_RIGHT || col->m_collisionType == AABB_AABB_COLLISION_LEFT)
 			{
 				RespondAABBAABBLeftRight(col);
 			}
@@ -29,6 +33,13 @@ public:
 				RespondPointSphere(col);
 			}
 		}
+	}
+
+	bool CollisionEdgeCase(Collision* p_col)
+	{
+		bool edge = false;
+
+		return edge;
 	}
 
 	void RespondAABBAABBLeftRight(Collision* p_col)
