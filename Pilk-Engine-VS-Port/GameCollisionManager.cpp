@@ -19,6 +19,10 @@ public:
 			{
 				RespondAABBPoint(col);
 			}
+			else if (col->m_collisionType == AABB_SPHERE_POINT)
+			{
+				RespondPointSphere(col);
+			}
 		}
 	}
 
@@ -93,5 +97,20 @@ public:
 
 		ComponentProperties* prop = p_col->m_entity1->GetComponent<ComponentProperties>();
 		prop->m_hasJumped = false;
+	}
+
+	void RespondPointSphere(Collision* p_col)
+	{
+		ComponentTransform* trans1 = p_col->m_entity1->GetComponent<ComponentTransform>();
+
+		ComponentPhysics* phys2 = p_col->m_entity2->GetComponent<ComponentPhysics>();
+		ComponentTransform* trans2 = p_col->m_entity2->GetComponent<ComponentTransform>();
+
+		vec3 pos1 = trans1->m_translation;
+		vec3 pos2 = trans2->m_translation;
+		vec3 distance = pos2 - pos1;
+		distance = glm::normalize(distance) * 2.0f;
+
+		phys2->SetVelVector(-distance);
 	}
 };
