@@ -67,6 +67,8 @@
     <None Include="resources\shaders\FireShader.frag" />
     <None Include="resources\shaders\Billboard.vert" />
     <None Include="resources\shaders\FragmentShader.frag" />
+    <None Include="resources\shaders\GUI.frag" />
+    <None Include="resources\shaders\GUI.vert" />
     <None Include="resources\shaders\VertexShader.vert" />
   </ItemGroup>
   <ItemGroup>
