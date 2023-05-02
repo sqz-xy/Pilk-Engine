@@ -1,7 +1,7 @@
 /* Resources
 * - https://learnopengl.com/Getting-started/Hello-Window
 */
-
+#pragma once
 #include "SceneManager.h"
 #include <crtdbg.h>
 
