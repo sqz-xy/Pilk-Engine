@@ -24,6 +24,9 @@ public:
 	Timer* player1Timer;
 	Timer* player2Timer;
 
+	Timer* modelTimer;
+	int texIndex = 1;
+
 	Camera* m_Camera;
 
 	float m_levelWidth;
@@ -45,6 +48,7 @@ public:
 		m_prefabManager = new PrefabManager();
 		player1Timer = new Timer();
 		player2Timer = new Timer();
+		modelTimer = new Timer();
 	}
 
 
@@ -89,6 +93,24 @@ public:
 		//Entity* frontWall = m_entityManager->FindEntity("FrontWall");
 		//ComponentTransform* frontTrans = frontWall->GetComponent<ComponentTransform>();
 		//frontTrans->UpdateTranslation(frontTrans->m_translation += movementRate);
+
+		/*
+		if (modelTimer->GetElapsedTime() > 5.0f)
+		{
+			for (auto groundEnemy : m_entityManager->m_entities)
+			{
+				if (groundEnemy->GetName() == "GroundEnemy")
+				{
+					groundEnemy->RemoveComponent(groundEnemy->GetComponent<ComponentGeometry>());
+
+					std::string idx = std::to_string(texIndex).c_str();
+					std::string fname = "snake_0" + idx + ".obj";
+
+					groundEnemy->AddComponent(new ComponentGeometry(fname.c_str()));
+				}
+			}
+		}
+		*/
 
 		m_systemManager->ExecuteSystems(p_dt);
 

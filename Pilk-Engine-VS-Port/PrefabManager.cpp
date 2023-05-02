@@ -29,17 +29,17 @@ void PrefabManager::LoadPrefabs(const std::string& p_prefabPath, const std::stri
 		backwallPos.z -= 2.0f;
 
 		Entity* backwall = new Entity("Backwall");
-		backwall->AddComponent(new ComponentTransform(backwallPos, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(6.0f, 6.0f, 1.0f)));
-		backwall->AddComponent(new ComponentGeometry("resources/models/tempcube/tempcube.obj"));
-		backwall->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
+		backwall->AddComponent(new ComponentTransform(backwallPos, glm::vec3(1.5708f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
+		backwall->AddComponent(new ComponentGeometry("resources/models/block/6x12Cube.obj"));
+		backwall->AddComponent(new ComponentShader("resources/shaders/Wall.vert", "resources/shaders/Wall.frag"));
 		prefab->BackWall = backwall;
 
 		glm::vec3 ceilingPos = levelStartPos;
 		ceilingPos.y += 7;
 
 		Entity* ceiling = new Entity("Ceiling");
-		ceiling->AddComponent(new ComponentTransform(ceilingPos, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(6.0f, 1.0f, 1.0f)));
-		ceiling->AddComponent(new ComponentGeometry("resources/models/tempcube/tempcube.obj"));
+		ceiling->AddComponent(new ComponentTransform(ceilingPos, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
+		ceiling->AddComponent(new ComponentGeometry("resources/models/block/6x1Cube.obj"));
 		ceiling->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
 		ceiling->AddComponent(new ComponentCollisionAABB(2.0f, 12.0f, 0.0f));
 		prefab->Ceiling = ceiling;
@@ -48,8 +48,8 @@ void PrefabManager::LoadPrefabs(const std::string& p_prefabPath, const std::stri
 		floorPos.y -= 7;
 
 		Entity* floor = new Entity("Floor");
-		floor->AddComponent(new ComponentTransform(floorPos, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(6.0f, 1.0f, 1.0f)));
-		floor->AddComponent(new ComponentGeometry("resources/models/tempcube/tempcube.obj"));
+		floor->AddComponent(new ComponentTransform(floorPos, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
+		floor->AddComponent(new ComponentGeometry("resources/models/block/6x1Cube.obj"));
 		floor->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
 		floor->AddComponent(new ComponentCollisionAABB(1.0f, 12.0f, 0.0f));
 		prefab->Floor = floor;
@@ -72,7 +72,7 @@ void PrefabManager::LoadPrefabs(const std::string& p_prefabPath, const std::stri
 
 					block->AddComponent(new ComponentTransform(glm::vec3(xPos, yPos, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
 					block->AddComponent(new ComponentCollisionAABB(2.0f, 2.0f, 0.0f));
-					block->AddComponent(new ComponentGeometry("resources/models/tempcube/tempcube.obj"));
+					block->AddComponent(new ComponentGeometry("resources/models/block/1x1Cube.obj"));
 					block->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
 
 					prefab->Entities[lineIndex][i] = block;
@@ -83,10 +83,10 @@ void PrefabManager::LoadPrefabs(const std::string& p_prefabPath, const std::stri
 				{
 					Entity* enemy = new Entity("GroundEnemy");
 
-					enemy->AddComponent(new ComponentTransform(glm::vec3(xPos, yPos, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
-					enemy->AddComponent(new ComponentCollisionAABB(1.0f, 1.0f, 0.5f));
-					enemy->AddComponent(new ComponentGeometry("resources/models/fire/fire.obj"));
-					enemy->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FireShader.frag"));
+					enemy->AddComponent(new ComponentTransform(glm::vec3(xPos, yPos, 5.0f), glm::vec3(1.5708f, 3.14159f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
+					enemy->AddComponent(new ComponentCollisionAABB(1.0f, 2.0f, 0.5f));
+					enemy->AddComponent(new ComponentGeometry("resources/models/snake/snake_01.obj"));
+					enemy->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
 					enemy->AddComponent(new ComponentPhysics(glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, -0.3f, 0.0f)));
 					enemy->AddComponent(new ComponentCollisionPoint(glm::vec3(0.0f, -1.1f, 0.0f)));
 					enemy->AddComponent(new ComponentProperties(false, 3.0f, 3.0f, glm::vec3(0.0f, 0.0f, 0.0f)));
@@ -99,9 +99,9 @@ void PrefabManager::LoadPrefabs(const std::string& p_prefabPath, const std::stri
 				{
 					Entity* enemy = new Entity("FlyingEnemy");
 
-					enemy->AddComponent(new ComponentTransform(glm::vec3(xPos, yPos, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
+					enemy->AddComponent(new ComponentTransform(glm::vec3(xPos, yPos, 5.0f), glm::vec3(1.5708f, 3.14159f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
 					enemy->AddComponent(new ComponentCollisionAABB(1.0f, 1.0f, 0.5f));
-					enemy->AddComponent(new ComponentGeometry("resources/models/fire/fire.obj"));
+					enemy->AddComponent(new ComponentGeometry("resources/models/bat/bat_01.obj"));
 					enemy->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
 					enemy->AddComponent(new ComponentPhysics(glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f)));
 					enemy->AddComponent(new ComponentCollisionPoint(glm::vec3(0.0f, -1.1f, 0.0f)));
