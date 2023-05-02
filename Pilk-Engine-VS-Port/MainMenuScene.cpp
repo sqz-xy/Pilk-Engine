@@ -181,7 +181,7 @@ public:
 		int success = glfwGetGamepadState(0, &state);
 
 		ComponentProperties* prop = p_player->GetComponent<ComponentProperties>();
-		if ((glfwGetKey(p_window, GLFW_KEY_UP) == GLFW_PRESS || (state.buttons[GLFW_GAMEPAD_BUTTON_DPAD_UP] && success)) && prop->m_hasJumped == false)
+		if ((glfwGetKey(p_window, GLFW_KEY_UP) == GLFW_PRESS || (state.buttons[GLFW_GAMEPAD_BUTTON_DPAD_UP] && success)) || (state.buttons[GLFW_GAMEPAD_BUTTON_DPAD_DOWN] && success) && prop->m_hasJumped == false)
 		{
 			ComponentPhysics* phys = p_player->GetComponent<ComponentPhysics>();
 			phys->SetVelY(10.0f);
@@ -226,7 +226,7 @@ public:
 		int success = glfwGetGamepadState(0, &state);
 
 		ComponentProperties* prop = p_player->GetComponent<ComponentProperties>();
-		if ((glfwGetKey(p_window, GLFW_KEY_W) == GLFW_PRESS || (state.buttons[GLFW_GAMEPAD_BUTTON_A] && success)) && prop->m_hasJumped == false)
+		if ((glfwGetKey(p_window, GLFW_KEY_W) == GLFW_PRESS || (state.buttons[GLFW_GAMEPAD_BUTTON_A] && success)) || (state.buttons[GLFW_GAMEPAD_BUTTON_Y] && success) && prop->m_hasJumped == false)
 		{
 			ComponentPhysics* phys = p_player->GetComponent<ComponentPhysics>();
 			phys->SetVelY(10.0f);
