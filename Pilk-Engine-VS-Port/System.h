@@ -379,3 +379,74 @@ public:
 private:
 	CollisionManager* m_cm;
 };
+
+// class by matthew liney
+class SystemCollisionSpherePoint : public System
+{
+public:
+
+	// cm stands for collision manager, by the way.
+	SystemCollisionSpherePoint(CollisionManager* p_cm)
+	{
+		m_cm = p_cm;
+	}
+
+	virtual void Execute(const float p_deltaTime) override
+	{
+		for (Entity* entity1 : validEntities)
+		{
+			ComponentPhysics* phys1 = entity1->GetComponent<ComponentPhysics>();
+			ComponentCollisionPoint* point1 = entity1->GetComponent<ComponentCollisionPoint>();
+
+			if (phys1 != nullptr && point1 != nullptr)
+			{
+				for (Entity* entity2 : validEntities)
+				{
+					ComponentPhysics* phys2 = entity2->GetComponent<ComponentPhysics>();
+					ComponentCollisionSphere* sphere2 = entity2->GetComponent<ComponentCollisionSphere>();
+
+					if (entity1 != entity2 && phys2 != nullptr && sphere2 != nullptr)
+					{
+						CollisionCheck(entity1, entity2);
+					}
+				}
+			}
+		}
+
+
+	}
+
+	// entity 1 has the point, 2 has the circle
+
+	virtual void CollisionCheck(Entity* p_entity_1, Entity* p_entity_2)
+	{
+		ComponentTransform* trans1 = p_entity_1->GetComponent<ComponentTransform>();
+		ComponentCollisionPoint* point1 = p_entity_1->GetComponent<ComponentCollisionPoint>();
+		vec3 point = trans1->m_translation + point1->GetPoint();
+
+		ComponentTransform* trans2 = p_entity_2->GetComponent<ComponentTransform>();
+		ComponentCollisionSphere* sphere2 = p_entity_2->GetComponent<ComponentCollisionSphere>();
+		vec3 pos2 = trans2->m_translation;
+		float radius = sphere2->GetCollisionSphere();
+
+		vec3 distance = pos2 - point;
+		float leng = glm::length(distance);
+
+		if (leng < radius)
+		{
+			m_cm->RegisterCollision(p_entity_1, p_entity_2, AABB_SPHERE_POINT);
+		}
+	}
+
+	virtual void ValidateEntity(Entity* p_entity) override
+	{
+		bool requiredComponents = (p_entity->GetComponent<ComponentCollisionPoint>() != nullptr &&
+			p_entity->GetComponent<ComponentTransform>() != nullptr) || (p_entity->GetComponent<ComponentCollisionSphere>() != nullptr &&
+				p_entity->GetComponent<ComponentTransform>() != nullptr);
+
+		System::ValidateEntity(p_entity, requiredComponents);
+	}
+
+private:
+	CollisionManager* m_cm;
+};

@@ -111,11 +111,13 @@ public:
 		System* systemPhysics = new SystemPhysics();
 		System* system_collision_AABB_AABB = new SystemCollisionAABBAABB(m_collisionManager);
 		System* system_collision_aabb_point = new SystemCollisionAABBPoint(m_collisionManager);
+		System* system_collision_sphere_point = new SystemCollisionSpherePoint(m_collisionManager);
 
 		m_systemManager->AddSystem(systemRender);
 		m_systemManager->AddSystem(systemPhysics);
 		m_systemManager->AddSystem(system_collision_AABB_AABB);
 		m_systemManager->AddSystem(system_collision_aabb_point);
+		m_systemManager->AddSystem(system_collision_sphere_point);
 
 		//m_entityManager->ValidateEntities(m_systemManager);
 		m_prefabManager->RegisterLevel(*m_entityManager, *m_systemManager);	
@@ -175,15 +177,18 @@ public:
 
 	void MovePlayerOne(GLFWwindow* p_window, const float p_dt, Entity* p_player)
 	{
+		GLFWgamepadstate state;
+		int success = glfwGetGamepadState(0, &state);
+
 		ComponentProperties* prop = p_player->GetComponent<ComponentProperties>();
-		if (glfwGetKey(p_window, GLFW_KEY_UP) == GLFW_PRESS && prop->m_hasJumped == false)
+		if ((glfwGetKey(p_window, GLFW_KEY_UP) == GLFW_PRESS || (state.buttons[GLFW_GAMEPAD_BUTTON_DPAD_UP] && success)) && prop->m_hasJumped == false)
 		{
 			ComponentPhysics* phys = p_player->GetComponent<ComponentPhysics>();
 			phys->SetVelY(10.0f);
 			prop->m_hasJumped = true;
 		}
 
-		if (glfwGetKey(p_window, GLFW_KEY_ENTER) == GLFW_PRESS)
+		if (glfwGetKey(p_window, GLFW_KEY_ENTER) == GLFW_PRESS || (state.buttons[GLFW_GAMEPAD_BUTTON_LEFT_BUMPER] && success))
 		{
 			if (player1Timer->GetElapsedTime() > 0.25f)
 			{
@@ -193,14 +198,14 @@ public:
 			}
 		}
 
-		if (glfwGetKey(p_window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+		if (glfwGetKey(p_window, GLFW_KEY_RIGHT) == GLFW_PRESS || (state.buttons[GLFW_GAMEPAD_BUTTON_DPAD_RIGHT] && success))
 		{
 			ComponentPhysics* phys = p_player->GetComponent<ComponentPhysics>();
 			ComponentProperties* prop = p_player->GetComponent<ComponentProperties>();
 			prop->m_direction = glm::vec3(1.0f, 0.0f, 0.0f);
 			phys->SetVelX(5.0f);
 		}
-		else if (glfwGetKey(p_window, GLFW_KEY_LEFT) == GLFW_PRESS)
+		else if (glfwGetKey(p_window, GLFW_KEY_LEFT) == GLFW_PRESS || (state.buttons[GLFW_GAMEPAD_BUTTON_DPAD_LEFT] && success))
 		{
 			ComponentPhysics* phys = p_player->GetComponent<ComponentPhysics>();
 			ComponentProperties* prop = p_player->GetComponent<ComponentProperties>();
@@ -217,15 +222,18 @@ public:
 	}
 	void MovePlayerTwo(GLFWwindow* p_window, const float p_dt, Entity* p_player)
 	{
+		GLFWgamepadstate state;
+		int success = glfwGetGamepadState(0, &state);
+
 		ComponentProperties* prop = p_player->GetComponent<ComponentProperties>();
-		if (glfwGetKey(p_window, GLFW_KEY_W) == GLFW_PRESS && prop->m_hasJumped == false)
+		if ((glfwGetKey(p_window, GLFW_KEY_W) == GLFW_PRESS || (state.buttons[GLFW_GAMEPAD_BUTTON_A] && success)) && prop->m_hasJumped == false)
 		{
 			ComponentPhysics* phys = p_player->GetComponent<ComponentPhysics>();
 			phys->SetVelY(10.0f);
 			prop->m_hasJumped = true;
 		}
 
-		if (glfwGetKey(p_window, GLFW_KEY_SPACE) == GLFW_PRESS)
+		if (glfwGetKey(p_window, GLFW_KEY_SPACE) == GLFW_PRESS || (state.buttons[GLFW_GAMEPAD_BUTTON_RIGHT_BUMPER] && success))
 		{
 			if (player2Timer->GetElapsedTime() > 0.25f)
 			{
@@ -235,14 +243,14 @@ public:
 			}
 		}
 
-		if (glfwGetKey(p_window, GLFW_KEY_D) == GLFW_PRESS)
+		if (glfwGetKey(p_window, GLFW_KEY_D) == GLFW_PRESS || (state.buttons[GLFW_GAMEPAD_BUTTON_B] && success))
 		{
 			ComponentPhysics* phys = p_player->GetComponent<ComponentPhysics>();
 			ComponentProperties* prop = p_player->GetComponent<ComponentProperties>();
 			prop->m_direction = glm::vec3(1.0f, 0.0f, 0.0f);
 			phys->SetVelX(5.0f);
 		}
-		else if (glfwGetKey(p_window, GLFW_KEY_A) == GLFW_PRESS)
+		else if (glfwGetKey(p_window, GLFW_KEY_A) == GLFW_PRESS || (state.buttons[GLFW_GAMEPAD_BUTTON_X] && success))
 		{
 			ComponentPhysics* phys = p_player->GetComponent<ComponentPhysics>();
 			ComponentProperties* prop = p_player->GetComponent<ComponentProperties>();
