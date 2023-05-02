@@ -6,6 +6,7 @@
 
 const int PREFAB_SIZE = 6;
 
+
 struct Prefab 
 {
 	// Prefab entities
@@ -15,14 +16,20 @@ struct Prefab
 	Entity* Floor;
 };
 
+struct Level
+{
+	std::vector<Prefab*> level;
+	float width;
+};
+
 // By Thomas Beet
 class PrefabManager final
 {
 public:
 	explicit PrefabManager();
 	void LoadPrefabs(const std::string& p_prefabPath, const std::string& p_entityScriptPath);
-	std::vector<Prefab*> RegisterLevel(EntityManager& p_entityManager, SystemManager& p_systemManager);
+	Level RegisterLevel(EntityManager& p_entityManager, SystemManager& p_systemManager);
 
 private:
-	std::vector<Prefab*> m_level;
+	Level m_level;
 };

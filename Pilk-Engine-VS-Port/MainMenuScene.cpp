@@ -17,6 +17,8 @@ public:
 
 	Camera* m_Camera;
 
+	float m_levelWidth;
+
 	explicit MainMenuScene(SceneManager* pSceneManager) : Scene(pSceneManager)
 	{
 		m_sceneManager->m_windowName = "MainMenuScene";
@@ -64,9 +66,20 @@ public:
 
 	void Update(const float p_dt) override
 	{
+		const glm::vec3 movementRate = glm::vec3(1.0f, 0.0f, 0.0f) * p_dt;
 
+		if (m_Camera->m_cameraPos.x + 24.0f < m_levelWidth)
+			m_Camera->m_cameraPos += glm::vec3(1.0f, 0.0f, 0.0f) * p_dt;
 
 		m_Camera->UpdateCamera();
+
+		Entity* rearWall = m_entityManager->FindEntity("RearWall");
+		ComponentTransform* rearTrans = rearWall->GetComponent<ComponentTransform>();
+		rearTrans->UpdateTranslation(rearTrans->m_translation += movementRate);
+
+		Entity* frontWall = m_entityManager->FindEntity("FrontWall");
+		ComponentTransform* frontTrans = frontWall->GetComponent<ComponentTransform>();
+		frontTrans->UpdateTranslation(frontTrans->m_translation += movementRate);
 
 		m_systemManager->ExecuteSystems(p_dt);
 
@@ -80,6 +93,22 @@ public:
 		m_prefabManager->LoadPrefabs("resources/prefabs/Level1", "");
 
 		stbi_set_flip_vertically_on_load(true);
+
+		// Walls
+		Entity* rearWall = new Entity("RearWall");
+		rearWall->AddComponent(new ComponentTransform(glm::vec3(-8.0f, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 10.0f, 1.0f)));
+		rearWall->AddComponent(new ComponentCollisionAABB(10.0f, 2.0f, 0.0f));
+		rearWall->AddComponent(new ComponentGeometry("resources/models/tempcube/tempcube.obj"));
+		rearWall->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
+		m_entityManager->AddEntity(rearWall);
+
+		Entity* frontWall = new Entity("FrontWall");
+		frontWall->AddComponent(new ComponentTransform(glm::vec3(15.0f, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 10.0f, 1.0f)));
+		frontWall->AddComponent(new ComponentCollisionAABB(10.0f, 2.0f, 0.0f));
+		frontWall->AddComponent(new ComponentGeometry("resources/models/tempcube/tempcube.obj"));
+		frontWall->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
+		m_entityManager->AddEntity(frontWall);
+
 
 		// Player entity.
 		
@@ -120,7 +149,8 @@ public:
 		m_systemManager->AddSystem(system_collision_sphere_point);
 
 		//m_entityManager->ValidateEntities(m_systemManager);
-		m_prefabManager->RegisterLevel(*m_entityManager, *m_systemManager);	
+		Level lvl = m_prefabManager->RegisterLevel(*m_entityManager, *m_systemManager);	
+		m_levelWidth = lvl.width;
 	}
 
 	void Shoot(Entity* p_player)

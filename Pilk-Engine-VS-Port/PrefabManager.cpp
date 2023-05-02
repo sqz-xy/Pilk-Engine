@@ -105,19 +105,34 @@ void PrefabManager::LoadPrefabs(const std::string& p_prefabPath, const std::stri
 
 					prefab->Entities[lineIndex][i] = enemy;
 				}
+
+				if (line[i] == 'G')
+				{
+					Entity* goal = new Entity("Goal");
+
+					goal->AddComponent(new ComponentTransform(glm::vec3(xPos, yPos, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
+					goal->AddComponent(new ComponentCollisionAABB(1.0f, 1.0f, 0.5f));
+					goal->AddComponent(new ComponentGeometry("resources/models/randy/randy.obj"));
+					goal->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
+					goal->AddComponent(new ComponentCollisionPoint(glm::vec3(0.0f, -1.1f, 0.0f)));
+					goal->AddComponent(new ComponentProperties(false, 3.0f, 3.0f, glm::vec3(0.0f, 0.0f, 0.0f)));
+
+					prefab->Entities[lineIndex][i] = goal;
+				}
 			}
 
 			lineIndex++;
 			yOffset--;
 		}
-		m_level.push_back(prefab);
+		m_level.level.push_back(prefab);
 		levelStartPos.x += PREFAB_SIZE * 2.0f;
 	}
+	m_level.width = levelStartPos.x;
 }
 
-std::vector<Prefab*> PrefabManager::RegisterLevel(EntityManager& p_entityManager, SystemManager& p_systemManager)
+Level PrefabManager::RegisterLevel(EntityManager& p_entityManager, SystemManager& p_systemManager)
 {
-	for (auto& prefab : m_level)
+	for (auto& prefab : m_level.level)
 	{
 
 		p_entityManager.AddEntity(prefab->BackWall);
