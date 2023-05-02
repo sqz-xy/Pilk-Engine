@@ -343,6 +343,10 @@ public:
 		ComponentCollisionAABB* aabb1 = p_entity_2->GetComponent<ComponentCollisionAABB>();
 		vec3 pos2 = trans2->m_translation;
 
+		if (point1->m_is_active == false || aabb1->m_is_active == false)
+		{
+			return;
+		}
 
 		vec2 top_left = vec2(pos2.x - (aabb1->GetWidth() / 2), pos2.y + (aabb1->GetHeight() / 2));
 		vec2 bottom_right = vec2(pos2.x + (aabb1->GetWidth() / 2), pos2.y - (aabb1->GetHeight() / 2));
