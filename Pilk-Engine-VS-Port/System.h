@@ -315,8 +315,9 @@ public:
 		for (Entity* entity1 : validEntities)
 		{
 			ComponentPhysics* phys = entity1->GetComponent<ComponentPhysics>();
+			ComponentCollisionPoint* point = entity1->GetComponent<ComponentCollisionPoint>();
 
-			if (phys != nullptr)
+			if (phys != nullptr && point != nullptr)
 			{
 				for (Entity* entity2 : validEntities)
 				{

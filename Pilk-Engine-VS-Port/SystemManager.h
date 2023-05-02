@@ -1,7 +1,6 @@
 #pragma once
 
 #include "PilkEngineCommon.h"
-
 #include "System.h"
 #include "Entity.h"
 
