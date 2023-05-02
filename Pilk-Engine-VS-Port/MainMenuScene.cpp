@@ -142,7 +142,7 @@ public:
 
 		m_prefabManager->LoadPrefabs("resources/prefabs/Level1", "");
 
-		stbi_set_flip_vertically_on_load(true);
+		//stbi_set_flip_vertically_on_load(true);
 
 		// Walls
 		Entity* rearWall = new Entity("RearWall");

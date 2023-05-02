@@ -107,6 +107,10 @@ public:
 			{
 				ComponentPhysics* phys = p_col->m_entity1->GetComponent<ComponentPhysics>();
 				phys->SetVelX(-phys->GetVelocity().x);
+				vec3 newscale = pos1->m_scale;
+				newscale.x = -newscale.x;
+				pos1->UpdateScale(newscale);
+
 			}
 		}
 		else if (p_col->m_collisionType == AABB_AABB_COLLISION_LEFT)
@@ -116,6 +120,9 @@ public:
 			{
 				ComponentPhysics* phys = p_col->m_entity1->GetComponent<ComponentPhysics>();
 				phys->SetVelX(-phys->GetVelocity().x);
+				vec3 newscale = pos1->m_scale;
+				newscale.x = -newscale.x;
+				pos1->UpdateScale(newscale);
 			}
 		}
 
