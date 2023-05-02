@@ -175,6 +175,9 @@ public:
 
 	void MovePlayerOne(GLFWwindow* p_window, const float p_dt, Entity* p_player)
 	{
+		GLFWgamepadstate state;
+		int success = glfwGetGamepadState(0, &state);
+
 		ComponentProperties* prop = p_player->GetComponent<ComponentProperties>();
 		if (glfwGetKey(p_window, GLFW_KEY_UP) == GLFW_PRESS && prop->m_hasJumped == false)
 		{
@@ -217,15 +220,18 @@ public:
 	}
 	void MovePlayerTwo(GLFWwindow* p_window, const float p_dt, Entity* p_player)
 	{
+		GLFWgamepadstate state;
+		int success = glfwGetGamepadState(0, &state);
+
 		ComponentProperties* prop = p_player->GetComponent<ComponentProperties>();
-		if (glfwGetKey(p_window, GLFW_KEY_W) == GLFW_PRESS && prop->m_hasJumped == false)
+		if ((glfwGetKey(p_window, GLFW_KEY_W) == GLFW_PRESS || (state.buttons[GLFW_GAMEPAD_BUTTON_A] && success)) && prop->m_hasJumped == false)
 		{
 			ComponentPhysics* phys = p_player->GetComponent<ComponentPhysics>();
 			phys->SetVelY(10.0f);
 			prop->m_hasJumped = true;
 		}
 
-		if (glfwGetKey(p_window, GLFW_KEY_SPACE) == GLFW_PRESS)
+		if (glfwGetKey(p_window, GLFW_KEY_SPACE) == GLFW_PRESS || (state.buttons[GLFW_GAMEPAD_BUTTON_RIGHT_BUMPER] && success))
 		{
 			if (player2Timer->GetElapsedTime() > 0.25f)
 			{
@@ -235,7 +241,7 @@ public:
 			}
 		}
 
-		if (glfwGetKey(p_window, GLFW_KEY_D) == GLFW_PRESS)
+		if (glfwGetKey(p_window, GLFW_KEY_D) == GLFW_PRESS || (state.buttons[GLFW_GAMEPAD_BUTTON_B] && success))
 		{
 			ComponentPhysics* phys = p_player->GetComponent<ComponentPhysics>();
 			ComponentProperties* prop = p_player->GetComponent<ComponentProperties>();
