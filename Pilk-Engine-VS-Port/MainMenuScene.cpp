@@ -179,14 +179,14 @@ public:
 		int success = glfwGetGamepadState(0, &state);
 
 		ComponentProperties* prop = p_player->GetComponent<ComponentProperties>();
-		if (glfwGetKey(p_window, GLFW_KEY_UP) == GLFW_PRESS && prop->m_hasJumped == false)
+		if ((glfwGetKey(p_window, GLFW_KEY_UP) == GLFW_PRESS || (state.buttons[GLFW_GAMEPAD_BUTTON_DPAD_UP] && success)) && prop->m_hasJumped == false)
 		{
 			ComponentPhysics* phys = p_player->GetComponent<ComponentPhysics>();
 			phys->SetVelY(10.0f);
 			prop->m_hasJumped = true;
 		}
 
-		if (glfwGetKey(p_window, GLFW_KEY_ENTER) == GLFW_PRESS)
+		if (glfwGetKey(p_window, GLFW_KEY_ENTER) == GLFW_PRESS || (state.buttons[GLFW_GAMEPAD_BUTTON_LEFT_BUMPER] && success))
 		{
 			if (player1Timer->GetElapsedTime() > 0.25f)
 			{
@@ -196,14 +196,14 @@ public:
 			}
 		}
 
-		if (glfwGetKey(p_window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+		if (glfwGetKey(p_window, GLFW_KEY_RIGHT) == GLFW_PRESS || (state.buttons[GLFW_GAMEPAD_BUTTON_DPAD_RIGHT] && success))
 		{
 			ComponentPhysics* phys = p_player->GetComponent<ComponentPhysics>();
 			ComponentProperties* prop = p_player->GetComponent<ComponentProperties>();
 			prop->m_direction = glm::vec3(1.0f, 0.0f, 0.0f);
 			phys->SetVelX(5.0f);
 		}
-		else if (glfwGetKey(p_window, GLFW_KEY_LEFT) == GLFW_PRESS)
+		else if (glfwGetKey(p_window, GLFW_KEY_LEFT) == GLFW_PRESS || (state.buttons[GLFW_GAMEPAD_BUTTON_DPAD_LEFT] && success))
 		{
 			ComponentPhysics* phys = p_player->GetComponent<ComponentPhysics>();
 			ComponentProperties* prop = p_player->GetComponent<ComponentProperties>();
@@ -248,7 +248,7 @@ public:
 			prop->m_direction = glm::vec3(1.0f, 0.0f, 0.0f);
 			phys->SetVelX(5.0f);
 		}
-		else if (glfwGetKey(p_window, GLFW_KEY_A) == GLFW_PRESS)
+		else if (glfwGetKey(p_window, GLFW_KEY_A) == GLFW_PRESS || (state.buttons[GLFW_GAMEPAD_BUTTON_X] && success))
 		{
 			ComponentPhysics* phys = p_player->GetComponent<ComponentPhysics>();
 			ComponentProperties* prop = p_player->GetComponent<ComponentProperties>();
