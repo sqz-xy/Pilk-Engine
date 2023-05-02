@@ -41,7 +41,7 @@ public:
 
 		m_entityManager = new EntityManager();
 		m_systemManager = new SystemManager();
-		m_collisionManager = new GameCollisionManager();
+		m_collisionManager = new GameCollisionManager(m_systemManager);
 		m_prefabManager = new PrefabManager();
 		player1Timer = new Timer();
 		player2Timer = new Timer();

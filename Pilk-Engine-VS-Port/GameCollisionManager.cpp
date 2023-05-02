@@ -8,6 +8,10 @@
 class GameCollisionManager : public CollisionManager
 {
 public:
+
+	using CollisionManager::CollisionManager;
+
+
 	void ProcessCollisions() override
 	{
 		for (Collision* col : m_collisionManifold)

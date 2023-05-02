@@ -2,6 +2,8 @@
 
 #include "Entity.h"
 
+class SystemManager;
+
 enum CollisionType
 {
 	AABB_AABB_COLLISION_LEFT,
@@ -22,14 +24,16 @@ struct Collision
 class CollisionManager
 {
 public:
+	explicit CollisionManager(SystemManager* p_systemManager)
+	{
+		m_systemManager = p_systemManager;
+	}
+	~CollisionManager();
 	void ClearManifold();
 	void RegisterCollision(Entity* p_entity1, Entity* p_entity2, const CollisionType p_collisionType);
 	virtual void ProcessCollisions() = 0;
 
 protected:
-	explicit CollisionManager() {}
-	~CollisionManager();
-
 	std::vector<Collision*> m_collisionManifold;
-
+	SystemManager* m_systemManager;
 };
