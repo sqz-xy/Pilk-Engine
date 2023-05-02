@@ -117,7 +117,7 @@ void PrefabManager::LoadPrefabs(const std::string& p_prefabPath, const std::stri
 
 					goal->AddComponent(new ComponentTransform(glm::vec3(xPos, yPos, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
 					goal->AddComponent(new ComponentCollisionAABB(1.0f, 1.0f, 0.5f));
-					goal->AddComponent(new ComponentGeometry("resources/models/randy/randy.obj"));
+					goal->AddComponent(new ComponentGeometry("resources/models/gem/Gem.obj"));
 					goal->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
 					goal->AddComponent(new ComponentCollisionPoint(glm::vec3(0.0f, -1.1f, 0.0f)));
 					goal->AddComponent(new ComponentProperties(false, 3.0f, 3.0f, glm::vec3(0.0f, 0.0f, 0.0f)));
