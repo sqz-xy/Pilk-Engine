@@ -111,11 +111,13 @@ public:
 		System* systemPhysics = new SystemPhysics();
 		System* system_collision_AABB_AABB = new SystemCollisionAABBAABB(m_collisionManager);
 		System* system_collision_aabb_point = new SystemCollisionAABBPoint(m_collisionManager);
+		System* system_collision_sphere_point = new SystemCollisionSpherePoint(m_collisionManager);
 
 		m_systemManager->AddSystem(systemRender);
 		m_systemManager->AddSystem(systemPhysics);
 		m_systemManager->AddSystem(system_collision_AABB_AABB);
 		m_systemManager->AddSystem(system_collision_aabb_point);
+		m_systemManager->AddSystem(system_collision_sphere_point);
 
 		//m_entityManager->ValidateEntities(m_systemManager);
 		m_prefabManager->RegisterLevel(*m_entityManager, *m_systemManager);	
