@@ -81,6 +81,17 @@ StyleCopReport.xml
 !randy.obj
 !tempcube.obj
 !fire.obj
+!snake_01.obj
+!snake_02.obj
+!snake_03.obj
+!snake_04.obj
+!bat_01.obj
+!bat_02.obj
+!bat_03.obj
+!bat_04.obj
+!1x1Cube.obj
+!6x1Cube.obj
+!6x12Cube.obj
 
 *.iobj
 *.pch

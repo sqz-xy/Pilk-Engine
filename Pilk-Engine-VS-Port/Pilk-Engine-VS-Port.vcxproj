@@ -75,6 +75,8 @@
     <Text Include="resources\scripts\EntityScript.txt" />
     <Text Include="resources\shaders\LightingShader.frag" />
     <Text Include="resources\shaders\LightingShader.vert" />
+    <Text Include="resources\shaders\Wall.frag" />
+    <Text Include="resources\shaders\Wall.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

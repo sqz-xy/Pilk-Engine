@@ -204,5 +204,11 @@
     <Text Include="resources\shaders\LightingShader.vert">
       <Filter>Resource Files\Shaders</Filter>
     </Text>
+    <Text Include="resources\shaders\Wall.frag">
+      <Filter>Resource Files\Shaders</Filter>
+    </Text>
+    <Text Include="resources\shaders\Wall.vert">
+      <Filter>Resource Files\Shaders</Filter>
+    </Text>
   </ItemGroup>
 </Project>
