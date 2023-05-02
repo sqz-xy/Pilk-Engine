@@ -14,8 +14,6 @@ public:
 	{
 		for (Collision* col : m_collisionManifold)
 		{
-			CollisionEdgeCase(col);
-
 			if (col->m_collisionType == AABB_AABB_COLLISION_RIGHT || col->m_collisionType == AABB_AABB_COLLISION_LEFT)
 			{
 				RespondAABBAABBLeftRight(col);
@@ -47,10 +45,16 @@ public:
 			if (e1->GetName() == "Block" || e2->GetName() == "Block")
 			{
 				BulletWall(e1, e2);
+				edge = true;
 			}
 			else if (e1->GetName() == "GroundEnemy" || e2->GetName() == "GroundEnemy" || e1->GetName() == "FlyingEnemy" || e2->GetName() == "FlyingEnemy")
 			{
 				BulletEnemy(e1, e2);
+				edge = true;
+			}
+			else if (e1->GetName() == "Player2" || e2->GetName() == "Player2" || e1->GetName() == "Player1" || e2->GetName() == "Player1")
+			{
+				edge = true;
 			}
 		}
 		// enemy cases
@@ -59,10 +63,16 @@ public:
 			if (e1->GetName() == "Player1" || e2->GetName() == "Player1")
 			{
 				EnemyPlayer(e1,e2);
+				edge = true;
 			}
 			else if (e1->GetName() == "Player2" || e2->GetName() == "Player2")
 			{
 				EnemyPlayer(e1,e2);
+				edge = true;
+			}
+			if (e1->GetName() == e2->GetName())
+			{
+				edge = true;
 			}
 		}
 
@@ -71,6 +81,10 @@ public:
 
 	void RespondAABBAABBLeftRight(Collision* p_col)
 	{
+		if (CollisionEdgeCase(p_col))
+		{
+			return;
+		}
 
 		Entity* e1 = p_col->m_entity1;
 		Entity* e2 = p_col->m_entity2;
@@ -109,6 +123,11 @@ public:
 
 	void RespondAABBAABBUpDown(Collision* p_col)
 	{
+		if (CollisionEdgeCase(p_col))
+		{
+			return;
+		}
+
 		Entity* e1 = p_col->m_entity1;
 		Entity* e2 = p_col->m_entity2;
 
@@ -149,13 +168,27 @@ public:
 		if (p_e1->GetName() == "Bullet")
 		{
 			p_e1->Delete(true);
+			
+			ComponentPhysics* phys = p_e2->GetComponent<ComponentPhysics>();
+			phys->SetVelZ(2.0f);
+			phys->SetVelY(10.0f);
+
+			ComponentCollisionAABB* aabb = p_e2->GetComponent<ComponentCollisionAABB>();
+			ComponentCollisionSphere* sp = p_e2->GetComponent<ComponentCollisionSphere>();
+
+			if (sp != nullptr)
+			{
+				// turn off sphere
+			}
+			else if (aabb != nullptr)
+			{
+				// turn off aabb
+			}
 		}
 		else
 		{
 			p_e2->Delete(true);
 		}
-
-		// remove health from enemy
 	}
 
 	void EnemyPlayer(Entity* p_e1, Entity* p_e2)

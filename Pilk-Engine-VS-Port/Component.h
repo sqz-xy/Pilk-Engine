@@ -158,6 +158,7 @@ public:
 	ComponentCollisionSphere(float p_radius)
 	{
 		m_radius = p_radius;
+		m_is_active = true;
 	}
 
 	float GetCollisionSphere()
@@ -172,6 +173,7 @@ public:
 
 private:
 	float m_radius;
+	bool m_is_active;
 };
 
 // component by matthew liney
