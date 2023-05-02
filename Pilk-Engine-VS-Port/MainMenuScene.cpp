@@ -92,6 +92,7 @@ public:
 				if (trans->m_translation.z > 10.0f)
 				{
 					m_systemManager->RemoveEntity(entity);
+					m_entityManager->RemoveEntity(entity->GetID());
 				}
 
 				if (entity->GetName() == "Player1" || entity->GetName() == "Player2")
@@ -99,6 +100,7 @@ public:
 					if (trans->m_translation.x < m_Camera->m_cameraPos.x - 10.0f)
 					{
 						m_systemManager->RemoveEntity(entity);
+						m_entityManager->RemoveEntity(entity->GetID());
 					}
 				}
 			}
@@ -254,8 +256,11 @@ public:
 			m_Camera->MoveCamera(m_Camera->Right, 2.5f, p_dt);
 
 		// player control below here
-		MovePlayerOne(p_window, p_dt, player1);
-		MovePlayerTwo(p_window, p_dt, player2);
+		if (player1 != nullptr)
+			MovePlayerOne(p_window, p_dt, player1);
+
+		if (player2 != nullptr)
+			MovePlayerTwo(p_window, p_dt, player2);
 
 #if MOUSE_CONTROL_ENABLED
 		double xpos, ypos;

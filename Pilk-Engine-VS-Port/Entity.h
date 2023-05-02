@@ -29,7 +29,7 @@ public:
 	/// </summary>
 	~Entity()
 	{
-		delete[] m_name;
+		//Fix
 	}
 
 	/// Original Author: Piotr Moskala.
