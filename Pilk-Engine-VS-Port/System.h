@@ -182,10 +182,6 @@ public:
 		m_cm = p_cm;
 	}
 
-	//AHHHHH we need rto make it so it checks entities with phys against all others
-	// because we dont need to move ahything without phys component
-	// also will make more effocoemt amd npot break
-
 	virtual void Execute(const float p_deltaTime) override
 	{
 		for (Entity* entity1 : validEntities)
@@ -223,6 +219,10 @@ public:
 		float e2_width = e2_collision->GetWidth();
 		float e2_depth = e2_collision->GetDepth();
 
+		if (e1_collision->m_is_active == false || e2_collision->m_is_active == false)
+		{
+			return;
+		}
 
 		// a min and max values
 		float a_x_min = e1_pos.x - (e1_collision->GetWidth() / 2);
@@ -424,6 +424,11 @@ public:
 		ComponentCollisionSphere* sphere2 = p_entity_2->GetComponent<ComponentCollisionSphere>();
 		vec3 pos2 = trans2->m_translation;
 		float radius = sphere2->GetCollisionSphere();
+
+		if (point1->m_is_active == false || sphere2->m_is_active == false)
+		{
+			return;
+		}
 
 		vec3 distance = pos2 - point;
 		float leng = glm::length(distance);

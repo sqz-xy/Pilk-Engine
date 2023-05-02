@@ -171,9 +171,9 @@ public:
 		m_radius = p_radius;
 	}
 
+	bool m_is_active;
 private:
 	float m_radius;
-	bool m_is_active;
 };
 
 // component by matthew liney
@@ -206,13 +206,12 @@ public:
 	}
 
 	// add setters later if ur a lamo
-
+	bool m_is_active;
 private:
 	float m_height;
 	float m_width;
 	float m_depth;
 
-	bool m_is_active;
 };
 
 // component by matthew liney
@@ -245,10 +244,10 @@ public:
 		return m_point.y;
 	}
 
+	bool m_is_active;
 private:
 
 	vec3 m_point;
-	bool m_is_active;
 };
 
 // component by matt

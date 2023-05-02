@@ -42,7 +42,7 @@ public:
 		// bullet cases
 		if (e1->GetName() == "Bullet" || e2->GetName() == "Bullet")
 		{
-			if (e1->GetName() == "Block" || e2->GetName() == "Block")
+			if (e1->GetName() == "Block" || e2->GetName() == "Block" || e1->GetName() == "Goal" || e2->GetName() == "Goal")
 			{
 				BulletWall(e1, e2);
 				edge = true;
@@ -178,11 +178,11 @@ public:
 
 			if (sp != nullptr)
 			{
-				// turn off sphere
+				sp->m_is_active = false;
 			}
-			else if (aabb != nullptr)
+			if (aabb != nullptr)
 			{
-				// turn off aabb
+				aabb->m_is_active = false;
 			}
 		}
 		else
@@ -193,7 +193,7 @@ public:
 
 	void EnemyPlayer(Entity* p_e1, Entity* p_e2)
 	{
-
+		std::cout << "ouch!" << std::endl;
 	}
 
 	void RespondAABBPoint(Collision* p_col)
