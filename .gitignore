@@ -96,6 +96,9 @@ StyleCopReport.xml
 !fire01.obj
 !handle.obj
 !player01.obj
+!bullet_Large.obj
+!bullet_Medium.obj
+!bullet_Small.obj
 
 *.iobj
 *.pch
