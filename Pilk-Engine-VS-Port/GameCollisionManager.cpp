@@ -182,9 +182,10 @@ public:
 			p_e1->Delete(true);
 			
 			ComponentPhysics* phys = p_e2->GetComponent<ComponentPhysics>();
-			phys->SetVelZ(2.0f);
+			phys->SetVelZ(4.0f);
 			phys->SetVelX(0.0f);
 			phys->SetVelY(10.0f);
+			phys->SetGravity(vec3(0.0f, -0.3f, 0.0f));
 
 			ComponentCollisionAABB* aabb = p_e2->GetComponent<ComponentCollisionAABB>();
 			ComponentCollisionSphere* sp = p_e2->GetComponent<ComponentCollisionSphere>();
@@ -230,6 +231,15 @@ public:
 
 	void RespondAABBPoint(Collision* p_col)
 	{
+		ComponentCollisionPoint* point = p_col->m_entity1->GetComponent<ComponentCollisionPoint>();
+		if (point != nullptr && (p_col->m_entity1->GetName() == "GroundEnemy"))
+		{
+			if (point->m_is_active == false)
+			{
+				return;
+			}
+		}
+
 		ComponentPhysics* phys1 = p_col->m_entity1->GetComponent<ComponentPhysics>();
 		phys1->SetGravity(vec3(0, 0, 0));
 		phys1->SetCurrentGravity(vec3(0, 0, 0));
