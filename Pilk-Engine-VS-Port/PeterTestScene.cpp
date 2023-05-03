@@ -11,6 +11,10 @@
 #include "System.h"
 #include "SceneManager.h"
 #include "FileManager.h"
+#include "SceneTypes.h"
+#include "EntityManager.h"
+#include "SceneManager.h"
+#include "SystemManager.h"
 
 class PeterTestScene : public Scene
 {

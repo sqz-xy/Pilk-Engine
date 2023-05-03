@@ -4,9 +4,10 @@
 
 #include "SceneManager.h"
 #include "MainMenuScene.cpp"
-#pragma once
-
 #include "PeterTestScene.cpp"
+
+#include "scene.h"
+#include "SceneTypes.h"
 
 void window_size_callback(GLFWwindow* window, int width, int height)
 {

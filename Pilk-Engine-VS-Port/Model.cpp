@@ -4,6 +4,7 @@
 
 #include "Model.h"
 #include "ResourceManager.h"
+#include "Geometry.h"
 
 Model::Model(const char* p_filePath)
 {

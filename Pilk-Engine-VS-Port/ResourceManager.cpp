@@ -1,9 +1,10 @@
 #pragma once
 
 #include "PilkEngineCommon.h"
-#pragma once
 
 #include "ResourceManager.h"
+#include "Model.h"
+
 
 // Maps
 std::map<std::string, unsigned int*> ResourceManager::m_shaderMap;

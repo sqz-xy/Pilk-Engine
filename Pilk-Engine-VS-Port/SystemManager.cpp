@@ -4,6 +4,9 @@
 
 #include "SystemManager.h"
 
+#include "System.h"
+#include "Entity.h"
+
 SystemManager::SystemManager()
 {
 

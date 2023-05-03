@@ -1,8 +1,7 @@
 #pragma once
 
-#include "Entity.h"
-
 class SystemManager;
+class Entity;
 
 enum CollisionType
 {

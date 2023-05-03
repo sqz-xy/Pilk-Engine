@@ -1,8 +1,10 @@
 #pragma once
 
 #include "PilkEngineCommon.h"
-
 #include "EntityManager.h"
+
+#include "Entity.h"
+#include "SystemManager.h"
 
 EntityManager::EntityManager()
 {

@@ -1,7 +1,8 @@
 #pragma once
 
 #include "PilkEngineCommon.h"
-#include "Model.h"
+
+class Model;
 
 const int max_shaders = 20;
 
