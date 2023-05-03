@@ -2,6 +2,7 @@
 
 #include "PilkEngineCommon.h"
 #include "CollisionManager.h"
+#include "Entity.h"
 #include "Timer.h"
 
 class GameCollisionManager : public CollisionManager

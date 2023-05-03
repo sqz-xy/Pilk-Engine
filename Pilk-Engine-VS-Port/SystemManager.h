@@ -1,8 +1,9 @@
 #pragma once
 
 #include "PilkEngineCommon.h"
-#include "System.h"
-#include "Entity.h"
+
+class System;
+class Entity;
 
 class SystemManager final
 {

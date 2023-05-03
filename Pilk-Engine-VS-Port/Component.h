@@ -7,6 +7,7 @@
 
 #include "ResourceManager.h"
 #include "Camera.h"
+#include "Model.h"
 
 using namespace glm;
 

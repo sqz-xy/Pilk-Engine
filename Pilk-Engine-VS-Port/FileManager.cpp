@@ -3,6 +3,7 @@
 #include "PilkEngineCommon.h"
 
 #include "FileManager.h"
+#include "Entity.h"
 
 using namespace std;
 

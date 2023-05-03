@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Entity.h"
-#include "SystemManager.h"
+class SystemManager;
+class Entity;
 
 class EntityManager final
 {

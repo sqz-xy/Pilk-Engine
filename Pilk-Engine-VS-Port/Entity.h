@@ -1,12 +1,7 @@
 #pragma once
 
-#include "glm.hpp"
-#include "gtc/matrix_transform.hpp"
-#include "gtc/type_ptr.hpp"
+#include "PilkEngineCommon.h"
 #include "Component.h"
-
-#include <vector>
-#include <string>
 
 static int ENTITY_ID = 0;
 

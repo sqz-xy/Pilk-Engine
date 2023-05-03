@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Entity.h"
-#include "SystemManager.h"
-#include "EntityManager.h"
+class Entity;
+class SystemManager;
+class EntityManager;
 
 // Prefabs are 6x6
 

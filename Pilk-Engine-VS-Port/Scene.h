@@ -2,9 +2,9 @@
 
 #include "PilkEngineCommon.h"
 
-#include "EntityManager.h"
-#include "SceneManager.h"
-#include "SystemManager.h"
+class EntityManager;
+class SceneManager;
+class SystemManager;
 
 // By Thomas Beet
 class Scene

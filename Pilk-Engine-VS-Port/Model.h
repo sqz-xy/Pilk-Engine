@@ -1,6 +1,9 @@
 #pragma once
 #include "PilkEngineCommon.h"
-#include "Geometry.h"
+
+class Geometry;
+struct Texture;
+struct Vertex;
 
 //TODO: THOMAS BEET: Refactor texture loading to the resource manager, remove it from the model. Make sure models are sent to the output directory
 

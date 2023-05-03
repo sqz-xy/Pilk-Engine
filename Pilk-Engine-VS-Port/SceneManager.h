@@ -2,8 +2,8 @@
 
 #include "PilkEngineCommon.h"
 
-#include "scene.h"
-#include "SceneTypes.h"
+class Scene;
+enum SceneTypes;
 
 // By Thomas Beet
 class SceneManager final
