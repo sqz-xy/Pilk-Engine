@@ -209,6 +209,7 @@ public:
 		else
 		{
 			p_e2->Delete(true);
+			SoundEngine->play2D("resources/sounds/batsound.mp3", false);
 		}
 	}
 
@@ -218,6 +219,7 @@ public:
 		{
 			ComponentProperties* prop = p_e1->GetComponent<ComponentProperties>();
 			prop->m_health -= 1.0f;
+			SoundEngine->play2D("resources/sounds/damagesound.mp3", false);
 			std::cout << "p1 ouch!" << std::endl;
 			player1DamageTimer->Restart();
 
@@ -243,6 +245,7 @@ public:
 		{
 			ComponentProperties* prop = p_e1->GetComponent<ComponentProperties>();
 			prop->m_health -= 1.0f;
+			SoundEngine->play2D("resources/sounds/damagesound.mp3", false);
 			std::cout << "p2 ouch!" << std::endl;
 			player2DamageTimer->Restart();
 

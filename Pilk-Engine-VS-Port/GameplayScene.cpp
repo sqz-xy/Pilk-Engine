@@ -124,6 +124,8 @@ public:
 								phys->SetGravity(vec3(0.0f, -0.3f, 0.0f));
 							}
 
+							SoundEngine->play2D("resources/sounds/playerdeathsound.mp3", false);
+
 							m_systemManager->RemoveEntity(entity);
 							m_entityManager->RemoveEntity(entity->GetID());
 							entity->Delete(true);
@@ -140,6 +142,8 @@ public:
 								phys->SetVelY(10.0f);
 								phys->SetGravity(vec3(0.0f, -0.3f, 0.0f));
 							}
+
+							SoundEngine->play2D("resources/sounds/playerdeathsound.mp3", false);
 
 							m_systemManager->RemoveEntity(entity);
 							m_entityManager->RemoveEntity(entity->GetID());
@@ -301,6 +305,8 @@ public:
 		bullet->AddComponent(new ComponentProperties(true, 1.0f, dmg, dir));
 		bullet->AddComponent(new ComponentGeometry("resources/models/torch/fire02.obj"));
 		bullet->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FireShader.frag"));
+
+		SoundEngine->play2D("resources/sounds/shoot.mp3", false);
 
 		m_entityManager->AddEntity(bullet);
 		m_systemManager->ValidateEntity(bullet);

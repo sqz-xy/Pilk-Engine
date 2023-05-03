@@ -60,6 +60,7 @@ public:
 	{
 		m_Camera->UpdateCamera();
 		m_systemManager->ExecuteSystems(p_dt);	
+		SoundEngine->play2D("resources/sounds/rhulk.mp3", true);
 	}
 
 	void Load() override
@@ -106,6 +107,8 @@ public:
 		if (glfwGetKey(p_window, GLFW_KEY_SPACE) == GLFW_PRESS)
 			m_sceneManager->ChangeScene(Gameplay);
 
+		
+
 
 #if MOUSE_CONTROL_ENABLED
 		double xpos, ypos;
@@ -125,5 +128,6 @@ public:
 		delete m_Camera;
 
 		ResourceManager::DeleteResources();
+		SoundEngine->stopAllSounds();
 	}
 };
