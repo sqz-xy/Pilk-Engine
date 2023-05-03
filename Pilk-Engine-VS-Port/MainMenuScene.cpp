@@ -60,7 +60,7 @@ public:
 	{
 		m_Camera->UpdateCamera();
 		m_systemManager->ExecuteSystems(p_dt);	
-		SoundEngine->play2D("resources/sounds/rhulk.mp3", true);
+		SoundEngine->play2D("resources/sounds/MenuMusic.mp3", true);
 	}
 
 	void Load() override
