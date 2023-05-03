@@ -70,8 +70,8 @@ void PrefabManager::LoadPrefabs(const std::string& p_prefabPath, const std::stri
 				{
 					Entity* block = new Entity("Block");
 
-					block->AddComponent(new ComponentTransform(glm::vec3(xPos, yPos, 5.0f), glm::vec3(1.5708f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
-					block->AddComponent(new ComponentCollisionAABB(2.0f, 2.0f, 0.0f));
+					block->AddComponent(new ComponentTransform(glm::vec3(xPos, yPos, 5.0f), glm::vec3(1.5708f, 0.0f, 0.0f), glm::vec3(1.0f, 0.5f, 1.0f)));
+					block->AddComponent(new ComponentCollisionAABB(1.0f, 2.0f, 0.0f));
 					block->AddComponent(new ComponentGeometry("resources/models/block/1x1Cube.obj"));
 					block->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
 
@@ -84,8 +84,8 @@ void PrefabManager::LoadPrefabs(const std::string& p_prefabPath, const std::stri
 					Entity* enemy = new Entity("GroundEnemy");
 
 					enemy->AddComponent(new ComponentTransform(glm::vec3(xPos, yPos, 5.0f), glm::vec3(1.5708f, 3.14159f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
-					enemy->AddComponent(new ComponentCollisionAABB(2.0f, 2.0f, 0.5f));
-					enemy->AddComponent(new ComponentCollisionPoint(glm::vec3(0.0f, -2.1f, 0.0f)));
+					enemy->AddComponent(new ComponentCollisionAABB(1.5f, 2.0f, 0.5f));
+					enemy->AddComponent(new ComponentCollisionPoint(glm::vec3(0.0f, -1.6f, 0.0f)));
 					enemy->AddComponent(new ComponentGeometry("resources/models/snake/snake_01.obj"));
 					enemy->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
 					enemy->AddComponent(new ComponentPhysics(glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec3(0.0f, -0.3f, 0.0f)));
@@ -118,7 +118,7 @@ void PrefabManager::LoadPrefabs(const std::string& p_prefabPath, const std::stri
 					goal->AddComponent(new ComponentTransform(glm::vec3(xPos, yPos, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
 					goal->AddComponent(new ComponentCollisionAABB(1.0f, 1.0f, 0.5f));
 					goal->AddComponent(new ComponentGeometry("resources/models/gem/Gem.obj"));
-					goal->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
+					goal->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FireShader.frag"));
 					goal->AddComponent(new ComponentCollisionPoint(glm::vec3(0.0f, -1.1f, 0.0f)));
 					goal->AddComponent(new ComponentProperties(false, 3.0f, 3.0f, glm::vec3(0.0f, 0.0f, 0.0f)));
 

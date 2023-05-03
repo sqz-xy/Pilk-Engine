@@ -163,21 +163,21 @@ public:
 		// Player entity.
 		
 		Entity* player1 = new Entity("Player1");
-		player1->AddComponent(new ComponentTransform(glm::vec3(0.0f, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
-		player1->AddComponent(new ComponentCollisionAABB(1.0f, 1.0f, 0.5f));
-		player1->AddComponent(new ComponentGeometry("resources/models/randy/randy.obj"));
+		player1->AddComponent(new ComponentTransform(glm::vec3(0.0f, 0.0f, 5.0f), glm::vec3(1.5708f, 3.14159f, 0.0f), glm::vec3(0.8f, 0.8f, 1.0f)));
+		player1->AddComponent(new ComponentCollisionAABB(1.3f, 1.0f, 0.5f));
+		player1->AddComponent(new ComponentGeometry("resources/models/player1/player01.obj"));
 		player1->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
 		player1->AddComponent(new ComponentPhysics(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -0.3f, 0.0f)));
-		player1->AddComponent(new ComponentCollisionPoint(glm::vec3(0.0f, -1.1f, 0.0f)));
+		player1->AddComponent(new ComponentCollisionPoint(glm::vec3(0.0f, -1.4f, 0.0f)));
 		player1->AddComponent(new ComponentProperties(false, 3.0f, 1.0f, vec3(1.0f, 0.0f, 0.0f)));
 
 		Entity* player2 = new Entity("Player2");
-		player2->AddComponent(new ComponentTransform(glm::vec3(1.0f, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
-		player2->AddComponent(new ComponentCollisionAABB(1.0f, 1.0f, 0.5f));
-		player2->AddComponent(new ComponentGeometry("resources/models/randy/randy.obj"));
+		player2->AddComponent(new ComponentTransform(glm::vec3(1.0f, 0.0f, 5.0f), glm::vec3(1.5708f, 3.14159f, 0.0f), glm::vec3(0.8f, 0.8f, 1.0f)));
+		player2->AddComponent(new ComponentCollisionAABB(1.3f, 1.0f, 0.5f));
+		player2->AddComponent(new ComponentGeometry("resources/models/player1/player01.obj"));
 		player2->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
 		player2->AddComponent(new ComponentPhysics(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -0.3f, 0.0f)));
-		player2->AddComponent(new ComponentCollisionPoint(glm::vec3(0.0f, -1.1f, 0.0f)));
+		player2->AddComponent(new ComponentCollisionPoint(glm::vec3(0.0f, -1.4f, 0.0f)));
 		player2->AddComponent(new ComponentProperties(false, 3.0f, 1.0f, vec3(1.0f, 0.0f, 0.0f)));
 
 		FileManager::LoadEntities("resources/scripts/EntityScript.txt");
