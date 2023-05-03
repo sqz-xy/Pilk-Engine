@@ -166,7 +166,6 @@ public:
 					{
 						m_systemManager->RemoveEntity(entity);
 						m_entityManager->RemoveEntity(entity->GetID());
-						entity->Delete(true);
 					}
 				}
 			}
