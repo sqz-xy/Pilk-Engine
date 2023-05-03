@@ -93,6 +93,8 @@ StyleCopReport.xml
 !6x1Cube.obj
 !6x12Cube.obj
 !Gem.obj
+!fire01.obj
+!handle.obj
 
 *.iobj
 *.pch

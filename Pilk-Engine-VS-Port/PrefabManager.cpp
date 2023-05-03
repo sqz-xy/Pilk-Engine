@@ -128,6 +128,30 @@ void PrefabManager::LoadPrefabs(const std::string& p_prefabPath, const std::stri
 
 					prefab->Entities[lineIndex][i] = goal;
 				}
+
+				if (line[i] == 'H')
+				{
+					Entity* Torch = new Entity("Torch");
+
+					Torch->AddComponent(new ComponentTransform(glm::vec3(xPos, yPos, 4.3f), glm::vec3(1.5708f, 3.14159f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
+					Torch->AddComponent(new ComponentGeometry("resources/models/torch/handle.obj"));
+					Torch->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
+
+
+					prefab->Entities[lineIndex][i] = Torch;
+				}
+
+				if (line[i] == 'F')
+				{
+					Entity* Torch = new Entity("Fire");
+
+					Torch->AddComponent(new ComponentTransform(glm::vec3(xPos, yPos - 1.0f, 4.4f), glm::vec3(1.5708f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
+					Torch->AddComponent(new ComponentGeometry("resources/models/torch/fire01.obj"));
+					Torch->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FireShader.frag"));
+
+
+					prefab->Entities[lineIndex][i] = Torch;
+				}
 			}
 
 			lineIndex++;
