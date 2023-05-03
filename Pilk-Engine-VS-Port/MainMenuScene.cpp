@@ -87,6 +87,10 @@ public:
 
 	void ProcessInput(GLFWwindow* p_window, const float p_dt) override
 	{
+
+		GLFWgamepadstate state;
+		int success = glfwGetGamepadState(0, &state);
+
 		// Exit if escape key is pressed
 		if (glfwGetKey(p_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 			glfwSetWindowShouldClose(p_window, true);
@@ -106,7 +110,8 @@ public:
 		if (glfwGetKey(p_window, GLFW_KEY_SPACE) == GLFW_PRESS)
 			m_sceneManager->ChangeScene(Gameplay);
 
-		
+		if (glfwGetKey(p_window, GLFW_KEY_SPACE) == GLFW_PRESS || (state.buttons[GLFW_GAMEPAD_BUTTON_START] && success))
+			m_sceneManager->ChangeScene(Gameplay);
 
 
 #if MOUSE_CONTROL_ENABLED
