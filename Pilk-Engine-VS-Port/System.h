@@ -439,6 +439,10 @@ public:
 
 		if (leng < radius)
 		{
+			if (p_entity_1->GetName() == "GroundEnemy" || p_entity_1->GetName() == "FlyingEnemy")
+			{
+				return;
+			}
 			m_cm->RegisterCollision(p_entity_1, p_entity_2, AABB_SPHERE_POINT);
 		}
 	}
