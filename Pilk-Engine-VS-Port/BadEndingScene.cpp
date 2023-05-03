@@ -11,14 +11,14 @@
 #include "SceneManager.h"
 #include "SceneTypes.h"
 
-class MainMenuScene : public Scene
+class BadEndingScene : public Scene
 {
 public:
 	Camera* m_Camera;
 
-	explicit MainMenuScene(SceneManager* pSceneManager) : Scene(pSceneManager)
+	explicit BadEndingScene(SceneManager* pSceneManager) : Scene(pSceneManager)
 	{
-		m_sceneManager->m_windowName = "Main Menu!";
+		m_sceneManager->m_windowName = "Bad Ending!";
 
 		glm::vec3 camPos = glm::vec3(0.0f, 0.0f, -2.0f);
 		glm::vec3 camTarget = glm::vec3(0.0f, 0.0f, 0.0f);
@@ -29,7 +29,7 @@ public:
 			m_sceneManager->m_height);	// window height
 	}
 
-	~MainMenuScene() override
+	~BadEndingScene() override
 	{
 		this->Close();
 	}
@@ -59,7 +59,7 @@ public:
 	void Update(const float p_dt) override
 	{
 		m_Camera->UpdateCamera();
-		m_systemManager->ExecuteSystems(p_dt);	
+		m_systemManager->ExecuteSystems(p_dt);
 	}
 
 	void Load() override
@@ -70,7 +70,7 @@ public:
 		player1->AddComponent(new ComponentTransform(glm::vec3(0.0f, 0.0f, 5.0f), glm::vec3(1.5708f, 3.14159f, 0.0f), glm::vec3(0.8f, 0.8f, 1.0f)));
 		player1->AddComponent(new ComponentGeometry("resources/models/player1/player01.obj"));
 		player1->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
-		
+
 		m_entityManager->AddEntity(player1);
 
 		// System render

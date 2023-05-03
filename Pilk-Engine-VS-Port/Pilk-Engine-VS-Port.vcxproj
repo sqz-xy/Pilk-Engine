@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BadEndingScene.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="EntityManager.cpp" />
@@ -26,6 +27,7 @@
     <ClCompile Include="GameCollisionManager.cpp" />
     <ClCompile Include="Geometry.cpp" />
     <ClCompile Include="glad.cpp" />
+    <ClCompile Include="GoodEndingScene.cpp" />
     <ClCompile Include="imgui.cpp" />
     <ClCompile Include="imgui_demo.cpp" />
     <ClCompile Include="imgui_draw.cpp" />
@@ -34,15 +36,15 @@
     <ClCompile Include="imgui_tables.cpp" />
     <ClCompile Include="imgui_widgets.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MainMenuScene.cpp" />
+    <ClCompile Include="GameplayScene.cpp" />
     <ClCompile Include="Model.cpp" />
-    <ClCompile Include="PeterTestScene.cpp" />
     <ClCompile Include="PrefabManager.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="stb_image.cpp" />
     <ClCompile Include="SystemManager.cpp" />
+    <ClCompile Include="MainMenuScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />

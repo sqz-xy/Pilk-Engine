@@ -5,6 +5,8 @@
 /// </summary>
 enum SceneTypes
 {
+	Gameplay,
 	MainMenu,
-	PeterTestSene
+	GoodEnding,
+	BadEnding
 };

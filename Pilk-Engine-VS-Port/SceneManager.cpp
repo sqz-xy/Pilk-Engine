@@ -4,7 +4,7 @@
 
 #include "SceneManager.h"
 #include "MainMenuScene.cpp"
-#include "PeterTestScene.cpp"
+#include "GameplayScene.cpp"
 
 #include "scene.h"
 #include "SceneTypes.h"
@@ -147,17 +147,17 @@ void SceneManager::ChangeScene(const SceneTypes p_sceneType)
 {
     switch (p_sceneType)
     {
+    case Gameplay:
+        delete m_currentScene;
+        m_currentScene = new GameplayScene(this);
+        break;
     case MainMenu:
         delete m_currentScene;
         m_currentScene = new MainMenuScene(this);
         break;
-    case PeterTestSene:
-        delete m_currentScene;
-        m_currentScene = new PeterTestScene(this);
-        break;
     default:
         delete m_currentScene;
-        m_currentScene = new MainMenuScene(this);
+        m_currentScene = new GameplayScene(this);
         break;
     }
 

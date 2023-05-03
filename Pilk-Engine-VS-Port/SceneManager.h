@@ -9,8 +9,10 @@ enum SceneTypes;
 class SceneManager final
 {
 	friend class Scene;
+	friend class GameplayScene;
 	friend class MainMenuScene;
-	friend class PeterTestScene;
+	friend class BadEndingScene;
+	friend class GoodEndingScene;
 public:
 	explicit SceneManager(int p_width, int p_height, const char* p_windowName);
 	SceneManager(const SceneManager& p_sceneManager);
