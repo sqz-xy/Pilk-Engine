@@ -88,15 +88,15 @@ int SceneManager::Run()
 
     float dt;
     auto lastTime = static_cast<float>(glfwGetTime());
-
-    // DELETE
-    //m_soundEngine->play2D("resources/sounds/rhulk.mp3", false);
+   
+    SoundEngine->setSoundVolume(0.5f);
 
     // Simple update loop
     while (!glfwWindowShouldClose(window))
     {
         glClear(GL_DEPTH_BUFFER_BIT);
 
+      
         auto now = static_cast<float>(glfwGetTime());
         dt = now - lastTime;
         lastTime = now;
@@ -120,8 +120,6 @@ int SceneManager::Run()
 
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
-        
 
         glfwSwapBuffers(window);
         glfwPollEvents();
