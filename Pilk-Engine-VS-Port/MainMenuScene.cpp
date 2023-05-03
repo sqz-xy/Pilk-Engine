@@ -82,8 +82,6 @@ public:
 		System* systemRender = new SystemRender(m_Camera);
 		m_systemManager->AddSystem(systemRender);
 		m_entityManager->ValidateEntities(m_systemManager);
-
-		SoundEngine->play2D("resources/sounds/MenuMusic.mp3", true);
 	}
 
 

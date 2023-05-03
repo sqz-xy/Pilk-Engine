@@ -209,7 +209,7 @@ public:
 		else
 		{
 			p_e2->Delete(true);
-			SoundEngine->play2D("resources/sounds/batsound.mp3", false);
+			//SoundEngine->play2D("resources/sounds/batsound.mp3", false);
 		}
 	}
 
