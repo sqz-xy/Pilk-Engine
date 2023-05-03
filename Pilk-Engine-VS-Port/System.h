@@ -335,6 +335,12 @@ public:
 
 	virtual void CollisionCheck(Entity* p_entity_1, Entity* p_entity_2)
 	{
+		std::vector<ComponentCollisionPoint*> points = p_entity_1->GetComponents<ComponentCollisionPoint>();
+		if (points.size() > 1)
+		{
+			int y = 0;
+		}
+
 		ComponentTransform* trans1 = p_entity_1->GetComponent<ComponentTransform>();
 		ComponentCollisionPoint* point1 = p_entity_1->GetComponent<ComponentCollisionPoint>();
 		vec3 point = trans1->m_translation + point1->GetPoint();
