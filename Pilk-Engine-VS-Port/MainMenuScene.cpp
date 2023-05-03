@@ -213,6 +213,8 @@ public:
 		glm::vec3 dir = p_player->GetComponent<ComponentProperties>()->m_direction;
 		float dmg = p_player->GetComponent<ComponentProperties>()->m_damage;
 
+		pos.x += 1.0f;
+
 		Entity* bullet = new Entity("Bullet");
 		bullet->AddComponent(new ComponentTransform(pos, glm::vec3(2.356194f, 3.14159f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
 		bullet->AddComponent(new ComponentPhysics(dir * 20.0f, glm::vec3(0.0f, 0.0f, 0.0f)));
