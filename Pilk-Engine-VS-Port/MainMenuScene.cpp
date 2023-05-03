@@ -85,7 +85,7 @@ public:
 	{
 		const glm::vec3 movementRate = glm::vec3(1.0f, 0.0f, 0.0f) * p_dt;
 
-		if (m_Camera->m_cameraPos.x + 24.0f < m_levelWidth)
+		if (m_Camera->m_cameraPos.x < m_levelWidth)
 			m_Camera->m_cameraPos += glm::vec3(1.0f, 0.0f, 0.0f) * p_dt;
 
 		for (auto entity : m_entityManager->m_entities)
