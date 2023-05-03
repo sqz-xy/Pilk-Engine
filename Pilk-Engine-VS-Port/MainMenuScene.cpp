@@ -70,8 +70,13 @@ public:
 		player1->AddComponent(new ComponentTransform(glm::vec3(0.0f, 0.0f, 5.0f), glm::vec3(1.5708f, 3.14159f, 0.0f), glm::vec3(0.8f, 0.8f, 1.0f)));
 		player1->AddComponent(new ComponentGeometry("resources/models/player1/player01.obj"));
 		player1->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
+
+		Entity* TitleScreen = new Entity("TitleScreen");
+		TitleScreen->AddComponent(new ComponentTransform(glm::vec3(3.8f, 0.0f, -28.0f), glm::vec3(1.5708f, 0.0f, 0.0f), glm::vec3(0.9f, 1.0f, 1.0f)));
+		TitleScreen->AddComponent(new ComponentGeometry("resources/models/titlescreen/titlescreen.obj"));
+		TitleScreen->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
 		
-		m_entityManager->AddEntity(player1);
+		m_entityManager->AddEntity(TitleScreen);
 
 		// System render
 		System* systemRender = new SystemRender(m_Camera);
@@ -97,6 +102,9 @@ public:
 
 		if (glfwGetKey(p_window, GLFW_KEY_D) == GLFW_PRESS)
 			m_Camera->MoveCamera(m_Camera->Right, 2.5f, p_dt);
+
+		if (glfwGetKey(p_window, GLFW_KEY_SPACE) == GLFW_PRESS)
+			m_sceneManager->ChangeScene(Gameplay);
 
 
 #if MOUSE_CONTROL_ENABLED
