@@ -99,7 +99,7 @@ void PrefabManager::LoadPrefabs(const std::string& p_prefabPath, const std::stri
 				}
 
 				// Enemy
-				if (line[i] == 'F')
+				if (line[i] == 'P')
 				{
 					Entity* enemy = new Entity("FlyingEnemy");
 
