@@ -118,6 +118,19 @@ Entity* EntityManager::FindEntity(const std::string& p_name)
 	return nullptr;
 }
 
+std::vector<Entity*> EntityManager::FindEntities(const std::string& p_name)
+{
+	std::vector<Entity*> entities;
+	for (int i = 0; i < m_entities.size(); i++)
+	{
+		if (m_entities[i]->GetName() == p_name)
+		{
+			entities.push_back(m_entities[i]);
+		}
+	}
+	return entities;
+}
+
 /// Original Author: Thomas Beet
 /// <summary>
 /// Gets entity count
