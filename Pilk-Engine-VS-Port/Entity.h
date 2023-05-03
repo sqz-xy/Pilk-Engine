@@ -1,4 +1,4 @@
-#pragma once
+ #pragma once
 
 #include "PilkEngineCommon.h"
 #include "Component.h"
@@ -85,6 +85,24 @@ public:
 			}
 		}
 		return nullptr;
+	}
+
+	template<typename T>
+	std::vector<T*> GetComponents()
+	{
+		std::vector<T*> comps;
+
+		for (int i = 0; i < m_components.size(); i++)
+		{
+			T* result = dynamic_cast<T*>(m_components[i]);
+			if (result != nullptr)
+			{
+				comps.push_back(result);
+			}
+		}
+
+		return comps;
+
 	}
 
 	//sets delete value. is deleted if true.
