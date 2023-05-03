@@ -101,6 +101,7 @@ StyleCopReport.xml
 !bullet_Medium.obj
 !bullet_Small.obj
 !heart.obj
+!endScreen.obj
 
 *.iobj
 *.pch
