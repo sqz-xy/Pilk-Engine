@@ -82,6 +82,8 @@ public:
 		System* systemRender = new SystemRender(m_Camera);
 		m_systemManager->AddSystem(systemRender);
 		m_entityManager->ValidateEntities(m_systemManager);
+
+		SoundEngine->play2D("resources/sounds/MenuMusic.mp3", true);
 	}
 
 
@@ -107,8 +109,8 @@ public:
 		if (glfwGetKey(p_window, GLFW_KEY_D) == GLFW_PRESS)
 			m_Camera->MoveCamera(m_Camera->Right, 2.5f, p_dt);
 
-		if (glfwGetKey(p_window, GLFW_KEY_SPACE) == GLFW_PRESS)
-			m_sceneManager->ChangeScene(Gameplay);
+		/*if (glfwGetKey(p_window, GLFW_KEY_SPACE) == GLFW_PRESS)
+			m_sceneManager->ChangeScene(Gameplay);*/
 
 		if (glfwGetKey(p_window, GLFW_KEY_SPACE) == GLFW_PRESS || (state.buttons[GLFW_GAMEPAD_BUTTON_START] && success))
 			m_sceneManager->ChangeScene(Gameplay);
