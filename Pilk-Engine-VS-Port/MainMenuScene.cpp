@@ -48,7 +48,7 @@ public:
 
 		m_entityManager = new EntityManager();
 		m_systemManager = new SystemManager();
-		m_collisionManager = new GameCollisionManager(m_systemManager);
+		m_collisionManager = new GameCollisionManager(m_systemManager, m_entityManager);
 		m_prefabManager = new PrefabManager();
 		player1Timer = new Timer();
 		player2Timer = new Timer();
@@ -83,10 +83,16 @@ public:
 
 	void Update(const float p_dt) override
 	{
-		const glm::vec3 movementRate = glm::vec3(1.0f, 0.0f, 0.0f) * p_dt;
+		glm::vec3 movementRate = glm::vec3(1.0f, 0.0f, 0.0f) * p_dt;
 
 		if (m_Camera->m_cameraPos.x < m_levelWidth)
-			m_Camera->m_cameraPos += glm::vec3(1.0f, 0.0f, 0.0f) * p_dt;
+		{
+			m_Camera->m_cameraPos += movementRate;
+		}
+		else
+		{
+			movementRate = glm::vec3(0.0f);
+		}
 
 		for (auto entity : m_entityManager->m_entities)
 		{
@@ -107,6 +113,12 @@ public:
 						m_entityManager->RemoveEntity(entity->GetID());
 						entity->Delete(true);
 					}
+				}
+
+				if (entity->GetName() == "P1Heart" || entity->GetName() == "P2Heart")
+				{		
+					trans->m_translation += movementRate;
+					trans->UpdateTranslation(trans->m_translation);
 				}
 			}
 
@@ -139,6 +151,7 @@ public:
 			if (m_entityManager->m_entities[i]->IsDelete())
 			{
 				m_systemManager->RemoveEntity(m_entityManager->m_entities[i]);
+				m_entityManager->RemoveEntity(m_entityManager->m_entities[i]->GetID());
 			}
 		}
 	}
@@ -150,21 +163,43 @@ public:
 
 		//stbi_set_flip_vertically_on_load(true);
 
-		// Walls
-		Entity* rearWall = new Entity("RearWall");
-		rearWall->AddComponent(new ComponentTransform(glm::vec3(-8.0f, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 10.0f, 1.0f)));
-		rearWall->AddComponent(new ComponentCollisionAABB(10.0f, 2.0f, 0.0f));
-		rearWall->AddComponent(new ComponentGeometry("resources/models/tempcube/tempcube.obj"));
-		rearWall->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
-		//m_entityManager->AddEntity(rearWall);
+		// Hearts
 
-		Entity* frontWall = new Entity("FrontWall");
-		frontWall->AddComponent(new ComponentTransform(glm::vec3(15.0f, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 10.0f, 1.0f)));
-		frontWall->AddComponent(new ComponentCollisionAABB(10.0f, 2.0f, 0.0f));
-		frontWall->AddComponent(new ComponentGeometry("resources/models/tempcube/tempcube.obj"));
-		frontWall->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
-		//m_entityManager->AddEntity(frontWall);
+		Entity* heart1 = new Entity("P1Heart");
+		heart1->AddComponent(new ComponentTransform(glm::vec3(5.0f, 3.0f, 10.0f), glm::vec3(0.0f, 1.5708f, 0.0f), glm::vec3(0.5f, 0.5f, 1.0f)));
+		heart1->AddComponent(new ComponentGeometry("resources/models/heart/heart.obj"));
+		heart1->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
+		m_entityManager->AddEntity(heart1);
 
+		Entity* heart2 = new Entity("P1Heart");
+		heart2->AddComponent(new ComponentTransform(glm::vec3(6.5f, 3.0f, 10.0f), glm::vec3(0.0f, 1.5708f, 0.0f), glm::vec3(0.5f, 0.5f, 1.0f)));
+		heart2->AddComponent(new ComponentGeometry("resources/models/heart/heart.obj"));
+		heart2->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
+		m_entityManager->AddEntity(heart2);
+
+		Entity* heart3 = new Entity("P1Heart");
+		heart3->AddComponent(new ComponentTransform(glm::vec3(8.0f, 3.0f, 10.0f), glm::vec3(0.0f, 1.5708f, 0.0f), glm::vec3(0.5f, 0.5f, 1.0f)));
+		heart3->AddComponent(new ComponentGeometry("resources/models/heart/heart.obj"));
+		heart3->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
+		m_entityManager->AddEntity(heart3);
+
+		Entity* heart4 = new Entity("P2Heart");
+		heart4->AddComponent(new ComponentTransform(glm::vec3(0.0f, 3.0f, 10.0f), glm::vec3(0.0f, 1.5708f, 0.0f), glm::vec3(0.5f, 0.5f, 1.0f)));
+		heart4->AddComponent(new ComponentGeometry("resources/models/heart/heart.obj"));
+		heart4->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
+		m_entityManager->AddEntity(heart4);
+
+		Entity* heart5 = new Entity("P2Heart");
+		heart5->AddComponent(new ComponentTransform(glm::vec3(1.5f, 3.0f, 10.0f), glm::vec3(0.0f, 1.5708f, 0.0f), glm::vec3(0.5f, 0.5f, 1.0f)));
+		heart5->AddComponent(new ComponentGeometry("resources/models/heart/heart.obj"));
+		heart5->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
+		m_entityManager->AddEntity(heart5);
+
+		Entity* heart6 = new Entity("P2Heart");
+		heart6->AddComponent(new ComponentTransform(glm::vec3(3.0f, 3.0f, 10.0f), glm::vec3(0.0f, 1.5708f, 0.0f), glm::vec3(0.5f, 0.5f, 1.0f)));
+		heart6->AddComponent(new ComponentGeometry("resources/models/heart/heart.obj"));
+		heart6->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
+		m_entityManager->AddEntity(heart6);
 
 		// Player entity.
 		

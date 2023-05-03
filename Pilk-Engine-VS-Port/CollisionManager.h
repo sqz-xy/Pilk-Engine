@@ -1,6 +1,7 @@
 #pragma once
 
 class SystemManager;
+class EntityManager;
 class Entity;
 
 enum CollisionType
@@ -23,9 +24,10 @@ struct Collision
 class CollisionManager
 {
 public:
-	explicit CollisionManager(SystemManager* p_systemManager)
+	explicit CollisionManager(SystemManager* p_systemManager, EntityManager* p_entityManager)
 	{
 		m_systemManager = p_systemManager;
+		m_entityManager = p_entityManager;
 	}
 	~CollisionManager();
 	void ClearManifold();
@@ -35,4 +37,5 @@ public:
 protected:
 	std::vector<Collision*> m_collisionManifold;
 	SystemManager* m_systemManager;
+	EntityManager* m_entityManager;
 };

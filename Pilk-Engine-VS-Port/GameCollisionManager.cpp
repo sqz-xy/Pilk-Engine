@@ -2,6 +2,8 @@
 
 #include "PilkEngineCommon.h"
 #include "CollisionManager.h"
+#include "SystemManager.h"
+#include "EntityManager.h"
 #include "Entity.h"
 #include "Timer.h"
 
@@ -217,6 +219,13 @@ public:
 			prop->m_health -= 1.0f;
 			std::cout << "p1 ouch!" << std::endl;
 			player1DamageTimer->Restart();
+
+			std::vector<Entity*> player1hearts = m_entityManager->FindEntities("P1Heart");
+
+			std::cout << player1hearts.size() << std::endl;
+
+			if (player1hearts.size() > 0)
+				player1hearts[0]->Delete(true);
 		}
 
 		if (p_e1->GetName() == "Player2" && player2DamageTimer->GetElapsedTime() > 1.0f)
@@ -225,6 +234,11 @@ public:
 			prop->m_health -= 1.0f;
 			std::cout << "p2 ouch!" << std::endl;
 			player2DamageTimer->Restart();
+
+			std::vector<Entity*> player2hearts = m_entityManager->FindEntities("P2Heart");
+
+			if (player2hearts.size() > 0)
+				player2hearts[0]->Delete(true);
 		}
 	}
 
