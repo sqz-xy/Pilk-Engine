@@ -55,7 +55,7 @@ void PrefabManager::LoadPrefabs(const std::string& p_prefabPath, const std::stri
 		floor->AddComponent(new ComponentTransform(floorPos, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
 		floor->AddComponent(new ComponentGeometry("resources/models/block/6x1Cube.obj"));
 		floor->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
-		floor->AddComponent(new ComponentCollisionAABB(1.0f, 12.0f, 0.0f));
+		floor->AddComponent(new ComponentCollisionAABB(2.0f, 12.0f, 0.0f));
 		prefab->Floor = floor;
 		//END
 
