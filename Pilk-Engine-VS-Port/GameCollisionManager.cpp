@@ -226,7 +226,11 @@ public:
 			std::cout << player1hearts.size() << std::endl;
 
 			if (player1hearts.size() > 0)
-				player1hearts[0]->Delete(true);
+			{
+				//m_systemManager->RemoveEntity(player1hearts[0]);
+				//m_entityManager->RemoveEntity(player1hearts[0]->GetID());
+				//player1hearts[0]->Delete(true);
+			}
 		}
 
 		if (p_e1->GetName() == "Player2" && player2DamageTimer->GetElapsedTime() > 1.0f)
@@ -239,7 +243,11 @@ public:
 			std::vector<Entity*> player2hearts = m_entityManager->FindEntities("P2Heart");
 
 			if (player2hearts.size() > 0)
-				player2hearts[0]->Delete(true);
+			{
+				//m_systemManager->RemoveEntity(player2hearts[0]);
+				//m_entityManager->RemoveEntity(player2hearts[0]->GetID());
+				//player2hearts[0]->Delete(true);
+			}
 		}
 	}
 

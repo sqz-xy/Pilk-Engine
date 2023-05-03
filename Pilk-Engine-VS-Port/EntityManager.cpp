@@ -49,9 +49,8 @@ bool EntityManager::RemoveEntity(const int p_id)
 			m_entities.erase(m_entities.begin() + i);	
 			return true;
 		}
-
-		return false;
 	}
+	return false;
 }
 
 /// Original Author: Piotr Moskala

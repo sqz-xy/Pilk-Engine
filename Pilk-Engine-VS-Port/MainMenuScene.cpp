@@ -169,36 +169,42 @@ public:
 		heart1->AddComponent(new ComponentTransform(glm::vec3(5.0f, 3.0f, 10.0f), glm::vec3(0.0f, 1.5708f, 0.0f), glm::vec3(0.25f, 0.25f, 1.0f)));
 		heart1->AddComponent(new ComponentGeometry("resources/models/heart/heart.obj"));
 		heart1->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
+		heart1->AddComponent(new ComponentPhysics(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f)));
 		m_entityManager->AddEntity(heart1);
 
 		Entity* heart2 = new Entity("P1Heart");
 		heart2->AddComponent(new ComponentTransform(glm::vec3(6.5f, 3.0f, 10.0f), glm::vec3(0.0f, 1.5708f, 0.0f), glm::vec3(0.25f, 0.25f, 1.0f)));
 		heart2->AddComponent(new ComponentGeometry("resources/models/heart/heart.obj"));
 		heart2->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
+		heart2->AddComponent(new ComponentPhysics(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f)));
 		m_entityManager->AddEntity(heart2);
 
 		Entity* heart3 = new Entity("P1Heart");
 		heart3->AddComponent(new ComponentTransform(glm::vec3(8.0f, 3.0f, 10.0f), glm::vec3(0.0f, 1.5708f, 0.0f), glm::vec3(0.25f, 0.25f, 1.0f)));
 		heart3->AddComponent(new ComponentGeometry("resources/models/heart/heart.obj"));
 		heart3->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
+		heart3->AddComponent(new ComponentPhysics(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f)));
 		m_entityManager->AddEntity(heart3);
 
 		Entity* heart4 = new Entity("P2Heart");
 		heart4->AddComponent(new ComponentTransform(glm::vec3(-0.5f, 3.0f, 10.0f), glm::vec3(0.0f, 1.5708f, 0.0f), glm::vec3(0.25f, 0.25f, 1.0f)));
 		heart4->AddComponent(new ComponentGeometry("resources/models/heart/heart.obj"));
 		heart4->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
+		heart4->AddComponent(new ComponentPhysics(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f)));
 		m_entityManager->AddEntity(heart4);
 
 		Entity* heart5 = new Entity("P2Heart");
 		heart5->AddComponent(new ComponentTransform(glm::vec3(1.0f, 3.0f, 10.0f), glm::vec3(0.0f, 1.5708f, 0.0f), glm::vec3(0.25f, 0.25f, 1.0f)));
 		heart5->AddComponent(new ComponentGeometry("resources/models/heart/heart.obj"));
 		heart5->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
+		heart5->AddComponent(new ComponentPhysics(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f)));
 		m_entityManager->AddEntity(heart5);
 
 		Entity* heart6 = new Entity("P2Heart");
 		heart6->AddComponent(new ComponentTransform(glm::vec3(2.5f, 3.0f, 10.0f), glm::vec3(0.0f, 1.5708f, 0.0f), glm::vec3(0.25f, 0.25f, 1.0f)));
 		heart6->AddComponent(new ComponentGeometry("resources/models/heart/heart.obj"));
 		heart6->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
+		heart6->AddComponent(new ComponentPhysics(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f)));
 		m_entityManager->AddEntity(heart6);
 
 		// Player entity.
