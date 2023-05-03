@@ -336,35 +336,36 @@ public:
 	virtual void CollisionCheck(Entity* p_entity_1, Entity* p_entity_2)
 	{
 		std::vector<ComponentCollisionPoint*> points = p_entity_1->GetComponents<ComponentCollisionPoint>();
-		if (points.size() > 1)
+
+		for (int i = 0; i < points.size(); i++)
 		{
-			int y = 0;
-		}
+			ComponentTransform* trans1 = p_entity_1->GetComponent<ComponentTransform>();
+			ComponentCollisionPoint* point1 = p_entity_1->GetComponent<ComponentCollisionPoint>();
+			vec3 point = trans1->m_translation + point1->GetPoint();
 
-		ComponentTransform* trans1 = p_entity_1->GetComponent<ComponentTransform>();
-		ComponentCollisionPoint* point1 = p_entity_1->GetComponent<ComponentCollisionPoint>();
-		vec3 point = trans1->m_translation + point1->GetPoint();
+			ComponentTransform* trans2 = p_entity_2->GetComponent<ComponentTransform>();
+			ComponentCollisionAABB* aabb1 = p_entity_2->GetComponent<ComponentCollisionAABB>();
+			vec3 pos2 = trans2->m_translation;
 
-		ComponentTransform* trans2 = p_entity_2->GetComponent<ComponentTransform>();
-		ComponentCollisionAABB* aabb1 = p_entity_2->GetComponent<ComponentCollisionAABB>();
-		vec3 pos2 = trans2->m_translation;
-
-		if (point1->m_is_active == false || aabb1->m_is_active == false)
-		{
-			return;
-		}
-
-		vec2 top_left = vec2(pos2.x - (aabb1->GetWidth() / 2), pos2.y + (aabb1->GetHeight() / 2));
-		vec2 bottom_right = vec2(pos2.x + (aabb1->GetWidth() / 2), pos2.y - (aabb1->GetHeight() / 2));
-
-		if (point.x > top_left.x && point.x < bottom_right.x)
-		{
-			if (point.y < top_left.y && point.y > bottom_right.y)
+			if (point1->m_is_active == false || aabb1->m_is_active == false)
 			{
-				m_cm->RegisterCollision(p_entity_1, p_entity_2, AABB_POINT);
+				return;
+			}
+
+			vec2 top_left = vec2(pos2.x - (aabb1->GetWidth() / 2), pos2.y + (aabb1->GetHeight() / 2));
+			vec2 bottom_right = vec2(pos2.x + (aabb1->GetWidth() / 2), pos2.y - (aabb1->GetHeight() / 2));
+
+			if (point.x > top_left.x && point.x < bottom_right.x)
+			{
+				if (point.y < top_left.y && point.y > bottom_right.y)
+				{
+					m_cm->RegisterCollision(p_entity_1, p_entity_2, AABB_POINT);
+					return;
+				}
 			}
 		}
-		else if(p_entity_1->GetName() != "FlyingEnemy")
+
+		if (p_entity_1->GetName() != "FlyingEnemy")
 		{
 			ComponentPhysics* phys = p_entity_1->GetComponent<ComponentPhysics>();
 			phys->SetGravity(vec3(0, -0.3f, 0));

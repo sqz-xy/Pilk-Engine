@@ -36,6 +36,11 @@ public:
 		return m_name;
 	}
 
+	void SetName(const char* p_name)
+	{
+		m_name = p_name;
+	}
+
 	/// Original Author: Thomas Beet
 	/// <summary>
 	/// Returns entity ID

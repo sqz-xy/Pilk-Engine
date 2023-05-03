@@ -227,6 +227,12 @@ public:
 
 			if (player1hearts.size() > 0)
 			{
+				ComponentPhysics* phys = player1hearts[0]->GetComponent<ComponentPhysics>();
+				phys->SetVelZ(0.0f);
+				phys->SetVelX(0.0f);
+				phys->SetVelY(5.0f);
+				phys->SetGravity(vec3(0.0f, -0.3f, 0.0f));
+				player1hearts[0]->SetName("thomas beet");
 				//m_systemManager->RemoveEntity(player1hearts[0]);
 				//m_entityManager->RemoveEntity(player1hearts[0]->GetID());
 				//player1hearts[0]->Delete(true);
@@ -244,6 +250,12 @@ public:
 
 			if (player2hearts.size() > 0)
 			{
+				ComponentPhysics* phys = player2hearts[0]->GetComponent<ComponentPhysics>();
+				phys->SetVelZ(0.0f);
+				phys->SetVelX(0.0f);
+				phys->SetVelY(10.0f);
+				phys->SetGravity(vec3(0.0f, -0.3f, 0.0f));
+				player2hearts[0]->SetName("thomas beet");
 				//m_systemManager->RemoveEntity(player2hearts[0]);
 				//m_entityManager->RemoveEntity(player2hearts[0]->GetID());
 				//player2hearts[0]->Delete(true);
