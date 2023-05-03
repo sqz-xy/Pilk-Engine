@@ -160,7 +160,7 @@ void PrefabManager::LoadPrefabs(const std::string& p_prefabPath, const std::stri
 		m_level.level.push_back(prefab);
 		levelStartPos.x += PREFAB_SIZE * 2.0f;
 	}
-	m_level.width = levelStartPos.x;
+	m_level.width = levelStartPos.x - 16.0f;
 }
 
 Level PrefabManager::RegisterLevel(EntityManager& p_entityManager, SystemManager& p_systemManager)
