@@ -292,6 +292,11 @@ public:
 			ComponentProperties* prop = p_player->GetComponent<ComponentProperties>();
 			prop->m_direction = glm::vec3(1.0f, 0.0f, 0.0f);
 			phys->SetVelX(5.0f);
+
+			ComponentTransform* pos1 = p_player->GetComponent<ComponentTransform>();
+			vec3 newscale = pos1->m_scale;
+			newscale.x = 0.8f;
+			pos1->UpdateScale(newscale);
 		}
 		else if (glfwGetKey(p_window, GLFW_KEY_LEFT) == GLFW_PRESS || (state.buttons[GLFW_GAMEPAD_BUTTON_DPAD_LEFT] && success))
 		{
@@ -299,6 +304,11 @@ public:
 			ComponentProperties* prop = p_player->GetComponent<ComponentProperties>();
 			prop->m_direction = glm::vec3(-1.0f, 0.0f, 0.0f);
 			phys->SetVelX(-5.0f);
+
+			ComponentTransform* pos1 = p_player->GetComponent<ComponentTransform>();
+			vec3 newscale = pos1->m_scale;
+			newscale.x = -0.8f;
+			pos1->UpdateScale(newscale);
 		}
 		else
 		{
@@ -337,6 +347,11 @@ public:
 			ComponentProperties* prop = p_player->GetComponent<ComponentProperties>();
 			prop->m_direction = glm::vec3(1.0f, 0.0f, 0.0f);
 			phys->SetVelX(5.0f);
+
+			ComponentTransform* pos1 = p_player->GetComponent<ComponentTransform>();
+			vec3 newscale = pos1->m_scale;
+			newscale.x = 0.8f;
+			pos1->UpdateScale(newscale);
 		}
 		else if (glfwGetKey(p_window, GLFW_KEY_A) == GLFW_PRESS || (state.buttons[GLFW_GAMEPAD_BUTTON_X] && success))
 		{
@@ -344,6 +359,11 @@ public:
 			ComponentProperties* prop = p_player->GetComponent<ComponentProperties>();
 			prop->m_direction = glm::vec3(-1.0f, 0.0f, 0.0f);
 			phys->SetVelX(-5.0f);
+
+			ComponentTransform* pos1 = p_player->GetComponent<ComponentTransform>();
+			vec3 newscale = pos1->m_scale;
+			newscale.x = -0.8f;
+			pos1->UpdateScale(newscale);
 		}
 		else
 		{
