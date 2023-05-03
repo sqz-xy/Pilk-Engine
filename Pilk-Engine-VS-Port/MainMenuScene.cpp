@@ -109,9 +109,43 @@ public:
 				{
 					if (trans->m_translation.x < m_Camera->m_cameraPos.x - 10.0f)
 					{
-						m_systemManager->RemoveEntity(entity);
-						m_entityManager->RemoveEntity(entity->GetID());
-						entity->Delete(true);
+						// make the hearts fly off
+
+						if (entity->GetName() == "Player1")
+						{
+							std::vector<Entity*> player1hearts = m_entityManager->FindEntities("P1Heart");
+
+							for (int i = 0; i < player1hearts.size(); i++)
+							{
+								ComponentPhysics* phys = player1hearts[i]->GetComponent<ComponentPhysics>();
+								phys->SetVelZ(0.0f);
+								phys->SetVelX(0.0f);
+								phys->SetVelY(10.0f);
+								phys->SetGravity(vec3(0.0f, -0.3f, 0.0f));
+							}
+
+							m_systemManager->RemoveEntity(entity);
+							m_entityManager->RemoveEntity(entity->GetID());
+							entity->Delete(true);
+						}
+						else if (entity->GetName() == "Player2")
+						{
+							std::vector<Entity*> player2hearts = m_entityManager->FindEntities("P2Heart");
+
+							for (int i = 0; i < player2hearts.size(); i++)
+							{
+								ComponentPhysics* phys = player2hearts[i]->GetComponent<ComponentPhysics>();
+								phys->SetVelZ(0.0f);
+								phys->SetVelX(0.0f);
+								phys->SetVelY(10.0f);
+								phys->SetGravity(vec3(0.0f, -0.3f, 0.0f));
+							}
+
+							m_systemManager->RemoveEntity(entity);
+							m_entityManager->RemoveEntity(entity->GetID());
+							entity->Delete(true);
+						}
+
 					}
 				}
 
@@ -210,7 +244,7 @@ public:
 		// Player entity.
 		
 		Entity* player1 = new Entity("Player1");
-		player1->AddComponent(new ComponentTransform(glm::vec3(0.0f, 0.0f, 5.0f), glm::vec3(1.5708f, 3.14159f, 0.0f), glm::vec3(0.8f, 0.8f, 1.0f)));
+		player1->AddComponent(new ComponentTransform(glm::vec3(0.0f, 0.0f, 5.0f), glm::vec3(1.5708f, 3.14159f, 0.0f), glm::vec3(0.9f, 1.0f, 1.0f)));
 		player1->AddComponent(new ComponentCollisionAABB(1.3f, 1.0f, 0.5f));
 		player1->AddComponent(new ComponentGeometry("resources/models/player1/player01.obj"));
 		player1->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
@@ -221,9 +255,9 @@ public:
 		player1->AddComponent(new ComponentProperties(false, 3.0f, 1.0f, vec3(1.0f, 0.0f, 0.0f)));
 
 		Entity* player2 = new Entity("Player2");
-		player2->AddComponent(new ComponentTransform(glm::vec3(1.0f, 0.0f, 5.0f), glm::vec3(1.5708f, 3.14159f, 0.0f), glm::vec3(0.8f, 0.8f, 1.0f)));
+		player2->AddComponent(new ComponentTransform(glm::vec3(1.0f, 0.0f, 5.0f), glm::vec3(1.5708f, 0.0f, 0.0f), glm::vec3(0.9f, 1.0f, 1.0f)));
 		player2->AddComponent(new ComponentCollisionAABB(1.3f, 1.0f, 0.5f));
-		player2->AddComponent(new ComponentGeometry("resources/models/player1/player01.obj"));
+		player2->AddComponent(new ComponentGeometry("resources/models/player2/endScreen.obj"));
 		player2->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
 		player2->AddComponent(new ComponentPhysics(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -0.3f, 0.0f)));
 		player2->AddComponent(new ComponentCollisionPoint(glm::vec3(0.0f, -1.4f, 0.0f)));
