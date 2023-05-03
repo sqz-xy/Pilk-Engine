@@ -108,6 +108,7 @@ public:
 			{
 				ComponentPhysics* phys = p_col->m_entity1->GetComponent<ComponentPhysics>();
 				phys->SetVelX(-phys->GetVelocity().x);
+
 				vec3 newscale = pos1->m_scale;
 				newscale.x = -newscale.x;
 				pos1->UpdateScale(newscale);
@@ -121,6 +122,7 @@ public:
 			{
 				ComponentPhysics* phys = p_col->m_entity1->GetComponent<ComponentPhysics>();
 				phys->SetVelX(-phys->GetVelocity().x);
+
 				vec3 newscale = pos1->m_scale;
 				newscale.x = -newscale.x;
 				pos1->UpdateScale(newscale);
@@ -181,10 +183,12 @@ public:
 			
 			ComponentPhysics* phys = p_e2->GetComponent<ComponentPhysics>();
 			phys->SetVelZ(2.0f);
-			phys->SetVelY(10.0f);
+			phys->SetVelX(0.0f);
+			phys->SetCurrentGravity(vec3(0.0f, -3.0f, 0.0f));
 
 			ComponentCollisionAABB* aabb = p_e2->GetComponent<ComponentCollisionAABB>();
 			ComponentCollisionSphere* sp = p_e2->GetComponent<ComponentCollisionSphere>();
+			ComponentCollisionPoint* point = p_e2->GetComponent<ComponentCollisionPoint>();
 
 			if (sp != nullptr)
 			{
@@ -193,6 +197,10 @@ public:
 			if (aabb != nullptr)
 			{
 				aabb->m_is_active = false;
+			}
+			if (point != nullptr)
+			{
+				point->m_is_active = false;
 			}
 		}
 		else
