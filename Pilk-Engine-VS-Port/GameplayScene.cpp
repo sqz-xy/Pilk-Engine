@@ -470,7 +470,5 @@ public:
 		delete m_Camera;
 
 		ResourceManager::DeleteResources();
-		SoundEngine->stopAllSounds();
-		//yhyhyh
 	}
 };
