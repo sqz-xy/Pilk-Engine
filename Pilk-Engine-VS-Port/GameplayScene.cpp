@@ -288,6 +288,8 @@ public:
 		//m_entityManager->ValidateEntities(m_systemManager);
 		Level lvl = m_prefabManager->RegisterLevel(*m_entityManager, *m_systemManager);	
 		m_levelWidth = lvl.width;
+
+		SoundEngine->play2D("resources/sounds/GamePlayMusic.mp3", true);
 	}
 
 	void Shoot(Entity* p_player)
@@ -468,5 +470,7 @@ public:
 		delete m_Camera;
 
 		ResourceManager::DeleteResources();
+		SoundEngine->stopAllSounds();
+		//yhyh
 	}
 };

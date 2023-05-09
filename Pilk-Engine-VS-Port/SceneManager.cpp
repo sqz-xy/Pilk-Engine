@@ -5,6 +5,8 @@
 #include "SceneManager.h"
 #include "MainMenuScene.cpp"
 #include "GameplayScene.cpp"
+#include "BadEndingScene.cpp"
+#include "GoodEndingScene.cpp"
 
 #include "scene.h"
 #include "SceneTypes.h"
@@ -152,6 +154,14 @@ void SceneManager::ChangeScene(const SceneTypes p_sceneType)
     case MainMenu:
         delete m_currentScene;
         m_currentScene = new MainMenuScene(this);
+        break;
+    case BadEnding:
+        delete m_currentScene;
+        m_currentScene = new BadEndingScene(this);
+        break;
+    case GoodEnding:
+        delete m_currentScene;
+        m_currentScene = new GoodEndingScene(this);
         break;
     default:
         delete m_currentScene;

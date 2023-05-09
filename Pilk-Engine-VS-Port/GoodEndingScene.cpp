@@ -71,12 +71,20 @@ public:
 		player1->AddComponent(new ComponentGeometry("resources/models/player1/player01.obj"));
 		player1->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
 
-		m_entityManager->AddEntity(player1);
+
+		Entity* Goodending = new Entity("GoodEnding");
+		Goodending->AddComponent(new ComponentTransform(glm::vec3(3.8f, 0.0f, -28.0f), glm::vec3(1.5708f, 0.0f, 0.0f), glm::vec3(0.9f, 1.0f, 1.0f)));
+		Goodending->AddComponent(new ComponentGeometry("resources/models/Goodending/endScreen.obj"));
+		Goodending->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
+
+		m_entityManager->AddEntity(Goodending);
 
 		// System render
 		System* systemRender = new SystemRender(m_Camera);
 		m_systemManager->AddSystem(systemRender);
 		m_entityManager->ValidateEntities(m_systemManager);
+
+		SoundEngine->play2D("resources/sounds/GoodEndingMusic.mp3", true);
 	}
 
 
@@ -117,5 +125,6 @@ public:
 		delete m_Camera;
 
 		ResourceManager::DeleteResources();
+		SoundEngine->stopAllSounds();
 	}
 };
