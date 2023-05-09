@@ -471,6 +471,6 @@ public:
 
 		ResourceManager::DeleteResources();
 		SoundEngine->stopAllSounds();
-		//yhyh
+		//yhyhyh
 	}
 };
