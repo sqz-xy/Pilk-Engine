@@ -71,12 +71,19 @@ public:
 		player1->AddComponent(new ComponentGeometry("resources/models/player1/player01.obj"));
 		player1->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
 
-		m_entityManager->AddEntity(player1);
+		Entity* BadEnding = new Entity("BadEnding");
+		BadEnding->AddComponent(new ComponentTransform(glm::vec3(3.8f, 0.0f, -28.0f), glm::vec3(1.5708f, 0.0f, 0.0f), glm::vec3(0.9f, 1.0f, 1.0f)));
+		BadEnding->AddComponent(new ComponentGeometry("resources/models/badending/endScreen.obj"));
+		BadEnding->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
+
+		m_entityManager->AddEntity(BadEnding);
 
 		// System render
 		System* systemRender = new SystemRender(m_Camera);
 		m_systemManager->AddSystem(systemRender);
 		m_entityManager->ValidateEntities(m_systemManager);
+
+		SoundEngine->play2D("resources/sounds/BadEnding.mp3", true);
 	}
 
 
@@ -117,5 +124,6 @@ public:
 		delete m_Camera;
 
 		ResourceManager::DeleteResources();
+		SoundEngine->stopAllSounds();
 	}
 };
