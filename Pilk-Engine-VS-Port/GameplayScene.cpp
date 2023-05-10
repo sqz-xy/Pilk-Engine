@@ -190,6 +190,11 @@ public:
 				m_entityManager->RemoveEntity(m_entityManager->m_entities[i]->GetID());
 			}
 		}
+
+		if (m_collisionManager->HasWon())
+		{
+			m_sceneManager->ChangeScene(GoodEnding);
+		}
 	}
 
 	void Load() override

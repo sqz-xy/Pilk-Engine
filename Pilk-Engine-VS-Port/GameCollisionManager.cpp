@@ -14,6 +14,7 @@ public:
 	using CollisionManager::CollisionManager;
 	Timer* player1DamageTimer = new Timer();
 	Timer* player2DamageTimer = new Timer();
+	bool has_won = false;
 
 	void ProcessCollisions() override
 	{
@@ -80,8 +81,21 @@ public:
 				edge = true;
 			}
 		}
+		else if (e1->GetName() == "Player2" || e2->GetName() == "Player2" || e1->GetName() == "Player1" || e2->GetName() == "Player1")
+		{
+			if (e1->GetName() == "Goal" || e2->GetName() == "Goal")
+			{
+				edge = true;
+				has_won = true;
+			}
+		}
 
 		return edge;
+	}
+
+	bool HasWon()
+	{
+		return has_won;
 	}
 
 	void RespondAABBAABBLeftRight(Collision* p_col)
