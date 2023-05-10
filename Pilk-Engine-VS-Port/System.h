@@ -133,8 +133,9 @@ public:
 	}
 };
 
+/// Original Author: Thomas Beet
 /// <summary>
-/// Render system by Thomas Beet
+/// Rendering system 
 /// </summary>
 class SystemRender : public System
 {
@@ -148,10 +149,12 @@ public:
 	{
 		for (Entity* entity : validEntities)
 		{
+			// Get components
 			ComponentTransform* transform = entity->GetComponent<ComponentTransform>();
 			ComponentGeometry* geometry = entity->GetComponent<ComponentGeometry>();
 			ComponentShader* shader = entity->GetComponent<ComponentShader>();
 
+			// Use the shader program and tell geometry to draw
 			shader->UseShader(&transform->m_transform, &m_camera->m_view, &m_camera->m_projection, transform);
 			geometry->Draw(shader->m_shaderProgramID);
 		}
@@ -159,6 +162,7 @@ public:
 
 	virtual void ValidateEntity(Entity* p_entity) override
 	{
+		// Required component types to render
 		bool requiredComponents = p_entity->GetComponent<ComponentTransform>() != nullptr &&
 								  p_entity->GetComponent<ComponentGeometry>() != nullptr &&
 								  p_entity->GetComponent<ComponentShader>() != nullptr;

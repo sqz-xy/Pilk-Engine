@@ -12,18 +12,25 @@ PrefabManager::PrefabManager()
 {
 }
 
+/// Original Author: Thomas Beet
+/// <summary>
+/// Loads a directory of level text files
+/// </summary>
 void PrefabManager::LoadPrefabs(const std::string& p_prefabPath, const std::string& p_entityScriptPath)
 {
-
+	// Level origin
 	glm::vec3 levelStartPos(0.0f, 0.0f, 5.0f);
 
+	// For each file in level directory
 	for (const auto& prefabFilePath : std::filesystem::directory_iterator(p_prefabPath))
 	{
+		// Load file
 		std::ifstream prefabFile(prefabFilePath.path());
 
 		if (!prefabFile)
 			return;
 
+		// Make new prefab
 		Prefab* prefab = new Prefab();
 		int lineIndex = 0;
 		int yOffset = PREFAB_SIZE;
@@ -59,6 +66,7 @@ void PrefabManager::LoadPrefabs(const std::string& p_prefabPath, const std::stri
 		prefab->Floor = floor;
 		//END
 
+		// Parse chars in each file
 		while (!prefabFile.eof())
 		{
 			std::string line;
@@ -122,7 +130,7 @@ void PrefabManager::LoadPrefabs(const std::string& p_prefabPath, const std::stri
 					goal->AddComponent(new ComponentTransform(glm::vec3(xPos, yPos, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
 					goal->AddComponent(new ComponentCollisionAABB(1.0f, 1.0f, 0.5f));
 					goal->AddComponent(new ComponentGeometry("resources/models/gem/Gem.obj"));
-					goal->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FireShader.frag"));
+					goal->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
 					goal->AddComponent(new ComponentCollisionPoint(glm::vec3(0.0f, -1.1f, 0.0f)));
 					goal->AddComponent(new ComponentProperties(false, 3.0f, 3.0f, glm::vec3(0.0f, 0.0f, 0.0f)));
 
@@ -147,7 +155,7 @@ void PrefabManager::LoadPrefabs(const std::string& p_prefabPath, const std::stri
 
 					Torch->AddComponent(new ComponentTransform(glm::vec3(xPos, yPos - 1.0f, 4.4f), glm::vec3(1.5708f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
 					Torch->AddComponent(new ComponentGeometry("resources/models/torch/fire01.obj"));
-					Torch->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FireShader.frag"));
+					Torch->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
 
 
 					prefab->Entities[lineIndex][i] = Torch;
@@ -163,6 +171,10 @@ void PrefabManager::LoadPrefabs(const std::string& p_prefabPath, const std::stri
 	m_level.width = levelStartPos.x - 16.0f;
 }
 
+/// Original Author: Thomas Beet
+/// <summary>
+/// Registers all level entities with entity manager and returns it
+/// </summary>
 Level PrefabManager::RegisterLevel(EntityManager& p_entityManager, SystemManager& p_systemManager)
 {
 	for (auto& prefab : m_level.level)

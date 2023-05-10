@@ -17,7 +17,6 @@ void window_size_callback(GLFWwindow* window, int width, int height)
 }
 
 
-
 SceneManager::SceneManager(const int p_width, const int p_height, const char* p_windowName) : m_currentScene(nullptr), m_width(p_width), m_height(p_height), m_windowName(p_windowName)
 {
     m_currentScene = new MainMenuScene(this);
@@ -35,7 +34,7 @@ SceneManager::~SceneManager()
     m_currentScene = nullptr;
 }
 
-// By Thomas Beet
+/// Original Author: Thomas Beet
 /// <summary>
 /// Runs the program mainloop
 /// </summary>
@@ -138,7 +137,7 @@ int SceneManager::Run()
     return 0;
 }
 
-// By Thomas Beet
+/// Original Author: Thomas Beet, edited by Eryk
 /// <summary>
 /// Changes the current scene, deletes the previous
 /// </summary>

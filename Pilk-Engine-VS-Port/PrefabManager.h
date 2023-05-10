@@ -8,7 +8,10 @@ class EntityManager;
 
 const int PREFAB_SIZE = 6;
 
-
+/// Original Author: Thomas Beet
+/// <summary>
+/// Holds all entities within a 6x6 prefab
+/// </summary>
 struct Prefab 
 {
 	// Prefab entities
@@ -18,13 +21,20 @@ struct Prefab
 	Entity* Floor;
 };
 
+/// Original Author: Thomas Beet
+/// <summary>
+/// Holds a list of prefabs to make a level
+/// </summary>
 struct Level
 {
 	std::vector<Prefab*> level;
 	float width;
 };
 
-// By Thomas Beet
+/// Original Author: Thomas Beet
+/// <summary>
+/// Prefab manager declarations
+/// </summary>
 class PrefabManager final
 {
 public:

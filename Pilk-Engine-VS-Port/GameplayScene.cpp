@@ -321,7 +321,7 @@ public:
 		bullet->AddComponent(new ComponentCollisionAABB(1.0f, 1.0f, 1.0f));
 		bullet->AddComponent(new ComponentProperties(true, 1.0f, dmg, dir));
 		bullet->AddComponent(new ComponentGeometry("resources/models/torch/fire02.obj"));
-		bullet->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FireShader.frag"));
+		bullet->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
 
 		SoundEngine->play2D("resources/sounds/shoot.mp3", false);
 

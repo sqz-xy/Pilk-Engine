@@ -11,6 +11,7 @@ std::map<std::string, unsigned int*> ResourceManager::m_shaderMap;
 std::map<std::string, unsigned int*> ResourceManager::m_textureMap;
 std::map<std::string, Model*> ResourceManager::m_modelMap;
 
+/// Original Author: Thomas Beet
 /// <summary>
 /// Loads string data for a shader file
 /// </summary>
@@ -34,6 +35,7 @@ bool ResourceManager::LoadShader(const char* p_fileName, std::string& p_shaderSo
 	return false;
 }
 
+/// Original Author: Thomas Beet
 /// <summary>
 /// Compiles a shader 
 /// </summary>
@@ -69,7 +71,7 @@ bool ResourceManager::CompileShader(const GLenum& p_shaderType, const char* p_fi
 	return true;
 }
 
-// By Thomas Beet
+/// Original Author: Thomas Beet
 /// <summary>
 /// Creates a model object using a path to the model and returns a pointer to it, if the model has already been loaded a reference will be returned
 /// </summary>
@@ -93,7 +95,7 @@ Model* ResourceManager::LoadModel(const char* p_path)
 	}
 }
 
-// By Thomas Beet
+/// Original Author: Thomas Beet
 /// <summary>
 /// Creates a shader program using the passed in shader paths
 /// </summary>
@@ -150,7 +152,7 @@ bool ResourceManager::CreateShaderProgram(unsigned int* p_sProgram, const char* 
 	return true;
 }
 
-// By Thomas Beet, Code written using help from https://learnopengl.com/Getting-started/Textures 
+/// By Thomas Beet, Code written using help from https://learnopengl.com/Getting-started/Textures 
 /// <summary>
 /// Loads a texture using STBI
 /// </summary>
@@ -212,7 +214,7 @@ unsigned int ResourceManager::LoadTexture(const char* p_path, const std::string&
 	}	
 }
 
-// By Thomas Beet
+/// By Thomas Beet
 /// <summary>
 /// Delete stored resources
 /// </summary>

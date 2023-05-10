@@ -6,7 +6,10 @@ class Model;
 
 const int max_shaders = 20;
 
-// By Thomas Beet
+/// Original Author: Thomas Beet
+/// <summary>
+/// Static resource manager, allows loading of shaders, textures and models. Keeps track of them
+/// </summary>
 class ResourceManager final
 {
 public:

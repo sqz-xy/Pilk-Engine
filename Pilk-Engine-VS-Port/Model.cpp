@@ -18,8 +18,8 @@ Model::~Model()
     m_directory.clear();
 }
 
-// By Thomas Beet 
-// Followed https://learnopengl.com/Model-Loading/Assimp
+/// Original Author: Thomas Beet 
+/// Followed https://learnopengl.com/Model-Loading/Assimp
 /// <summary>
 /// Tells all meshes in the model to draw
 /// </summary>
@@ -30,8 +30,8 @@ void Model::Draw(int pShaderHandle)
         m_meshes[i].Draw(pShaderHandle);
 }
 
-// By Thomas Beet 
-// Followed https://learnopengl.com/Model-Loading/Assimp
+/// Original Author: Thomas Beet 
+/// Followed https://learnopengl.com/Model-Loading/Assimp
 /// <summary>
 /// Begins the recursive model loading process, models are set up in a tree structure
 /// </summary>
@@ -52,8 +52,8 @@ void Model::loadModel(std::string p_path)
     processNode(scene->mRootNode, scene);
 }
 
-// By Thomas Beet 
-// Followed https://learnopengl.com/Model-Loading/Assimp
+/// Original Author: Thomas Beet 
+/// Followed https://learnopengl.com/Model-Loading/Assimp
 /// <summary>
 /// Processes the mesh stored at this node
 /// </summary>
@@ -74,6 +74,7 @@ void Model::processNode(aiNode* p_node, const aiScene* p_scene)
     }
 }
 
+/// Original Author: Thomas Beet 
 /// <summary>
 /// Gets all the vertex data from a mesh
 /// </summary>
@@ -143,7 +144,7 @@ Geometry Model::processMesh(aiMesh* p_mesh, const aiScene* p_scene)
     return Geometry(vertices, indices, textures);
 }
 
-// By Thomas Beet 
+/// Original Author: Thomas Beet 
 // Followed https://learnopengl.com/Model-Loading/Assimp
 /// <summary>
 /// Loads material textures for a mesh

@@ -13,6 +13,10 @@ uniform float uTime;
 
 out vec2 oTexCoords;
 
+/// Original Author: Thomas Beet
+/// <summary>
+/// Wall specific vertex shader
+/// </summary>
 void main()
 {
     oTexCoords = aTexCoords.xy * uScale;

@@ -5,7 +5,10 @@
 class Scene;
 enum SceneTypes;
 
-// By Thomas Beet
+/// Original Author: Thomas Beet
+/// <summary>
+/// Scene manager declarations
+/// </summary>
 class SceneManager final
 {
 	friend class Scene;

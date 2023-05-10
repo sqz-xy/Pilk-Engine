@@ -4,6 +4,11 @@
 
 #include "Camera.h"
 
+
+/// Original Author: Thomas Beet
+/// <summary>
+/// Camera values intialisation
+/// </summary>
 Camera::Camera(const glm::vec3 p_pos, const glm::vec3 p_target, const float p_width, const float p_height)
 {
 	m_cameraPos = p_pos;
@@ -26,6 +31,11 @@ Camera::~Camera()
 
 }
 
+
+/// Original Author: Thomas Beet
+/// <summary>
+/// Movesd the camera in a given direction a given distance
+/// </summary>
 void Camera::MoveCamera(const Direction p_direction, const float p_distance, const float p_dt)
 {
 	const float camSpeed = p_distance * p_dt;
@@ -51,6 +61,11 @@ void Camera::MoveCamera(const Direction p_direction, const float p_distance, con
 	std::cout << "CamPos: X:" << m_cameraPos.x << " Y: " << m_cameraPos.y << " Z: " << m_cameraPos.z << '\n';
 }
 
+
+/// Original Author: Thomas Beet
+/// <summary>
+/// Rotates the camera based on mouse position using pitch and yaw
+/// </summary>
 void Camera::RotateCamera(glm::vec2& p_mousePos)
 {
 	float mouseDeltaX = p_mousePos.x - m_lastMousePos.x;
@@ -78,11 +93,21 @@ void Camera::RotateCamera(glm::vec2& p_mousePos)
 	m_cameraDirection = glm::normalize(m_cameraDirection);
 }
 
+
+/// Original Author: Thomas Beet
+/// <summary>
+/// Updates the view matrix
+/// </summary>
 void Camera::UpdateCamera()
 {
 	m_view = glm::lookAt(m_cameraPos, m_cameraPos + m_cameraDirection, m_cameraUp);
 }
 
+
+/// Original Author: Thomas Beet
+/// <summary>
+/// Updates the projection matrix
+/// </summary>
 void Camera::UpdateProjection(const float p_width, const float p_height)
 {
 	m_projection = glm::perspective(glm::radians(m_zoom), (float)p_width / (float)p_height, 0.1f, 100.0f);

@@ -1,7 +1,8 @@
 #pragma once
 
+/// Original Author: Thomas Beet
 /// <summary>
-/// Types of scene
+/// Scene types
 /// </summary>
 enum SceneTypes
 {

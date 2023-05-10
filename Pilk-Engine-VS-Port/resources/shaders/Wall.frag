@@ -10,6 +10,10 @@ uniform float uTime;
 
 out vec4 FragColor;
 
+/// Original Author: Thomas Beet
+/// <summary>
+/// Wall specific fragment shader
+/// </summary>
 void main()
 {
     FragColor = texture(uTextureDiffuse1, oTexCoords) * 0.5;

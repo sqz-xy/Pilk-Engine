@@ -13,6 +13,10 @@ uniform vec2 uScale;
 out vec2 oTexCoords;
 out vec3 oFragPos;
 
+/// Original Author: Thomas Beet
+/// <summary>
+/// Billboarding shader to make sure some entities always face the camera
+/// </summary>
 void main()
 {
     oTexCoords = aTexCoords.xy * uScale;

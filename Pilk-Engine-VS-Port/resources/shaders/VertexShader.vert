@@ -13,6 +13,10 @@ uniform float uTime;
 
 out vec2 oTexCoords;
 
+/// Original Author: Thomas Beet
+/// <summary>
+/// Basic vertex shader for rendering geometry
+/// </summary>
 void main()
 {
     oTexCoords = aTexCoords.xy * uScale;

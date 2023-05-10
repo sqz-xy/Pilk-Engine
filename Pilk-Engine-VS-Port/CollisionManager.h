@@ -4,6 +4,10 @@ class SystemManager;
 class EntityManager;
 class Entity;
 
+/// Original Author: Thomas Beet
+/// <summary>
+/// Collision types
+/// </summary>
 enum CollisionType
 {
 	AABB_AABB_COLLISION_LEFT,
@@ -14,6 +18,10 @@ enum CollisionType
 	AABB_SPHERE_POINT
 };
 
+/// Original Author: Thomas Beet
+/// <summary>
+/// Holds collision data between two entities
+/// </summary>
 struct Collision
 {
 	Entity* m_entity1;
@@ -21,6 +29,10 @@ struct Collision
 	CollisionType m_collisionType;
 };
 
+/// Original Author: Thomas Beet
+/// <summary>
+/// Abstract collision managager, holds logic for handling collisions
+/// </summary>
 class CollisionManager
 {
 public:

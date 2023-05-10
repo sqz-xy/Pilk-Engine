@@ -3,6 +3,10 @@
 class SystemManager;
 class Entity;
 
+/// Original Author: Thomas Beet, modified by Piotr
+/// <summary>
+/// Entity Manager and its declarations
+/// </summary>
 class EntityManager final
 {
 public:

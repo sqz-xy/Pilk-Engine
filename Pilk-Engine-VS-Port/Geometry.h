@@ -5,6 +5,10 @@
 // Written by Thomas Beet, done by following this model loading tutorial. Code has been changed to fit with this engine
 // https://learnopengl.com/Model-Loading/Assimp
 
+/// Original Author: Thomas Beet
+/// <summary>
+/// Vertex data
+/// </summary>
 struct Vertex
 {
 	glm::vec3 Position;
@@ -12,6 +16,10 @@ struct Vertex
 	glm::vec2 TexCoords;
 };
 
+/// Original Author: Thomas Beet
+/// <summary>
+/// Texture data
+/// </summary>
 struct Texture
 {
 	unsigned int id;
@@ -19,8 +27,10 @@ struct Texture
 	std::string path;
 };
 
-// By Thomas Beet 
-// Followed https://learnopengl.com/Model-Loading/Assimp
+/// Original Author: Thomas Beet
+/// <summary>
+/// Loading models, Followed https://learnopengl.com/Model-Loading/Assimp
+/// </summary>
 class Geometry
 {
 public:

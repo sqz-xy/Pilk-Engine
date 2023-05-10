@@ -2,6 +2,10 @@
 
 #include "PilkEngineCommon.h"
 
+/// Original Author: Thomas Beet, edited by James and Piotr
+/// <summary>
+/// Camera declarations
+/// </summary>
 class Camera final 
 {
 public:

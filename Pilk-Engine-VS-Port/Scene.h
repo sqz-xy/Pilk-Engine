@@ -6,7 +6,10 @@ class EntityManager;
 class SceneManager;
 class SystemManager;
 
-// By Thomas Beet
+/// Original Author: Thomas Beet, modified by Matt
+/// <summary>
+/// Abstract scene class declarations
+/// </summary>
 class Scene
 {
 	friend class SceneManager;

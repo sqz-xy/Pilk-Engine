@@ -2,6 +2,10 @@
 
 class Entity;
 
+/// Original Author: Thomas Beet
+/// <summary>
+/// File manager declarations
+/// </summary>
 class FileManager final
 {
 public:

@@ -5,11 +5,12 @@ class Geometry;
 struct Texture;
 struct Vertex;
 
-//TODO: THOMAS BEET: Refactor texture loading to the resource manager, remove it from the model. Make sure models are sent to the output directory
 
-// Written by Thomas Beet, done by following this model loading tutorial. Code has been changed to fit with this engine
-// https://learnopengl.com/Model-Loading/Assimp
-
+/// Original Author: Thomas Beet
+/// <summary>
+/// done by following this model loading tutorial. Code has been changed to fit with this engine
+/// https://learnopengl.com/Model-Loading/Assimp
+/// </summary>
 class Model
 {
 public:

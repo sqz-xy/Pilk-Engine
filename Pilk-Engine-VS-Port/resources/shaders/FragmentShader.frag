@@ -10,6 +10,10 @@ uniform float uTime;
 
 out vec4 FragColor;
 
+/// Original Author: Thomas Beet
+/// <summary>
+/// Basic fragment shader for texturing an object
+/// </summary>
 void main()
 {
     FragColor = texture(uTextureDiffuse1, oTexCoords);

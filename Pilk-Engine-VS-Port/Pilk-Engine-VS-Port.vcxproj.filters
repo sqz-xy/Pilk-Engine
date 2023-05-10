@@ -187,28 +187,13 @@
     <None Include="resources\shaders\VertexShader.vert">
       <Filter>Resource Files\Shaders</Filter>
     </None>
-    <None Include="resources\shaders\FireShader.frag">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
     <None Include="resources\shaders\Billboard.vert">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
-    <None Include="resources\shaders\GUI.frag">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
-    <None Include="resources\shaders\GUI.vert">
       <Filter>Resource Files\Shaders</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="resources\scripts\EntityScript.txt">
       <Filter>Resource Files\Scripts</Filter>
-    </Text>
-    <Text Include="resources\shaders\LightingShader.frag">
-      <Filter>Resource Files\Shaders</Filter>
-    </Text>
-    <Text Include="resources\shaders\LightingShader.vert">
-      <Filter>Resource Files\Shaders</Filter>
     </Text>
     <Text Include="resources\shaders\Wall.frag">
       <Filter>Resource Files\Shaders</Filter>

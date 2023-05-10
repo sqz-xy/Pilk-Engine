@@ -10,22 +10,33 @@ EntityManager::EntityManager()
 {
 }
 
+/// Original Author: Thomas Beet
+/// <summary>
+/// Clears the entities
+/// </summary>
 EntityManager::~EntityManager()
 {
 	Clear();
 }
 
+/// Original Author: Thomas Beet
+/// <summary>
+/// Adds an entity to the manager list
+/// </summary>
 bool EntityManager::AddEntity(Entity* p_entity)
 {
+	// Cant be null
 	if (p_entity == nullptr)
 		return false;
 
+	// If there are no entities, no need for an ID check
 	if (m_entities.empty())
 	{
 		m_entities.push_back(p_entity);
 		return true;
 	}
 
+	// Entites cant have the same IDs
 	for (int i = 0; i < m_entities.size(); i++)
 	{
 		if (m_entities[i]->GetID() == p_entity->GetID())
@@ -39,13 +50,17 @@ bool EntityManager::AddEntity(Entity* p_entity)
 	}
 }
 
+/// Original Author: Thomas Beet
+/// <summary>
+/// Removes an entity based on its ID
+/// </summary>
 bool EntityManager::RemoveEntity(const int p_id)
 {
 	for (int i = 0; i < m_entities.size(); i++)
 	{
 		if (m_entities[i]->GetID() == p_id)
 		{
-			delete m_entities[i]; // Mem leak
+			delete m_entities[i]; 
 			m_entities.erase(m_entities.begin() + i);	
 			return true;
 		}
@@ -117,6 +132,10 @@ Entity* EntityManager::FindEntity(const std::string& p_name)
 	return nullptr;
 }
 
+/// Original Author: Thomas Beet
+/// <summary>
+/// Finds entities with the same names
+/// </summary>
 std::vector<Entity*> EntityManager::FindEntities(const std::string& p_name)
 {
 	std::vector<Entity*> entities;

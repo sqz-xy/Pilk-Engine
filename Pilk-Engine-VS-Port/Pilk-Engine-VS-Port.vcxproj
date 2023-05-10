@@ -66,17 +66,12 @@
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="resources\shaders\FireShader.frag" />
     <None Include="resources\shaders\Billboard.vert" />
     <None Include="resources\shaders\FragmentShader.frag" />
-    <None Include="resources\shaders\GUI.frag" />
-    <None Include="resources\shaders\GUI.vert" />
     <None Include="resources\shaders\VertexShader.vert" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="resources\scripts\EntityScript.txt" />
-    <Text Include="resources\shaders\LightingShader.frag" />
-    <Text Include="resources\shaders\LightingShader.vert" />
     <Text Include="resources\shaders\Wall.frag" />
     <Text Include="resources\shaders\Wall.vert" />
   </ItemGroup>

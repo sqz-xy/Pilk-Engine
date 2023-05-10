@@ -20,8 +20,9 @@ Geometry::~Geometry()
     m_indices.clear();
 }
 
+/// Original Author: Thomas Beet
 /// <summary>
-/// Generates buffers and binds the vertex/index data. 
+/// Generates buffers and binds vertex/index data
 /// </summary>
 void Geometry::SetupMesh()
 {
@@ -57,7 +58,7 @@ void Geometry::SetupMesh()
     glBindVertexArray(0);
 }
 
-// By Thomas Beet using https://learnopengl.com/Model-Loading/Assimp
+// Original Author: Thomas Beet using https://learnopengl.com/Model-Loading/Assimp
 /// <summary>
 /// Draws the geometry
 /// </summary>
@@ -92,10 +93,13 @@ void Geometry::Draw(int pShaderHandle)
     glBindVertexArray(0);
 }
 
-// Deletes buffers
+
+/// Original Author: Thomas Beet
+/// <summary>
+/// Deletes buffers
+/// </summary>
 void Geometry::ClearData()
 {
-    //TODO: Fix
     glDeleteBuffers(1, &m_vbo);
     glDeleteVertexArrays(1, &m_vao);
     glDeleteBuffers(1, &m_ebo);
