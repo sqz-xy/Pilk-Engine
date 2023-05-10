@@ -184,7 +184,7 @@ SceneManager& SceneManager::operator=(const SceneManager& p_rhs)
     return *this;
 }
 
-// By Thomas Beet
+/// Original Author: Thomas Beet
 /// <summary>
 /// Load logic for current scene
 /// </summary>
@@ -193,7 +193,7 @@ void SceneManager::Load()
     m_currentScene->Load();
 }
 
-// By Thomas Beet
+/// Original Author: Thomas Beet
 /// <summary>
 /// Render logic for current scene
 /// </summary>
@@ -203,7 +203,7 @@ void SceneManager::Render(const float p_dt) const
     m_currentScene->Render(p_dt);
 }
 
-
+/// Original Author: Thomas Beet
 /// <summary>
 /// Update logic for current scene
 /// </summary>
@@ -213,7 +213,7 @@ void SceneManager::Update(const float p_dt)
     m_currentScene->Update(p_dt);
 }
 
-
+/// Original Author: Thomas Beet
 /// <summary>
 /// Input processing
 /// </summary>
