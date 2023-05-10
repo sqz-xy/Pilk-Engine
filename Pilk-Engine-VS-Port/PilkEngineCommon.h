@@ -40,4 +40,7 @@
 #define GRAVITY glm::vec3(0.0f, 9.8f, 0.0f);
 #define CAMERA_CONTROL_ENABLED 0;
 
+#ifndef SOUND_ENGINE_LOADED
+#define SOUND_ENGINE_LOADED
 static irrklang::ISoundEngine* SoundEngine = irrklang::createIrrKlangDevice();
+#endif
