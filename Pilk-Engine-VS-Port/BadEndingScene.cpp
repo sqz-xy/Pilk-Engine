@@ -42,7 +42,7 @@ public:
 	{
 		ImVec2 vec(100, 50);
 		//std::cout << "Rendering" << std::endl;
-		ImGui::Begin("ImGui Test");
+		ImGui::Begin("ImGui");
 		ImGui::Text("Delta time %f", p_dt);
 
 		int count = m_entityManager->EntityCount();

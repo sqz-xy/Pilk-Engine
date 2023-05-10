@@ -75,7 +75,7 @@ public:
 	{
 		ImVec2 vec(100, 50);
 		//std::cout << "Rendering" << std::endl;
-		ImGui::Begin("ImGui Test");
+		ImGui::Begin("ImGui");
 		ImGui::Text("Delta time %f", p_dt);
 
 		int count = m_entityManager->EntityCount();
@@ -393,7 +393,6 @@ public:
 		{
 			if (player1Timer->GetElapsedTime() > 0.25f)
 			{
-				std::cout << player1Timer->GetElapsedTime() << std::endl;
 				Shoot(p_player);
 				player1Timer->Restart();
 			}
@@ -448,7 +447,6 @@ public:
 		{
 			if (player2Timer->GetElapsedTime() > 0.25f)
 			{
-				std::cout << player2Timer->GetElapsedTime() << std::endl;
 				Shoot(p_player);
 				player2Timer->Restart();
 			}

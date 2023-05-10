@@ -97,7 +97,6 @@ int SceneManager::Run()
     {
         glClear(GL_DEPTH_BUFFER_BIT);
 
-      
         auto now = static_cast<float>(glfwGetTime());
         dt = now - lastTime;
         lastTime = now;
