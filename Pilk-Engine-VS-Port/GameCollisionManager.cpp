@@ -7,6 +7,18 @@
 #include "Entity.h"
 #include "Timer.h"
 
+/*
+
+Game specific collision manager:
+by Matthew Liney
+
+This class contains the responses for all of the collisions detected in the systems (see Systems.h).
+The collisions go through the process collisions method, each response is divided into the type of collision
+that has occured, AABB_AABB_COLLISION_RIGHT collisions are responded to in RespondAABBLeftRight, for example.
+
+
+*/
+
 class GameCollisionManager : public CollisionManager
 {
 public:
@@ -38,6 +50,19 @@ public:
 			}
 		}
 	}
+
+	/*
+	
+	Collision edge case responses:
+	by Matthew Liney
+
+	Edge cases can occur in collisions which require a special response. CollisionEdgeCase is called in the AABB response methods,
+	and will leave the method early if an edge case is satisfied. Bullets and enemies both have AABB hitboxes, so if a bullet hits
+	an enemy, it needs a specialised reponse. Here, under bullet cases, it calls the specialised method to respond, instead of the
+	defauly AABB response. This method is used to win the game after touching the gem, ignoring the collisions between enemies, 
+	and so on.
+
+	*/
 
 	bool CollisionEdgeCase(Collision* p_col)
 	{
@@ -279,6 +304,19 @@ public:
 			}
 		}
 	}
+
+	/*
+	
+	Point and sphere collisions:
+	by Matthew Liney
+
+	Points and spheres are not used for more than one purpose. Therefore, unlike AABB repsonses, they only have
+	one specific response. AABB point is used for the platforming logic to deactive gravity if a player is touching
+	the floor (otherwise, the player would grind to a halt as gravity accelerates them towards the ground, even when
+	they are touching it). The sphere point collision is only used for the bat enemies, moving them towards the player
+	if they collide.
+	
+	*/
 
 	void RespondAABBPoint(Collision* p_col)
 	{

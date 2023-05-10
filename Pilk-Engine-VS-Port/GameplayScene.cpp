@@ -16,6 +16,13 @@
 #include "SceneManager.h"
 #include "SystemManager.h"
 
+/*
+
+	game logic:
+	done by matt and tom
+
+*/
+
 class GameplayScene : public Scene
 {
 public:

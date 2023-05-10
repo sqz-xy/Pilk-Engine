@@ -176,6 +176,13 @@ private:
 
 
 // class by matthew liney
+/*
+	
+	note: each collision system was done by me, and contains code for detecting a collision between the
+	various collision volumes and shapes. response is handled in game collision manager.
+
+*/
+
 class SystemCollisionAABBAABB : public System
 {
 public:
@@ -263,10 +270,6 @@ public:
 
 			if (y_overlap > x_overlap)
 			{
-				// to do:
-				// there will need to be collision types for all 4 sides
-				// 6 if we want depth-wise
-				// debug and figure out which side is represented...
 
 				if (distance.x > 0)
 				{
