@@ -91,7 +91,7 @@ int SceneManager::Run()
     float dt;
     auto lastTime = static_cast<float>(glfwGetTime());
    
-    SoundEngine->setSoundVolume(0.5f);
+    SoundEngine->setSoundVolume(0.1f);
 
     // Simple update loop
     while (!glfwWindowShouldClose(window))

@@ -66,11 +66,6 @@ public:
 	{
 		// Player entity.
 
-		Entity* player1 = new Entity("Player1");
-		player1->AddComponent(new ComponentTransform(glm::vec3(0.0f, 0.0f, 5.0f), glm::vec3(1.5708f, 3.14159f, 0.0f), glm::vec3(0.8f, 0.8f, 1.0f)));
-		player1->AddComponent(new ComponentGeometry("resources/models/player1/player01.obj"));
-		player1->AddComponent(new ComponentShader("resources/shaders/VertexShader.vert", "resources/shaders/FragmentShader.frag"));
-
 		Entity* BadEnding = new Entity("BadEnding");
 		BadEnding->AddComponent(new ComponentTransform(glm::vec3(3.8f, 0.0f, -28.0f), glm::vec3(1.5708f, 0.0f, 0.0f), glm::vec3(0.9f, 1.0f, 1.0f)));
 		BadEnding->AddComponent(new ComponentGeometry("resources/models/badending/endScreen.obj"));
@@ -93,17 +88,13 @@ public:
 		if (glfwGetKey(p_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 			glfwSetWindowShouldClose(p_window, true);
 
-		if (glfwGetKey(p_window, GLFW_KEY_W) == GLFW_PRESS)
-			m_Camera->MoveCamera(m_Camera->Forward, 2.5f, p_dt);
+		GLFWgamepadstate state;
+		int success = glfwGetGamepadState(0, &state);
 
-		if (glfwGetKey(p_window, GLFW_KEY_S) == GLFW_PRESS)
-			m_Camera->MoveCamera(m_Camera->Backward, 2.5f, p_dt);
-
-		if (glfwGetKey(p_window, GLFW_KEY_A) == GLFW_PRESS)
-			m_Camera->MoveCamera(m_Camera->Left, 2.5f, p_dt);
-
-		if (glfwGetKey(p_window, GLFW_KEY_D) == GLFW_PRESS)
-			m_Camera->MoveCamera(m_Camera->Right, 2.5f, p_dt);
+		if ((glfwGetKey(p_window, GLFW_KEY_SPACE) == GLFW_PRESS || state.buttons[GLFW_GAMEPAD_BUTTON_START] && success))
+		{
+			m_sceneManager->ChangeScene(Gameplay);
+		}
 
 
 #if MOUSE_CONTROL_ENABLED

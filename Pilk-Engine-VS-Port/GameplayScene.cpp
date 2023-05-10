@@ -30,6 +30,7 @@ public:
 
 	Timer* modelTimer;
 	int texIndex = 1;
+	int dead_players;
 
 	Camera* m_Camera;
 
@@ -53,6 +54,8 @@ public:
 		player1Timer = new Timer();
 		player2Timer = new Timer();
 		modelTimer = new Timer();
+
+		dead_players = 0;
 	}
 
 
@@ -110,6 +113,7 @@ public:
 					if (trans->m_translation.x < m_Camera->m_cameraPos.x - 10.0f)
 					{
 						// make the hearts fly off
+						dead_players++;
 
 						if (entity->GetName() == "Player1")
 						{
@@ -165,6 +169,8 @@ public:
 			{
 				if (prop->m_health <= 0.0f)
 				{
+					dead_players++;
+
 					if (entity->GetName() == "Player1" || entity->GetName() == "Player2")
 					{
 						m_systemManager->RemoveEntity(entity);
@@ -194,6 +200,10 @@ public:
 		if (m_collisionManager->HasWon())
 		{
 			m_sceneManager->ChangeScene(GoodEnding);
+		}
+		else if (dead_players >= 2)
+		{
+			m_sceneManager->ChangeScene(BadEnding);
 		}
 	}
 
@@ -329,6 +339,7 @@ public:
 		// Exit if escape key is pressed
 		if (glfwGetKey(p_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 			glfwSetWindowShouldClose(p_window, true);
+#if CAMERA_CONTROL_ENABLED
 
 		if (glfwGetKey(p_window, GLFW_KEY_W) == GLFW_PRESS)
 			m_Camera->MoveCamera(m_Camera->Forward, 2.5f, p_dt);
@@ -341,6 +352,7 @@ public:
 
 		if (glfwGetKey(p_window, GLFW_KEY_D) == GLFW_PRESS)
 			m_Camera->MoveCamera(m_Camera->Right, 2.5f, p_dt);
+#endif
 
 		// player control below here
 		if (player1 != nullptr)
