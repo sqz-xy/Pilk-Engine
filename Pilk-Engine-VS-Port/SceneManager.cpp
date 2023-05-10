@@ -137,7 +137,7 @@ int SceneManager::Run()
     return 0;
 }
 
-/// Original Author: Thomas Beet, edited by Eryk
+/// Original Author: Thomas Beet, edited by Eryk Jastrzebski
 /// <summary>
 /// Changes the current scene, deletes the previous
 /// </summary>

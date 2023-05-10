@@ -11,6 +11,8 @@
 #include "SceneManager.h"
 #include "SceneTypes.h"
 
+/// Original Author: Eryk Jastrzebski
+
 class BadEndingScene : public Scene
 {
 public:

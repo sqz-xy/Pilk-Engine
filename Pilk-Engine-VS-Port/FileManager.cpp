@@ -7,6 +7,8 @@
 
 using namespace std;
 
+/// Original Author: Eryk Jastrzebski
+/// Not used, not funtional yet
 
 /// <summary>
 /// https://favtutor.com/blogs/split-string-cpp
