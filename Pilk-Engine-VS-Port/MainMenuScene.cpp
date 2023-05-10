@@ -78,7 +78,7 @@ public:
 		
 		m_entityManager->AddEntity(TitleScreen);
 
-		// System render
+		// System render 
 		System* systemRender = new SystemRender(m_Camera);
 		m_systemManager->AddSystem(systemRender);
 		m_entityManager->ValidateEntities(m_systemManager);
